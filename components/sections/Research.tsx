@@ -24,10 +24,10 @@ export function Research() {
 
   return (
     <section id="research" className="py-24 border-t border-[#222222] relative">
-      {/* Chapter Marker */}
+      {/* Section Index Marker */}
       <div className="flex items-center justify-between mb-12 border-b border-[#222222]/60 pb-4">
         <div className="font-mono-code text-xs text-emerald-400 font-semibold tracking-wider flex items-center gap-2">
-          <span>CHAPTER 06 // RESEARCH PUBLICATIONS & HONORS</span>
+          <span>... /Publications • [05] Peer-Reviewed Literature & Honors</span>
         </div>
         <div className="font-mono-code text-xs text-[#777777]">
           // Peer-Reviewed Literature & Awards

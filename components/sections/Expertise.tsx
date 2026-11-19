@@ -109,20 +109,23 @@ model OrganizationEmployee {
   createdAt    DateTime @default(now())
 }`;
       case "creative-dev":
-        return `// Three.js High-Performance Particle Engine
-const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        return `// Vanilla Three.js Architectural Spatial Installation (Pavilion Datum)
+const scene = new THREE.Scene();
+scene.fog = new THREE.Fog(0x0a0a0a, 8, 34);
 
-const geometry = new THREE.BufferGeometry();
-geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-
-const material = new THREE.PointsMaterial({
-  color: 0xf5f5f5,
-  size: 0.18,
-  transparent: true,
-  opacity: 0.45,
-  blending: THREE.AdditiveBlending,
-});`;
+// Monolithic carbon slabs with hairline architectural edges
+const slabGeometry = new THREE.BoxGeometry(size[0], size[1], size[2]);
+const slabMaterial = new THREE.MeshStandardMaterial({
+  color: 0x121212,
+  roughness: 0.88,
+  metalness: 0.12,
+});
+const mesh = new THREE.Mesh(slabGeometry, slabMaterial);
+const edges = new THREE.LineSegments(
+  new THREE.EdgesGeometry(slabGeometry),
+  new THREE.LineBasicMaterial({ color: 0x333333, transparent: true, opacity: 0.85 })
+);
+group.add(mesh, edges);`;
       default:
         return `// Technical Capabilities`;
     }
@@ -130,13 +133,13 @@ const material = new THREE.PointsMaterial({
 
   return (
     <section id="expertise" className="py-24 border-t border-[#222222] relative">
-      {/* Chapter Marker */}
+      {/* Section Index Marker */}
       <div className="flex items-center justify-between mb-12 border-b border-[#222222]/60 pb-4">
         <div className="font-mono-code text-xs text-emerald-400 font-semibold tracking-wider flex items-center gap-2">
-          <span>CHAPTER 03 // TECHNICAL EXPERTISE & ARCHITECTURE</span>
+          <span>... /Capabilities • [02] Systems Architecture</span>
         </div>
         <div className="font-mono-code text-xs text-[#777777]">
-          // 05 Specialized Domains
+          // 05 Production Disciplines
         </div>
       </div>
 

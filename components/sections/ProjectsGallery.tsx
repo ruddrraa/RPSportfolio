@@ -8,13 +8,13 @@ import { ArrowUpRight, ArrowRight, Github, ExternalLink, ShieldCheck, Sparkles }
 export function ProjectsGallery() {
   return (
     <section id="projects" className="py-24 border-t border-[#222222] relative">
-      {/* Chapter Marker */}
+      {/* Section Index Marker */}
       <div className="flex items-center justify-between mb-12 border-b border-[#222222]/60 pb-4">
         <div className="font-mono-code text-xs text-emerald-400 font-semibold tracking-wider flex items-center gap-2">
-          <span>CHAPTER 04 // SELECTED WORK & PRODUCTION SYSTEMS</span>
+          <span>... /Selected Work • [03] Case Studies (06)</span>
         </div>
         <div className="font-mono-code text-xs text-[#777777]">
-          // 06 Featured Case Studies
+          // Production Implementations
         </div>
       </div>
 

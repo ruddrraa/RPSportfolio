@@ -112,11 +112,11 @@ export const skillGroups: SkillGroup[] = [
     architectureDiagram: [
       "User Input [Pointer & Scroll]",
       "→ Lenis Inertia Engine + GSAP ScrollTrigger",
-      "→ Vanilla Three.js WebGL Scene [Particles & Camera Lerp]",
+      "→ Vanilla Three.js WebGL Spatial Scene [Pavilion Datum & Camera Lerp]",
       "→ React 19 View Transitions [Hardware-Accelerated 60fps]",
     ],
     skills: [
-      { name: "Vanilla Three.js", level: "WebGL Graphics", description: "Custom 3D scenes, camera projection, buffer geometries, and particle systems." },
+      { name: "Vanilla Three.js", level: "WebGL Graphics", description: "Architectural 3D environments, camera projection, buffer geometries, and spatial depth." },
       { name: "GSAP & ScrollTrigger", level: "Motion Choreography", description: "Scroll-linked animation timelines, staggered reveals, and spatial continuity." },
       { name: "Lenis", level: "Smooth Scroll", description: "Inertial scrolling with delta clamping and mobile touch synchronization." },
       { name: "Kinetic Typography", level: "Character Physics", description: "Character splitting, hover-driven displacement, and letter reassembly." },

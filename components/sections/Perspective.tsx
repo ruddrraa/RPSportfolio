@@ -1,8 +1,6 @@
 "use client";
 
-import Image from "next/image";
 import { profile } from "@/data/profile";
-import { KineticText } from "@/components/ui/KineticText";
 import {
   GraduationCap,
   Layers,
@@ -51,13 +49,13 @@ export function Perspective() {
 
   return (
     <section id="perspective" className="py-24 border-t border-[#222222] relative">
-      {/* Chapter Marker */}
+      {/* Section Index Marker */}
       <div className="flex items-center justify-between mb-12 border-b border-[#222222]/60 pb-4">
         <div className="font-mono-code text-xs text-emerald-400 font-semibold tracking-wider flex items-center gap-2">
-          <span>CHAPTER 02 // PERSONAL PERSPECTIVE</span>
+          <span>... /Perspective • [01] Manifesto</span>
         </div>
         <div className="font-mono-code text-xs text-[#777777]">
-          // Philosophy & Approach
+          // Philosophy & Architecture
         </div>
       </div>
 

@@ -18,10 +18,10 @@ export function Footer() {
       {/* Background Arc Accent (Design 2 Signature) */}
       <div className="absolute right-0 bottom-0 w-[500px] h-[500px] rounded-full border border-white/[0.03] pointer-events-none translate-x-1/3 translate-y-1/3" />
 
-      {/* Chapter Marker */}
+      {/* Section Index Marker */}
       <div className="flex items-center justify-between mb-12 border-b border-[#222222]/60 pb-4">
         <div className="font-mono-code text-xs text-emerald-400 font-semibold tracking-wider flex items-center gap-2">
-          <span>CHAPTER 07 // CONTACT & COLLABORATION</span>
+          <span>... /Channels • [06] Direct Transmission</span>
         </div>
         <div className="font-mono-code text-xs text-[#777777]">
           // Connect Channels

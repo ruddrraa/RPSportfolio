@@ -43,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark scroll-smooth">
+    <html lang="en" className="dark">
       <head>
         {/* Service Worker Cleanup Script to unregister stale service workers and clear cache storage on localhost */}
         <script

@@ -13,10 +13,10 @@ export function Experience() {
 
   return (
     <section id="experience" className="py-24 border-t border-[#222222] relative">
-      {/* Chapter Marker */}
+      {/* Section Index Marker */}
       <div className="flex items-center justify-between mb-12 border-b border-[#222222]/60 pb-4">
         <div className="font-mono-code text-xs text-emerald-400 font-semibold tracking-wider flex items-center gap-2">
-          <span>CHAPTER 05 // PROFESSIONAL EXPERIENCE</span>
+          <span>... /Chronology • [04] Verified Roles</span>
         </div>
         <div className="font-mono-code text-xs text-[#777777]">
           // Chronological Roles

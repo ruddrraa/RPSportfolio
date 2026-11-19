@@ -67,7 +67,7 @@ export default async function ProjectCaseStudyPage({
         </Link>
 
         <div className="font-mono-code text-xs text-[#777777]">
-          PROJECT CASE STUDY // {project.number} OF 06
+          ... /Case Study • [03.{project.number}]
         </div>
       </div>
 
@@ -140,8 +140,8 @@ export default async function ProjectCaseStudyPage({
       {/* Visual 2D Interface Staging (No 3D laptops!) */}
       <div className="p-6 md:p-10 rounded-3xl bg-[#141414] border border-[#222222] shadow-2xl">
         <div className="text-xs font-mono-code text-[#777777] mb-4 flex items-center justify-between">
-          <span>AUTHENTIC 2D INTERFACE PREVIEW</span>
-          <span className="text-emerald-400">PRODUCTION ARCHITECTURE</span>
+          <span>SYSTEM ARCHITECTURE & LIVE TELEMETRY</span>
+          <span className="text-emerald-400">PRODUCTION DEPLOYMENT</span>
         </div>
         <ProjectInterfacePreview
           slug={project.slug}

@@ -19,11 +19,11 @@ export function Navbar() {
 
   const navLinks = [
     { href: "/#perspective", label: "... /Perspective" },
-    { href: "/#expertise", label: "... /Expertise" },
-    { href: "/#projects", label: "... /Selected Work" },
-    { href: "/#experience", label: "... /Experience" },
-    { href: "/#research", label: "... /Research" },
-    { href: "/#contact", label: "... /Contact" },
+    { href: "/#expertise", label: "... /Capabilities" },
+    { href: "/#projects", label: "... /Work" },
+    { href: "/#experience", label: "... /Chronology" },
+    { href: "/#research", label: "... /Publications" },
+    { href: "/#contact", label: "... /Channels" },
   ];
 
   return (
