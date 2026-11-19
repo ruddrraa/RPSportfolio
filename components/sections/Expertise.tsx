@@ -21,23 +21,6 @@ export function Expertise() {
   const activeGroup =
     skillGroups.find((g) => g.id === activeGroupId) || skillGroups[0];
 
-  const getCategoryIcon = (id: string) => {
-    switch (id) {
-      case "ai-vision":
-        return <Cpu className="w-4 h-4 text-emerald-400" />;
-      case "frontend-arch":
-        return <Layout className="w-4 h-4 text-blue-400" />;
-      case "backend-systems":
-        return <Server className="w-4 h-4 text-purple-400" />;
-      case "database-cloud":
-        return <Database className="w-4 h-4 text-amber-400" />;
-      case "creative-dev":
-        return <Sparkles className="w-4 h-4 text-rose-400" />;
-      default:
-        return <Cpu className="w-4 h-4 text-emerald-400" />;
-    }
-  };
-
   const getCategoryCodeSnippet = (id: string) => {
     switch (id) {
       case "ai-vision":
@@ -132,148 +115,144 @@ group.add(mesh, edges);`;
   };
 
   return (
-    <section id="expertise" className="py-24 border-t border-[#222222] relative">
-      {/* Section Index Marker */}
-      <div className="flex items-center justify-between mb-12 border-b border-[#222222]/60 pb-4">
-        <div className="font-mono-code text-xs text-emerald-400 font-semibold tracking-wider flex items-center gap-2">
-          <span>... /Capabilities • [02] Systems Architecture</span>
-        </div>
-        <div className="font-mono-code text-xs text-[#777777]">
-          // 05 Production Disciplines
-        </div>
-      </div>
-
-      {/* Section Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-        <div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#F5F5F5] font-editorial">
-            Engineered Capabilities
-          </h2>
-          <p className="mt-3 text-sm sm:text-base text-[#A6A6A6] max-w-2xl leading-relaxed">
-            Interactive breakdown of verified technical proficiency spanning deep learning computer vision, modern React architecture, secure backend services, and creative WebGL development.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-2 font-mono-code text-xs text-[#777777]">
-          <span className="w-2 h-2 rounded-full bg-emerald-400" />
-          <span>PRODUCTION-VERIFIED</span>
-        </div>
-      </div>
-
-      {/* Category Tabs Switcher (Design 2 & Cosmos Studio inspired) */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar">
-        {skillGroups.map((group) => {
-          const isActive = group.id === activeGroupId;
-          return (
-            <button
-              key={group.id}
-              onClick={() => setActiveGroupId(group.id)}
-              className={`flex items-center gap-2.5 px-4 sm:px-5 py-2.5 rounded-full font-mono-code text-xs transition-all whitespace-nowrap cursor-pointer ${
-                isActive
-                  ? "bg-white text-black font-semibold shadow-lg shadow-white/10"
-                  : "bg-[#161616] hover:bg-[#202020] border border-[#262626] text-[#A6A6A6] hover:text-white"
-              }`}
-            >
-              <span>{getCategoryIcon(group.id)}</span>
-              <span>{group.category}</span>
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Active Category Presentation Box */}
-      <div className="p-6 sm:p-8 md:p-10 rounded-3xl bg-[#141414] border border-[#262626] space-y-8">
-        {/* Category Header Strip */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#222222] pb-6">
-          <div className="space-y-1">
-            <div className="flex items-center gap-2 text-xs font-mono-code text-emerald-400 uppercase tracking-wider">
-              {getCategoryIcon(activeGroup.id)}
-              <span>Domain Focus</span>
+    <section id="expertise" className="py-24 sm:py-32 w-full bg-[#0A0A0A] border-t border-white/[0.06] relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12 space-y-16">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/[0.08]">
+          <div className="space-y-3">
+            <div className="text-[11px] font-mono-code text-emerald-400 uppercase tracking-widest flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              <span>DISCIPLINES &bull; [02]</span>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-bold text-white">
-              {activeGroup.category}
-            </h3>
-            <p className="text-sm text-[#888888]">{activeGroup.subtitle}</p>
+            <h2 className="font-serif-editorial text-4xl sm:text-6xl md:text-7xl text-white font-normal leading-[0.98]">
+              Architectural Capabilities <br />
+              <span className="text-[#888888]">&amp; Verified Tooling</span>
+            </h2>
           </div>
 
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-mono-code text-[#777777]">Applied in:</span>
-            <Link
-              href={`/projects/${activeGroup.verifiedSlug}`}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#1C1C1C] hover:bg-[#262626] border border-[#2F2F2F] text-xs font-mono-code text-white transition-all group"
-            >
-              <span>{activeGroup.verifiedProject}</span>
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform text-emerald-400" />
-            </Link>
+          <div className="text-xs font-mono-code text-[#777777]">
+            // 05 SPECIALIZED DOMAINS
           </div>
         </div>
 
-        {/* Technical Architecture Flow Diagram */}
-        <div className="p-5 rounded-2xl bg-[#0F0F0F] border border-[#222222] space-y-3">
-          <div className="flex items-center justify-between text-xs font-mono-code text-[#777777]">
-            <span className="flex items-center gap-2">
-              <Code2 className="w-3.5 h-3.5 text-blue-400" />
-              <span>SYSTEM ARCHITECTURE & PIPELINE DATA FLOW</span>
-            </span>
-            <span className="text-[10px] text-emerald-400">ACTIVE PIPELINE</span>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
-            {activeGroup.architectureDiagram.map((step, idx) => (
-              <div
-                key={idx}
-                className="p-3 rounded-xl bg-[#161616] border border-[#242424] font-mono-code text-xs text-[#CCCCCC] space-y-1"
+        {/* Cosmos Studio-style Clean Underlined Domain Tabs */}
+        <div className="flex items-center gap-6 sm:gap-8 overflow-x-auto pb-4 border-b border-white/[0.08] no-scrollbar">
+          {skillGroups.map((group, idx) => {
+            const isActive = group.id === activeGroupId;
+            return (
+              <button
+                key={group.id}
+                onClick={() => setActiveGroupId(group.id)}
+                className={`group py-3 text-left whitespace-nowrap cursor-pointer relative transition-colors ${
+                  isActive ? "text-white" : "text-[#777777] hover:text-[#CCCCCC]"
+                }`}
               >
-                <div className="text-[10px] text-emerald-400 font-bold">
-                  STAGE 0{idx + 1}
+                <div className="text-[10px] font-mono-code uppercase tracking-widest text-[#555555] group-hover:text-emerald-400 transition-colors">
+                  [0{idx + 1}]
                 </div>
-                <div className="leading-snug">{step}</div>
-              </div>
-            ))}
-          </div>
+                <div className="text-sm sm:text-base font-sans font-medium mt-0.5">
+                  {group.category}
+                </div>
+                {isActive && (
+                  <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-white transition-all duration-300" />
+                )}
+              </button>
+            );
+          })}
         </div>
 
-        {/* Skills Grid for Active Category */}
-        <div className="space-y-3">
-          <div className="text-xs font-mono-code text-[#777777] uppercase tracking-wider">
-            Verified Stack Components ({activeGroup.skills.length})
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {activeGroup.skills.map((skill) => (
-              <div
-                key={skill.name}
-                className="p-4 rounded-xl bg-[#171717] border border-[#262626] hover:border-[#383838] transition-all duration-200 space-y-2 group"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-semibold text-white text-sm group-hover:text-emerald-400 transition-colors">
-                    {skill.name}
-                  </span>
-                  <span className="text-[10px] font-mono-code text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded border border-emerald-400/20">
-                    {skill.level}
-                  </span>
-                </div>
-                <p className="text-xs text-[#888888] leading-relaxed">
-                  {skill.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Technical Code Implementation Preview */}
-        <div className="rounded-2xl bg-[#0D0D0D] border border-[#222222] overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-2.5 bg-[#141414] border-b border-[#222222] text-xs font-mono-code text-[#777777]">
-            <div className="flex items-center gap-2">
-              <Terminal className="w-3.5 h-3.5 text-emerald-400" />
-              <span>pipeline_implementation.{activeGroup.id === "ai-vision" ? "py" : "ts"}</span>
+        {/* Active Domain Presentation */}
+        <div className="rounded-[28px] sm:rounded-[36px] bg-[#121212] border border-white/10 p-6 sm:p-10 md:p-12 space-y-10 shadow-2xl">
+          {/* Header Strip */}
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-white/[0.08]">
+            <div className="space-y-1">
+              <span className="text-xs font-mono-code text-emerald-400 uppercase tracking-widest">
+                Domain Specification
+              </span>
+              <h3 className="font-serif-editorial text-3xl sm:text-4xl text-white font-normal">
+                {activeGroup.category}
+              </h3>
+              <p className="text-sm text-[#999999] font-sans max-w-2xl">{activeGroup.subtitle}</p>
             </div>
-            <span>READ-ONLY VIEW</span>
+
+            <div className="flex items-center gap-3 font-mono-code text-xs">
+              <span className="text-[#666666]">Applied in:</span>
+              <Link
+                href={`/projects/${activeGroup.verifiedSlug}`}
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/5 hover:bg-white text-white hover:text-black border border-white/10 transition-all font-sans"
+              >
+                <span>{activeGroup.verifiedProject}</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
           </div>
 
-          <pre className="p-4 sm:p-6 overflow-x-auto font-mono-code text-xs text-[#A6A6A6] leading-relaxed">
-            <code>{getCategoryCodeSnippet(activeGroup.id)}</code>
-          </pre>
+          {/* Architecture Pipeline Flow */}
+          <div className="p-6 rounded-2xl bg-[#0D0D0D] border border-white/[0.06] space-y-4">
+            <div className="flex items-center justify-between text-xs font-mono-code text-[#777777]">
+              <span className="flex items-center gap-2">
+                <Code2 className="w-3.5 h-3.5 text-blue-400" />
+                <span>DATA FLOW &bull; EXECUTION PIPELINE</span>
+              </span>
+              <span className="text-emerald-400">PRODUCTION VERIFIED</span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
+              {activeGroup.architectureDiagram.map((step, idx) => (
+                <div
+                  key={idx}
+                  className="p-3.5 rounded-xl bg-[#141414] border border-white/[0.06] text-xs font-mono-code text-[#E5E5E5] space-y-1"
+                >
+                  <div className="text-[10px] text-[#666666]">STAGE 0{idx + 1}</div>
+                  <div className="font-medium text-white">{step}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Code Proof & Concrete Skills Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            {/* Code Snippet Box */}
+            <div className="lg:col-span-6 rounded-2xl bg-[#0B0B0B] border border-white/[0.08] overflow-hidden">
+              <div className="px-4 py-3 bg-[#141414] border-b border-white/[0.06] flex items-center justify-between text-xs font-mono-code text-[#777777]">
+                <div className="flex items-center gap-2">
+                  <Terminal className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>pipeline.ts</span>
+                </div>
+                <span>SOURCE EXCERPT</span>
+              </div>
+              <pre className="p-5 overflow-x-auto text-xs font-mono-code text-[#CCCCCC] leading-relaxed">
+                <code>{getCategoryCodeSnippet(activeGroup.id)}</code>
+              </pre>
+            </div>
+
+            {/* Verified Capabilities List */}
+            <div className="lg:col-span-6 space-y-3">
+              <div className="text-xs font-mono-code text-[#777777] uppercase tracking-wider pb-1">
+                Verified Tooling &amp; Implementations
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {activeGroup.skills.map((skill) => (
+                  <div
+                    key={skill.name}
+                    className="p-3.5 rounded-2xl bg-[#161616] border border-white/[0.06] space-y-1 group hover:border-white/20 transition-colors"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-semibold text-white text-xs font-sans">
+                        {skill.name}
+                      </span>
+                      <span className="text-[10px] font-mono-code text-emerald-400">
+                        {skill.level}
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-[#888888] font-sans leading-snug">
+                      {skill.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

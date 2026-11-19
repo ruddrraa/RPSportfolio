@@ -55,7 +55,7 @@ export default async function ProjectCaseStudyPage({
   const nextProject = projects[(currentIndex + 1) % projects.length];
 
   return (
-    <div className="py-8 md:py-16 space-y-16 max-w-5xl mx-auto">
+    <div className="pt-28 sm:pt-36 pb-20 px-4 sm:px-8 max-w-6xl mx-auto space-y-16">
       {/* Top Breadcrumb & Back Navigation */}
       <div className="flex items-center justify-between border-b border-[#222222]/80 pb-4">
         <Link

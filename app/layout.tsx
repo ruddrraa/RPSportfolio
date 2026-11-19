@@ -45,6 +45,8 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* Service Worker Cleanup Script to unregister stale service workers and clear cache storage on localhost */}
         <script
           dangerouslySetInnerHTML={{
@@ -67,17 +69,11 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="bg-[#0A0A0A] text-[#F5F5F5] antialiased min-h-screen selection:bg-white/20 selection:text-white film-grain overflow-x-hidden">
+      <body className="bg-[#0A0A0A] text-[#F5F5F5] antialiased min-h-screen selection:bg-white/20 selection:text-white overflow-x-hidden">
         <SmoothScroll>
-          {/* Outer Rounded Architectural Frame (Design 2 Signature) */}
-          <div className="relative mx-auto my-2 sm:my-4 md:my-6 max-w-[1440px] min-h-[calc(100vh-16px)] sm:min-h-[calc(100vh-32px)] md:min-h-[calc(100vh-48px)] rounded-[20px] sm:rounded-[28px] md:rounded-[36px] border border-[#222222] bg-[#101010] p-4 sm:p-7 md:p-10 lg:p-12 overflow-hidden shadow-2xl">
-            {/* Background Geometric Line Arcs (Design 2 Signature) */}
-            <div className="absolute top-0 right-0 w-[500px] md:w-[700px] h-[500px] md:h-[700px] rounded-full border border-white/[0.03] pointer-events-none translate-x-1/3 -translate-y-1/3" />
-            <div className="absolute top-1/3 left-0 w-[600px] md:w-[900px] h-[600px] md:h-[900px] rounded-full border border-white/[0.02] pointer-events-none -translate-x-1/2" />
-            <div className="absolute bottom-1/4 right-0 w-[450px] md:w-[650px] h-[450px] md:h-[650px] rounded-full border border-white/[0.025] pointer-events-none translate-x-1/2" />
-
+          <div className="relative min-h-screen bg-[#0A0A0A] w-full">
             <Navbar />
-            <main className="relative z-10">{children}</main>
+            <main className="relative z-10 w-full">{children}</main>
             <Footer />
           </div>
         </SmoothScroll>
