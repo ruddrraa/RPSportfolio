@@ -2,15 +2,19 @@
 
 @layer base {
   :root {
-    --background: #101010;
-    --surface: #171717;
-    --card: #1c1c1c;
-    --card-hover: #242424;
-    --border: #262626;
-    --border-strong: #383838;
+    --background: #0a0a0a;
+    --background-carbon: #101010;
+    --surface: #141414;
+    --surface-elevated: #1a1a1a;
+    --surface-hover: #222222;
+    --border: #222222;
+    --border-strong: #333333;
+    --border-subtle: rgba(255, 255, 255, 0.08);
     --foreground: #f5f5f5;
     --muted: #a6a6a6;
     --dim: #666666;
+    --accent: #10b981;
+    --accent-glow: rgba(16, 185, 129, 0.15);
   }
 
   * {
@@ -18,14 +22,14 @@
   }
 
   html {
-    background-color: #101010;
+    background-color: #0a0a0a;
     color: #f5f5f5;
     scroll-behavior: smooth;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
   }
 
   body {
-    background-color: #101010;
+    background-color: #0a0a0a;
     color: #f5f5f5;
     min-height: 100vh;
     overflow-x: hidden;
@@ -35,40 +39,93 @@
   }
 }
 
-/* Monospace font utility for Fira Code look */
+/* Monospace font utility for technical metadata */
 .font-mono-code {
-  font-family: "Fira Code", "Courier New", Courier, monospace;
+  font-family: "JetBrains Mono", "Fira Code", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  letter-spacing: -0.02em;
+}
+
+/* Editorial display font styling */
+.font-editorial {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Plus Jakarta Sans", "Inter", sans-serif;
+  letter-spacing: -0.04em;
+}
+
+/* Noise overlay for cinematic atmosphere */
+.film-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.025'/%3E%3C/svg%3E");
+}
+
+/* Subtle hairline divider */
+.hairline-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1) 20%, rgba(255, 255, 255, 0.1) 80%, transparent);
 }
 
 /* Custom subtle scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #101010;
+  background: #0a0a0a;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2a2a2a;
+  background: #262626;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3a3a3a;
-}
-
-/* Circular arc decorative background */
-.geometric-arc {
-  position: absolute;
-  border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  pointer-events: none;
+  background: #383838;
 }
 
 /* Selection */
 ::selection {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.2);
   color: #ffffff;
+}
+
+/* Subtle pulse animation for status badges */
+@keyframes status-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.15);
+  }
+}
+
+.animate-status-pulse {
+  animation: status-pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Kinetic letter stagger transition */
+.kinetic-letter {
+  display: inline-block;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.35s ease;
+}
+
+.kinetic-word:hover .kinetic-letter {
+  transform: translateY(-2px);
+}
+
+/* View transitions */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.35s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
