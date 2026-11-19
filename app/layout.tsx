@@ -44,6 +44,29 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark scroll-smooth">
+      <head>
+        {/* Service Worker Cleanup Script to unregister stale service workers and clear cache storage on localhost */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                  for (var i = 0; i < registrations.length; i++) {
+                    registrations[i].unregister();
+                  }
+                });
+                if ('caches' in window) {
+                  caches.keys().then(function(names) {
+                    for (var j = 0; j < names.length; j++) {
+                      caches.delete(names[j]);
+                    }
+                  });
+                }
+              }
+            `,
+          }}
+        />
+      </head>
       <body className="bg-[#0A0A0A] text-[#F5F5F5] antialiased min-h-screen selection:bg-white/20 selection:text-white film-grain overflow-x-hidden">
         <SmoothScroll>
           {/* Outer Rounded Architectural Frame (Design 2 Signature) */}
@@ -52,7 +75,7 @@ export default function RootLayout({
             <div className="absolute top-0 right-0 w-[500px] md:w-[700px] h-[500px] md:h-[700px] rounded-full border border-white/[0.03] pointer-events-none translate-x-1/3 -translate-y-1/3" />
             <div className="absolute top-1/3 left-0 w-[600px] md:w-[900px] h-[600px] md:h-[900px] rounded-full border border-white/[0.02] pointer-events-none -translate-x-1/2" />
             <div className="absolute bottom-1/4 right-0 w-[450px] md:w-[650px] h-[450px] md:h-[650px] rounded-full border border-white/[0.025] pointer-events-none translate-x-1/2" />
-            
+
             <Navbar />
             <main className="relative z-10">{children}</main>
             <Footer />
