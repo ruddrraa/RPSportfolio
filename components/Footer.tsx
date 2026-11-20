@@ -271,10 +271,7 @@ export function Footer() {
         {/* Minimal Baseline */}
         <div className="pt-8 border-t border-[#171717]/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono-code text-[#77736C]">
           <div>
-            &copy; {new Date().getFullYear()} Rudra Pratap Singh. Crafted with Next.js 15, React 19 &amp; Three.js.
-          </div>
-          <div className="flex items-center gap-4 text-[11px] text-[#77736C]">
-            <span>Typography: Cormorant Garamond &bull; Plus Jakarta Sans &bull; JetBrains Mono</span>
+            &copy; {new Date().getFullYear()} Rudra Pratap Singh.
           </div>
         </div>
       </div>

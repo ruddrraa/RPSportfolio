@@ -12,13 +12,13 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Rudra Pratap Singh — Creative Developer & AI Product Engineer",
+  title: "Rudra Pratap Singh Portfolio",
   description:
-    "Portfolio of Rudra Pratap Singh — Creative Developer & AI Product Engineer specializing in full-stack architecture, applied deep learning computer vision pipelines, and tactile human interfaces.",
+    "Portfolio of Rudra Pratap Singh — Full-stack architecture, applied deep learning computer vision pipelines, and responsive web platforms.",
   keywords: [
     "Rudra Pratap Singh",
-    "Creative Developer",
-    "AI Product Engineer",
+    "Portfolio",
+    "Software Engineer",
     "Full-Stack Developer",
     "Computer Vision",
     "RT-DETR",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: profile.name, url: profile.socials.github }],
   openGraph: {
-    title: "Rudra Pratap Singh — Creative Developer & AI Product Engineer",
+    title: "Rudra Pratap Singh Portfolio",
     description: profile.tagline,
     url: "https://ruddrraa.github.io",
     siteName: "Rudra Pratap Singh Portfolio",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rudra Pratap Singh — Creative Developer & AI Product Engineer",
+    title: "Rudra Pratap Singh Portfolio",
     description: profile.tagline,
   },
   icons: {

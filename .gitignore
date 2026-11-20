@@ -1,6 +1,11 @@
 node_modules
 .next
-.git
+.next_build
+.vercel
 __pycache__
 *.pyc
 *.tsbuildinfo
+.env*
+!.env.example
+.DS_Store
+*.log
