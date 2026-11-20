@@ -58,16 +58,20 @@ export function Hero() {
           A Human Perspective on Intelligent Systems
         </div>
 
-        {/* Central Monumental Editorial Serif Typography */}
+        {/* Central Monumental Editorial Serif Typography (Top 1% Polish) */}
         <div className="relative w-full flex flex-col items-center justify-center my-2">
           <div className="relative z-20 space-y-0 select-none">
-            <h1 className="font-serif-editorial font-bold text-[clamp(2.75rem,8.5vw,9.5rem)] text-[#F2F0EA] leading-[0.88] tracking-[-0.035em]">
+            <h1 className="font-serif-editorial text-[clamp(2.75rem,8.5vw,9.5rem)] text-[#F2F0EA] leading-[0.88] tracking-[-0.04em]">
               <span className="sr-only">Rudra Pratap Singh</span>
-              <KineticText text="Rudra" letterClassName="text-[#F2F0EA]" />{" "}
-              <span className="text-zinc-400 font-normal italic">
-                <KineticText text="Pratap" letterClassName="text-zinc-400" />
+              <span className="font-semibold text-[#F2F0EA] tracking-[-0.035em] drop-shadow-sm">
+                <KineticText text="Rudra" letterClassName="text-[#F2F0EA]" />
               </span>{" "}
-              <KineticText text="Singh" letterClassName="text-[#F2F0EA]" />
+              <span className="font-serif-editorial italic font-normal text-[#E7E4DC] tracking-[-0.02em] px-1 sm:px-2 drop-shadow-sm">
+                <KineticText text="Pratap" letterClassName="text-[#E7E4DC]" />
+              </span>{" "}
+              <span className="font-semibold text-[#F2F0EA] tracking-[-0.035em] drop-shadow-sm">
+                <KineticText text="Singh" letterClassName="text-[#F2F0EA]" />
+              </span>
             </h1>
           </div>
         </div>
@@ -82,7 +86,7 @@ export function Hero() {
           <a
             href="#projects"
             aria-label="Explore Selected Work"
-            className="group flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-[#F2F0EA] text-[#0A0A0A] font-semibold hover:bg-white transition-all shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white cursor-pointer"
+            className="group flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-[#F2F0EA] text-[#0A0A0A] font-semibold hover:bg-white hover:-translate-y-0.5 hover:shadow-xl active:scale-95 transition-all duration-300 shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white cursor-pointer"
           >
             <span>Explore Selected Work (06)</span>
             <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
@@ -91,10 +95,10 @@ export function Hero() {
           <a
             href={profile.socials.email}
             aria-label="Start a conversation via email"
-            className="flex items-center gap-2 px-7 py-3.5 rounded-full bg-white/[0.08] hover:bg-white/[0.15] text-[#F2F0EA] border border-white/20 transition-all shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white cursor-pointer"
+            className="flex items-center gap-2 px-7 py-3.5 rounded-full bg-white/[0.08] hover:bg-white/[0.16] hover:-translate-y-0.5 hover:shadow-lg active:scale-95 text-[#F2F0EA] border border-white/20 transition-all duration-300 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white cursor-pointer"
           >
             <span>Start a conversation</span>
-            <ArrowUpRight className="w-4 h-4 text-zinc-300 group-hover:text-white transition-colors" />
+            <ArrowUpRight className="w-4 h-4 text-zinc-300 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
           </a>
         </div>
       </div>

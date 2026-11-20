@@ -79,11 +79,15 @@ export function HeroCanvas() {
     let targetMouseY = 0;
     let mouseX = 0;
     let mouseY = 0;
+    let mouseWorldX = 0;
+    let mouseWorldY = 0;
+    let isHovering = false;
     let animationFrameId: number;
     let isVisible = true;
     let isTabActive = !document.hidden && document.visibilityState === "visible";
     let isLoopRunning = false;
     let assemblyProgress = { value: prefersReducedMotion ? 1.0 : 0.0 };
+    let isAssembled = prefersReducedMotion;
 
     interface InstanceData {
       targetX: number;
@@ -98,6 +102,11 @@ export function HeroCanvas() {
       b: number;
     }
     const instanceList: InstanceData[] = [];
+    let offsetsX: Float32Array;
+    let offsetsY: Float32Array;
+    let offsetsZ: Float32Array;
+    const dummy = new THREE.Object3D();
+    const color = new THREE.Color();
 
     // Load authentic portrait asset
     const img = new Image();
@@ -171,6 +180,10 @@ export function HeroCanvas() {
       const totalInstances = instanceList.length;
       if (totalInstances === 0) return;
 
+      offsetsX = new Float32Array(totalInstances);
+      offsetsY = new Float32Array(totalInstances);
+      offsetsZ = new Float32Array(totalInstances);
+
       // 3D disk geometry with smooth vertex normals
       circleGeometry = new THREE.CircleGeometry(0.038, 12);
       circleGeometry.computeVertexNormals();
@@ -190,9 +203,6 @@ export function HeroCanvas() {
         totalInstances
       );
       sculpturalMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
-
-      const dummy = new THREE.Object3D();
-      const color = new THREE.Color();
 
       const updateMeshTransforms = (t: number) => {
         if (!sculpturalMesh) return;
@@ -232,18 +242,38 @@ export function HeroCanvas() {
           onUpdate: () => {
             updateMeshTransforms(assemblyProgress.value);
           },
+          onComplete: () => {
+            isAssembled = true;
+          },
         });
       }
 
       renderer.render(scene, camera);
     };
 
-    // 4. Pointer Interaction for Parallax Depth
+    // 4. Pointer Interaction for Parallax Depth & Interactive Repulsion Distortion
     const handleMouseMove = (event: MouseEvent) => {
       targetMouseX = (event.clientX / window.innerWidth - 0.5) * 2;
       targetMouseY = -(event.clientY / window.innerHeight - 0.5) * 2;
+
+      // Unproject screen coordinates into 3D world space at camera focal plane
+      const vFOV = (camera.fov * Math.PI) / 180;
+      const visibleHeight = 2 * Math.tan(vFOV / 2) * camera.position.z;
+      const visibleWidth = visibleHeight * camera.aspect;
+
+      mouseWorldX = (event.clientX / window.innerWidth - 0.5) * visibleWidth;
+      mouseWorldY = -(event.clientY / window.innerHeight - 0.5) * visibleHeight;
+      isHovering = true;
     };
+
+    const handleMouseLeave = () => {
+      isHovering = false;
+      targetMouseX = 0;
+      targetMouseY = 0;
+    };
+
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    window.addEventListener("mouseleave", handleMouseLeave, { passive: true });
 
     // 5. Scroll-Linked Transition (Sculpture smoothly recedes into background)
     const scrollTriggerInstance = ScrollTrigger.create({
@@ -279,7 +309,7 @@ export function HeroCanvas() {
     const resizeObserver = new ResizeObserver(() => handleResize());
     resizeObserver.observe(mount);
 
-    // 7. Render Loop with Inertial Mouse Smoothing
+    // 7. Render Loop with Inertial Mouse Smoothing & Elastic Particle Repulsion Physics
     const render = () => {
       if (!isVisible || !isTabActive) {
         isLoopRunning = false;
@@ -295,6 +325,64 @@ export function HeroCanvas() {
       portraitGroup.rotation.x = -mouseY * 0.18;
       portraitGroup.position.x = mouseX * 0.4;
       portraitGroup.position.y = mouseY * 0.3 + 0.4;
+
+      // Interactive Cursor Repulsion Physics (Kinetic Distortion Effect)
+      if (isAssembled && sculpturalMesh && instanceList.length > 0) {
+        const localCursorX = mouseWorldX - portraitGroup.position.x;
+        const localCursorY = mouseWorldY - portraitGroup.position.y;
+        const repulsionRadius = 2.4;
+        const repulsionRadiusSq = repulsionRadius * repulsionRadius;
+        let requiresUpdate = false;
+
+        const count = instanceList.length;
+        for (let i = 0; i < count; i++) {
+          const inst = instanceList[i];
+          const dx = inst.targetX - localCursorX;
+          const dy = inst.targetY - localCursorY;
+          const distSq = dx * dx + dy * dy;
+
+          let targetPushX = 0;
+          let targetPushY = 0;
+          let targetPushZ = 0;
+
+          if (isHovering && distSq < repulsionRadiusSq && distSq > 0.0001) {
+            const dist = Math.sqrt(distSq);
+            // Smooth quadratic repulsion curve
+            const force = Math.pow(1.0 - dist / repulsionRadius, 2) * 1.4;
+            targetPushX = (dx / dist) * force;
+            targetPushY = (dy / dist) * force;
+            targetPushZ = force * 1.1; // pops forward in 3D
+            requiresUpdate = true;
+          }
+
+          // Elastic spring interpolation with damping back to rest coordinate
+          offsetsX[i] += (targetPushX - offsetsX[i]) * 0.14;
+          offsetsY[i] += (targetPushY - offsetsY[i]) * 0.14;
+          offsetsZ[i] += (targetPushZ - offsetsZ[i]) * 0.14;
+
+          if (
+            Math.abs(offsetsX[i]) > 0.001 ||
+            Math.abs(offsetsY[i]) > 0.001 ||
+            Math.abs(offsetsZ[i]) > 0.001
+          ) {
+            requiresUpdate = true;
+          }
+
+          const curX = inst.targetX + offsetsX[i];
+          const curY = inst.targetY + offsetsY[i];
+          const curZ = inst.targetZ + offsetsZ[i];
+          const dynamicScale = inst.scale * (1.0 + Math.min(0.5, offsetsZ[i] * 0.45));
+
+          dummy.position.set(curX, curY, curZ);
+          dummy.scale.set(dynamicScale, dynamicScale, dynamicScale);
+          dummy.updateMatrix();
+          sculpturalMesh.setMatrixAt(i, dummy.matrix);
+        }
+
+        if (requiresUpdate) {
+          sculpturalMesh.instanceMatrix.needsUpdate = true;
+        }
+      }
 
       renderer.render(scene, camera);
     };
@@ -345,6 +433,7 @@ export function HeroCanvas() {
       intersectionObserver.disconnect();
       resizeObserver.disconnect();
       window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseleave", handleMouseLeave);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
 
       if (mount && renderer.domElement && mount.contains(renderer.domElement)) {

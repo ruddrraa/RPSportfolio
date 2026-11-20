@@ -32,30 +32,72 @@ export function Experience() {
           </div>
         </div>
 
-        {/* Academic Foundation Feature Strip */}
-        <div className="p-8 sm:p-10 rounded-[28px] sm:rounded-[36px] bg-[#E7E4DC] border border-[rgba(23,23,23,0.12)] space-y-6">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-            <div className="space-y-3 max-w-3xl">
-              <div className="flex items-center gap-2 font-mono-code text-xs text-[#171717]">
-                <GraduationCap className="w-4 h-4" />
-                <span className="tracking-wider uppercase font-semibold">VERIFIED EDUCATION &bull; 2024–2028</span>
+        {/* Academic Foundation Feature Strip (University & School Education Chronology) */}
+        <div className="space-y-4">
+          {/* Main Undergraduate Degree Card */}
+          <div className="p-8 sm:p-10 rounded-[28px] sm:rounded-[36px] bg-[#E7E4DC] border border-[rgba(23,23,23,0.12)] space-y-6">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+              <div className="space-y-3 max-w-3xl">
+                <div className="flex items-center gap-2 font-mono-code text-xs text-[#171717]">
+                  <GraduationCap className="w-4 h-4" />
+                  <span className="tracking-wider uppercase font-semibold">HIGHER EDUCATION &bull; 2024–2028</span>
+                </div>
+                <h3 className="font-serif-editorial text-2xl sm:text-3xl text-[#171717] font-bold">
+                  Bachelor of Technology in Computer Science &amp; Business Systems (B.Tech CSBS)
+                </h3>
+                <p className="text-sm text-[#77736C] font-sans leading-relaxed">
+                  Sister Nivedita University, Kolkata (2024–2028). Comprehensive curriculum bridging core computing algorithms, computer vision pipelines, and distributed databases with corporate technology management and enterprise business strategy.
+                </p>
               </div>
-              <h3 className="font-serif-editorial text-2xl sm:text-3xl text-[#171717] font-bold">
-                Bachelor of Technology in Computer Science &amp; Business Systems (B.Tech CSBS)
-              </h3>
-              <p className="text-sm text-[#77736C] font-sans leading-relaxed">
-                Sister Nivedita University, Kolkata (2024–2028). Comprehensive curriculum bridging core computing algorithms, computer vision pipelines, and distributed databases with corporate technology management and enterprise business strategy.
+
+              <div className="flex flex-col gap-2 font-mono-code text-xs lg:w-72 shrink-0">
+                <div className="p-3.5 rounded-xl bg-[#FAF8F5] border border-[rgba(23,23,23,0.08)]">
+                  <div className="text-[10px] text-[#77736C] uppercase">Institution</div>
+                  <div className="text-[#171717] font-semibold mt-0.5">Sister Nivedita University, Kolkata</div>
+                </div>
+                <div className="p-3.5 rounded-xl bg-[#FAF8F5] border border-[rgba(23,23,23,0.08)]">
+                  <div className="text-[10px] text-[#77736C] uppercase">Tenure &bull; Status</div>
+                  <div className="text-[#171717] font-semibold mt-0.5">2024–2028 (Undergraduate CSBS)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Secondary & High School Education Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Higher Secondary (10+2) */}
+            <div className="p-6 sm:p-7 rounded-[24px] sm:rounded-[28px] bg-[#E7E4DC] border border-[rgba(23,23,23,0.1)] space-y-3">
+              <div className="flex items-center justify-between text-xs font-mono-code text-[#77736C]">
+                <span className="uppercase tracking-wider font-semibold text-[#171717]">HIGHER SECONDARY (CLASS XII)</span>
+                <span>2022–2024</span>
+              </div>
+              <h4 className="font-serif-editorial text-xl sm:text-2xl text-[#171717] font-bold">
+                Senior Secondary &bull; Science (PCM &amp; CS)
+              </h4>
+              <p className="text-xs sm:text-sm text-[#77736C] font-sans leading-relaxed">
+                Physics, Chemistry, Mathematics, and Computer Science. Rigorous academic foundation in mathematical reasoning, advanced calculus, and algorithm design.
               </p>
+              <div className="pt-2 text-[11px] font-mono-code text-[#171717] flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#171717]" />
+                <span>Kolkata, WB &bull; Pure Science Stream</span>
+              </div>
             </div>
 
-            <div className="flex flex-col gap-2 font-mono-code text-xs lg:w-72 shrink-0">
-              <div className="p-3.5 rounded-xl bg-[#FAF8F5] border border-[rgba(23,23,23,0.08)]">
-                <div className="text-[10px] text-[#77736C] uppercase">Institution</div>
-                <div className="text-[#171717] font-semibold mt-0.5">Sister Nivedita University, Kolkata</div>
+            {/* Secondary Examination (10th) */}
+            <div className="p-6 sm:p-7 rounded-[24px] sm:rounded-[28px] bg-[#E7E4DC] border border-[rgba(23,23,23,0.1)] space-y-3">
+              <div className="flex items-center justify-between text-xs font-mono-code text-[#77736C]">
+                <span className="uppercase tracking-wider font-semibold text-[#171717]">SECONDARY EDUCATION (CLASS X)</span>
+                <span>Completed 2022</span>
               </div>
-              <div className="p-3.5 rounded-xl bg-[#FAF8F5] border border-[rgba(23,23,23,0.08)]">
-                <div className="text-[10px] text-[#77736C] uppercase">Tenure</div>
-                <div className="text-[#171717] font-semibold mt-0.5">2024–2028 (Undergraduate)</div>
+              <h4 className="font-serif-editorial text-xl sm:text-2xl text-[#171717] font-bold">
+                Secondary School Board Examination
+              </h4>
+              <p className="text-xs sm:text-sm text-[#77736C] font-sans leading-relaxed">
+                Comprehensive curriculum across sciences, advanced mathematics, social sciences, and computer applications. Graduated with academic excellence.
+              </p>
+              <div className="pt-2 text-[11px] font-mono-code text-[#171717] flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#171717]" />
+                <span>Kolkata, WB &bull; Foundational Sciences</span>
               </div>
             </div>
           </div>

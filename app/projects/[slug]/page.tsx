@@ -108,12 +108,12 @@ export default async function ProjectCaseStudyPage({
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-[#171717] font-serif-editorial leading-[0.95]">
             {project.title}
           </h1>
-          <p className="text-lg md:text-2xl text-[#77736C] mt-3 font-sans font-normal">
+          <p className="text-xl md:text-3xl text-[#171717] mt-3 font-serif-editorial italic font-normal leading-tight">
             {project.subtitle}
           </p>
           {project.client && (
-            <div className="mt-3 text-xs sm:text-sm font-mono-code text-[#171717] font-semibold">
-              Enterprise Client: {project.client}
+            <div className="mt-3 text-xs sm:text-sm font-mono-code text-[#77736C] font-semibold">
+              Client &bull; {project.client}
             </div>
           )}
         </div>
