@@ -184,10 +184,10 @@ scene.add(instancedMesh);`;
       ref={sectionRef}
       className="relative w-full bg-[#F2F0EA] border-t border-[rgba(23,23,23,0.08)]"
     >
-      {/* Pinned Viewport Container: Strictly locked to 100vh with no vertical overflow */}
+      {/* Pinned Viewport Container: Strictly locked to 100vh with generous navbar clearance */}
       <div
         ref={pinnedContainerRef}
-        className="h-screen w-full flex flex-col justify-between pt-24 sm:pt-28 md:pt-30 pb-6 px-4 sm:px-8 md:px-12 overflow-hidden select-none"
+        className="h-screen w-full flex flex-col justify-between pt-28 sm:pt-32 md:pt-36 pb-6 px-4 sm:px-8 md:px-12 overflow-hidden select-none"
       >
         {/* Pinned Header Bar: Generous clearance below fixed floating navbar */}
         <div className="w-full max-w-7xl mx-auto shrink-0 pb-3 border-b border-[rgba(23,23,23,0.08)]">

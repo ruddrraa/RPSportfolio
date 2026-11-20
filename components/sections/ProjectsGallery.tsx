@@ -21,7 +21,7 @@ function ProjectCard({ project, idx, year, niche }: ProjectCardProps) {
   return (
     <div
       ref={cardRef}
-      className="sticky top-20 sm:top-24 mb-16 sm:mb-24 lg:mb-32 transition-transform duration-300"
+      className="sticky top-22 sm:top-26 mb-16 sm:mb-24 lg:mb-32 transition-transform duration-300"
       style={{
         zIndex: idx + 10,
       }}
@@ -192,7 +192,7 @@ export function ProjectsGallery() {
   return (
     <section
       id="projects"
-      className="py-24 sm:py-32 w-full relative bg-[#F2F0EA] border-t border-[rgba(23,23,23,0.08)]"
+      className="pt-28 sm:pt-36 pb-24 sm:pb-32 w-full relative bg-[#F2F0EA] border-t border-[rgba(23,23,23,0.08)]"
     >
       {/* Editorial Section Header (Matching Sarthak Sharma Typography: "This is the work.") */}
       <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12 mb-16 md:mb-24">

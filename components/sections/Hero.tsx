@@ -44,10 +44,10 @@ export function Hero() {
     },
   ];
 
-  // Calculate dynamic 3D depth perspective scaling on scroll
+  // Calculate dynamic 3D depth perspective scaling on scroll (Smooth dive-in transition)
   const depthScale = Math.max(0.92, 1 - scrollProgress * 0.00015);
   const depthTranslateY = scrollProgress * 0.18;
-  const depthOpacity = Math.max(0.25, 1 - scrollProgress * 0.0012);
+  const depthOpacity = Math.max(0.2, 1 - scrollProgress * 0.0012);
 
   return (
     <section className="relative min-h-screen flex flex-col justify-between pt-28 sm:pt-36 pb-0 px-4 sm:px-8 md:px-12 w-full max-w-full overflow-hidden bg-[#0A0A0A] text-[#F2F0EA]">
@@ -72,7 +72,7 @@ export function Hero() {
 
       {/* Main Central Cinematic Staging with Hardware-Accelerated Scroll Depth Effect */}
       <div
-        className="relative z-20 my-auto py-10 sm:py-16 flex flex-col items-center justify-center text-center max-w-5xl mx-auto w-full transition-transform ease-out will-change-transform"
+        className="relative z-20 my-auto py-8 sm:py-14 flex flex-col items-center justify-center text-center max-w-5xl mx-auto w-full transition-transform ease-out will-change-transform"
         style={{
           transform: `scale(${depthScale}) translateY(${depthTranslateY}px)`,
           opacity: depthOpacity,
@@ -83,18 +83,18 @@ export function Hero() {
           Full-Stack Developer &bull; Computer Science Student
         </div>
 
-        {/* Central Monumental Cursive Typography (Exact Match to Pasted Image 3 Instrument Serif Italic) */}
+        {/* Central Monumental Cursive Typography (Single Line Editorial Composition) */}
         <div className="relative w-full flex flex-col items-center justify-center my-2">
           <div className="relative z-20 space-y-0 select-none">
-            <h1 className="font-instrument-cursive font-serif-editorial text-[clamp(3.5rem,10.5vw,11.5rem)] text-[#F2F0EA] leading-[0.88] tracking-[-0.015em] drop-shadow-md">
+            <h1 className="font-instrument-cursive font-serif-editorial text-[clamp(2.85rem,8.5vw,9.6rem)] text-[#F2F0EA] leading-[0.90] tracking-[-0.02em] drop-shadow-[0_4px_30px_rgba(0,0,0,0.6)] flex flex-wrap items-baseline justify-center gap-x-3 sm:gap-x-5">
               <span className="sr-only">Rudra Pratap Singh</span>
-              <span className="text-[#F2F0EA]">
+              <span className="text-[#F2F0EA] inline-block">
                 <KineticText text="Rudra" letterClassName="text-[#F2F0EA]" />
-              </span>{" "}
-              <span className="text-[#E7E4DC] px-1 sm:px-2">
+              </span>
+              <span className="text-[#E7E4DC] inline-block">
                 <KineticText text="Pratap" letterClassName="text-[#E7E4DC]" />
-              </span>{" "}
-              <span className="text-[#F2F0EA]">
+              </span>
+              <span className="text-[#F2F0EA] inline-block">
                 <KineticText text="Singh" letterClassName="text-[#F2F0EA]" />
               </span>
             </h1>
@@ -166,7 +166,7 @@ export function Hero() {
       </div>
 
       {/* Sculptural Curved Horizon Plate (True 3D Spatial Transition without AI Badges) */}
-      <div className="w-full relative h-16 sm:h-24 md:h-28 overflow-hidden pointer-events-none mt-2">
+      <div className="w-full relative h-20 sm:h-28 md:h-36 overflow-hidden pointer-events-none mt-2">
         <svg
           viewBox="0 0 1440 120"
           fill="none"

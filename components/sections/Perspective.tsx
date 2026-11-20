@@ -1,8 +1,58 @@
 "use client";
 
-import { GraduationCap, BookOpen, Compass, Sparkles } from "lucide-react";
+import { useEffect, useRef } from "react";
+import { GraduationCap, BookOpen, Compass, Award } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export function Perspective() {
+  const containerRef = useRef<HTMLElement>(null);
+  const headlineRef = useRef<HTMLDivElement>(null);
+  const pillarsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    const container = containerRef.current;
+    if (!container) return;
+
+    const ctx = gsap.context(() => {
+      // Subtle editorial headline reveal
+      if (headlineRef.current) {
+        gsap.from(headlineRef.current, {
+          y: 40,
+          opacity: 0,
+          duration: 1.0,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: headlineRef.current,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      }
+
+      // Staggered pillars reveal
+      if (pillarsRef.current) {
+        gsap.from(pillarsRef.current.children, {
+          y: 35,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.12,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: pillarsRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      }
+    }, container);
+
+    return () => ctx.revert();
+  }, []);
+
   const pillars = [
     {
       roman: "I",
@@ -35,10 +85,17 @@ export function Perspective() {
   ];
 
   return (
-    <section id="perspective" className="pt-12 sm:pt-20 pb-24 sm:pb-32 w-full bg-[#F2F0EA] relative">
+    <section
+      id="perspective"
+      ref={containerRef}
+      className="pt-28 sm:pt-36 pb-24 sm:pb-32 w-full bg-[#F2F0EA] relative"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12 space-y-20">
-        {/* Section Header & Index */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[rgba(23,23,23,0.08)]">
+        {/* Section Header & Index (With generous clearance below floating navbar) */}
+        <div
+          ref={headlineRef}
+          className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[rgba(23,23,23,0.08)]"
+        >
           <div className="space-y-3">
             <div className="text-[11px] font-mono-code text-[#171717] font-semibold uppercase tracking-widest flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#171717]" />
@@ -47,7 +104,9 @@ export function Perspective() {
             <h2 className="font-serif-editorial text-5xl sm:text-7xl md:text-8xl text-[#171717] font-semibold leading-[0.95] tracking-tight">
               A Perspective on <br />
               <span>Architecture </span>
-              <span className="font-serif-editorial italic font-normal text-[#171717]">&amp; Utility</span>
+              <span className="font-serif-editorial italic font-normal text-[#171717]">
+                &amp; Utility
+              </span>
             </h2>
           </div>
 
@@ -67,7 +126,10 @@ export function Perspective() {
         </div>
 
         {/* 4 Pillars Laid Out as an Architectural Hairline Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-[rgba(23,23,23,0.08)] border-y border-[rgba(23,23,23,0.08)] py-8 md:py-12">
+        <div
+          ref={pillarsRef}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-[rgba(23,23,23,0.08)] border-y border-[rgba(23,23,23,0.08)] py-8 md:py-12"
+        >
           {pillars.map((pillar) => (
             <div
               key={pillar.roman}
@@ -95,7 +157,7 @@ export function Perspective() {
 
         {/* Academic Foundation & Peer-Reviewed Strip */}
         <div className="p-8 sm:p-12 rounded-[28px] sm:rounded-[36px] bg-[#E7E4DC] border border-[rgba(23,23,23,0.12)] grid grid-cols-1 lg:grid-cols-12 gap-8 items-center shadow-sm">
-          <div className="lg:col-span-8 space-y-3">
+          <div className="lg:col-span-7 space-y-4">
             <div className="flex items-center gap-2 font-mono-code text-xs text-[#171717]">
               <GraduationCap className="w-4 h-4" />
               <span className="font-semibold uppercase tracking-wider">
@@ -108,16 +170,46 @@ export function Perspective() {
             <p className="text-sm text-[#77736C] font-sans leading-relaxed max-w-2xl">
               Sister Nivedita University, Kolkata (2024–2028). Synthesizing core computer science algorithms, deep learning vision models, and distributed systems with enterprise business workflow analysis and product strategy.
             </p>
+
+            {/* School Education Foundation (CBSE / Senior Secondary PCM with CS) */}
+            <div className="pt-2 border-t border-[rgba(23,23,23,0.08)] flex items-center gap-3 text-xs font-mono-code text-[#77736C]">
+              <span className="font-semibold text-[#171717]">Secondary &amp; Senior Secondary Foundation:</span>
+              <span>Kolkata, WB &bull; Science (PCM &amp; Computer Science)</span>
+            </div>
           </div>
 
-          <div className="lg:col-span-4 flex flex-col gap-3 font-mono-code text-xs">
+          <div className="lg:col-span-5 flex flex-col gap-3 font-mono-code text-xs">
             <div className="p-4 rounded-2xl bg-[#FAF8F5] border border-[rgba(23,23,23,0.08)] space-y-1">
-              <div className="text-[10px] text-[#77736C] uppercase tracking-wider">Research Acceptance</div>
-              <div className="text-[#171717] font-semibold">Q-Sentry: CIIR 2026 (Second Author)</div>
+              <div className="text-[10px] text-[#77736C] uppercase tracking-wider">
+                Research Acceptance
+              </div>
+              <div className="text-[#171717] font-semibold">
+                Q-Sentry: CIIR 2026 (Second Author)
+              </div>
+              <div className="text-[11px] text-[#77736C]">
+                Semantic-Quantum Ensemble for Ethical Classification
+              </div>
             </div>
+
             <div className="p-4 rounded-2xl bg-[#FAF8F5] border border-[rgba(23,23,23,0.08)] space-y-1">
-              <div className="text-[10px] text-[#77736C] uppercase tracking-wider">International Delegation</div>
-              <div className="text-[#171717] font-semibold">IoT Student Exchange &bull; Sichuan, China</div>
+              <div className="text-[10px] text-[#77736C] uppercase tracking-wider">
+                International Delegation
+              </div>
+              <div className="text-[#171717] font-semibold">
+                IoT Student Exchange &bull; Sichuan, China
+              </div>
+              <div className="text-[11px] text-[#77736C]">
+                Sichuan Vocational Institute of Technology (2026)
+              </div>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-[#FAF8F5] border border-[rgba(23,23,23,0.08)] space-y-1">
+              <div className="text-[10px] text-[#77736C] uppercase tracking-wider">
+                Competitive Distinction
+              </div>
+              <div className="text-[#171717] font-semibold">
+                Hackfest 2025 Regional &amp; State Winner
+              </div>
             </div>
           </div>
         </div>

@@ -23,7 +23,7 @@ export function Research() {
   const otherAchievements = achievements.filter((a) => a.category !== "Research");
 
   return (
-    <section id="research" className="py-24 sm:py-32 w-full bg-[#F2F0EA] border-t border-[rgba(23,23,23,0.08)] relative">
+    <section id="research" className="pt-28 sm:pt-36 pb-24 sm:pb-32 w-full bg-[#F2F0EA] border-t border-[rgba(23,23,23,0.08)] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12 space-y-16">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[rgba(23,23,23,0.08)]">
