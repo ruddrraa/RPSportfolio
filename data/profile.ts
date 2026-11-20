@@ -25,13 +25,13 @@ export interface Profile {
 export const profile: Profile = {
   name: "Rudra Pratap Singh",
   handle: "rudra.singh",
-  role: "Full-Stack Developer | AI Product Engineer",
-  positioning: "Full-Stack Developer | AI Product Engineer",
-  tagline: "Building intelligent digital products, scalable web applications and meaningful user experiences.",
-  bio: "Software engineer and AI product developer based in Kolkata, India. Pursuing a B.Tech in Computer Science & Business Systems at Sister Nivedita University. Focused on engineering end-to-end applications spanning deep learning computer vision pipelines, multi-tenant enterprise systems, and high-performance web platforms.",
+  role: "Full-Stack Developer & Computer Science Student",
+  positioning: "Full-Stack Developer & Computer Science Student",
+  tagline: "Building responsive web applications, role-based business platforms, and applied computer vision systems.",
+  bio: "Software engineer and B.Tech Computer Science & Business Systems student at Sister Nivedita University, Kolkata. Experienced in building responsive web applications with React, TypeScript, Node.js, and MongoDB, alongside deep learning computer vision pipelines.",
   location: "Kolkata, India",
   email: "rudrraaa@proton.me",
-  availability: "Available for select software engineering & AI product roles",
+  availability: "Available for select software engineering & full-stack roles",
   socials: {
     github: "https://github.com/ruddrraa",
     linkedin: "https://linkedin.com/in/rudrraaa",

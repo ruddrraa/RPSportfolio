@@ -19,7 +19,7 @@ export function Experience() {
           <div className="space-y-3">
             <div className="text-[11px] font-mono-code text-[#171717] font-semibold uppercase tracking-widest flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#171717]" />
-              <span>CHRONOLOGY // [04]</span>
+              <span>CAREER CHRONOLOGY</span>
             </div>
             <h2 className="font-serif-editorial text-4xl sm:text-6xl md:text-7xl text-[#171717] font-bold leading-[0.98]">
               Engineering Roles <br />
@@ -28,7 +28,7 @@ export function Experience() {
           </div>
 
           <div className="text-xs font-mono-code text-[#77736C]">
-            // VERIFIED INDUSTRY CHRONOLOGY &bull; 2024–2028
+            PROFESSIONAL ROLES &bull; 2024–2028
           </div>
         </div>
 

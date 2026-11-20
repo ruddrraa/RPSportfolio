@@ -195,7 +195,7 @@ scene.add(instancedMesh);`;
             <div className="space-y-1">
               <div className="text-[10px] sm:text-[11px] font-mono-code text-[#171717] font-semibold uppercase tracking-widest flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#171717]" />
-                <span>DISCIPLINES &bull; [02]</span>
+                <span>TECHNICAL DISCIPLINES</span>
               </div>
               <h2 className="font-serif-editorial text-3xl sm:text-4xl md:text-5xl leading-[0.98]">
                 <span className="block text-[#77736C] font-normal">Architectural Capabilities</span>
@@ -206,7 +206,7 @@ scene.add(instancedMesh);`;
             {/* Interactive Scene Navigation for A11y & Keyboard Users */}
             <div className="flex items-center gap-4 shrink-0">
               <div className="text-xs font-mono-code text-[#77736C]">
-                // 05 SPECIALIZED DOMAINS
+                FIVE SPECIALIZED DOMAINS
               </div>
               <div className="text-xs font-mono-code text-[#77736C]">
                 SCENE:{" "}

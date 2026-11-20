@@ -30,7 +30,7 @@ export function Research() {
           <div className="space-y-3">
             <div className="text-[11px] font-mono-code text-[#171717] font-semibold uppercase tracking-widest flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#171717]" />
-              <span>ACADEMIC &amp; COMPETITIVE CITATIONS // [05]</span>
+              <span>RESEARCH &amp; HONORS</span>
             </div>
             <h2 className="font-serif-editorial text-4xl sm:text-6xl md:text-7xl text-[#171717] font-bold leading-[0.98]">
               Peer-Reviewed Research <br />
@@ -39,7 +39,7 @@ export function Research() {
           </div>
 
           <div className="text-xs font-mono-code text-[#77736C]">
-            // VERIFIED ACADEMIC DOSSIER &bull; CIIR 2026
+            PEER-REVIEWED PUBLICATION &bull; CIIR 2026
           </div>
         </div>
 

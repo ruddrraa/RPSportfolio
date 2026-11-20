@@ -32,7 +32,7 @@ export function Footer() {
           <div className="space-y-3">
             <div className="text-[11px] font-mono-code text-[#171717] font-semibold uppercase tracking-widest flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#171717]" aria-hidden="true" />
-              <span>CLOSING CHAPTER // GET IN TOUCH</span>
+              <span>GET IN TOUCH</span>
             </div>
             <h2 className="font-serif-editorial text-5xl sm:text-7xl md:text-8xl text-[#171717] font-bold leading-[0.95]">
               Let’s build something <br />
@@ -41,7 +41,7 @@ export function Footer() {
           </div>
 
           <div className="text-xs font-mono-code text-[#77736C]">
-            // DIRECT CONTACT CHANNELS
+            DIRECT CONTACT CHANNELS
           </div>
         </div>
 

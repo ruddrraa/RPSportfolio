@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { profile } from "@/data/profile";
 import { HeroCanvas } from "@/components/cinematic/HeroCanvas";
@@ -7,32 +8,50 @@ import { KineticText } from "@/components/ui/KineticText";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 
 export function Hero() {
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      if (scrollY < 1200) {
+        setScrollProgress(scrollY);
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const metrics = [
     {
-      value: "6+",
-      label: "Enterprise Systems Delivered",
-      sub: "Production SaaS & AI Platforms",
+      value: "CIIR 2026",
+      label: "Second Author, Q-Sentry Paper",
+      sub: "Semantic-Quantum Ethical AI Model",
     },
     {
-      value: "CIIR '26",
-      label: "Peer-Reviewed Paper Author",
-      sub: "Second Author — Q-Sentry Vision",
-    },
-    {
-      value: "Rank 1",
-      label: "Hackfest 2025 Champion",
+      value: "1st Place",
+      label: "Hackfest 2025 Winner",
       sub: "Sister Nivedita University",
     },
     {
-      value: "CSBS",
-      label: "Computer Science & Business",
-      sub: "B.Tech Undergraduate (2024–2028)",
+      value: "Handshake AI",
+      label: "Freelance Software Engineer",
+      sub: "Frontend Architecture & Features",
+    },
+    {
+      value: "2024–2028",
+      label: "B.Tech Undergrad (CSBS)",
+      sub: "Sister Nivedita University, Kolkata",
     },
   ];
 
+  // Calculate dynamic 3D depth perspective scaling on scroll
+  const depthScale = Math.max(0.92, 1 - scrollProgress * 0.00015);
+  const depthTranslateY = scrollProgress * 0.18;
+  const depthOpacity = Math.max(0.25, 1 - scrollProgress * 0.0012);
+
   return (
-    <section className="relative min-h-screen flex flex-col justify-between pt-28 sm:pt-36 pb-10 px-4 sm:px-8 md:px-12 w-full max-w-full overflow-hidden bg-[#0A0A0A] text-[#F2F0EA]">
-      {/* 3D Image Depth Particle Portrait Canvas Layer (Sarthak Sharma / VML Interactive Experience) */}
+    <section className="relative min-h-screen flex flex-col justify-between pt-28 sm:pt-36 pb-0 px-4 sm:px-8 md:px-12 w-full max-w-full overflow-hidden bg-[#0A0A0A] text-[#F2F0EA]">
+      {/* 3D Image Depth Particle Portrait Canvas Layer with Cursor Repulsion Physics */}
       <HeroCanvas />
 
       {/* Top Editorial Margin Metadata */}
@@ -40,7 +59,7 @@ export function Hero() {
         <div className="flex items-center gap-2">
           <span className="text-white font-mono font-bold">+</span>
           <span className="tracking-wider uppercase">
-            FULL-STACK ARCHITECTURE &bull; COMPUTER VISION &bull; AI SYSTEMS
+            FULL-STACK DEVELOPMENT &bull; COMPUTER VISION &bull; WEB PLATFORMS
           </span>
         </div>
 
@@ -51,34 +70,40 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Main Central Cinematic Staging */}
-      <div className="relative z-20 my-auto py-10 sm:py-16 flex flex-col items-center justify-center text-center max-w-5xl mx-auto w-full">
-        {/* Eyebrow Label */}
-        <div className="mb-4 sm:mb-6 text-[11px] sm:text-xs tracking-[0.28em] font-mono-code text-zinc-400 uppercase">
-          A Human Perspective on Intelligent Systems
+      {/* Main Central Cinematic Staging with Hardware-Accelerated Scroll Depth Effect */}
+      <div
+        className="relative z-20 my-auto py-10 sm:py-16 flex flex-col items-center justify-center text-center max-w-5xl mx-auto w-full transition-transform ease-out will-change-transform"
+        style={{
+          transform: `scale(${depthScale}) translateY(${depthTranslateY}px)`,
+          opacity: depthOpacity,
+        }}
+      >
+        {/* Eyebrow Label (Authentic Grounded English) */}
+        <div className="mb-4 sm:mb-6 text-[11px] sm:text-xs tracking-[0.25em] font-mono-code text-zinc-400 uppercase">
+          Full-Stack Developer &bull; Computer Science Student
         </div>
 
-        {/* Central Monumental Editorial Serif Typography (Top 1% Polish) */}
+        {/* Central Monumental Cursive Typography (Exact Match to Pasted Image 3 Instrument Serif Italic) */}
         <div className="relative w-full flex flex-col items-center justify-center my-2">
           <div className="relative z-20 space-y-0 select-none">
-            <h1 className="font-serif-editorial text-[clamp(2.75rem,8.5vw,9.5rem)] text-[#F2F0EA] leading-[0.88] tracking-[-0.04em]">
+            <h1 className="font-instrument-cursive font-serif-editorial text-[clamp(3.5rem,10.5vw,11.5rem)] text-[#F2F0EA] leading-[0.88] tracking-[-0.015em] drop-shadow-md">
               <span className="sr-only">Rudra Pratap Singh</span>
-              <span className="font-semibold text-[#F2F0EA] tracking-[-0.035em] drop-shadow-sm">
+              <span className="text-[#F2F0EA]">
                 <KineticText text="Rudra" letterClassName="text-[#F2F0EA]" />
               </span>{" "}
-              <span className="font-serif-editorial italic font-normal text-[#E7E4DC] tracking-[-0.02em] px-1 sm:px-2 drop-shadow-sm">
+              <span className="text-[#E7E4DC] px-1 sm:px-2">
                 <KineticText text="Pratap" letterClassName="text-[#E7E4DC]" />
               </span>{" "}
-              <span className="font-semibold text-[#F2F0EA] tracking-[-0.035em] drop-shadow-sm">
+              <span className="text-[#F2F0EA]">
                 <KineticText text="Singh" letterClassName="text-[#F2F0EA]" />
               </span>
             </h1>
           </div>
         </div>
 
-        {/* Verified Positioning Statement */}
+        {/* Real Grounded Profile Statement from CV */}
         <p className="mt-8 text-base sm:text-lg md:text-xl text-zinc-300 max-w-2xl font-sans font-normal leading-relaxed">
-          Architecting high-throughput full-stack platforms, deep learning Computer Vision pipelines (RT-DETR &amp; PyTorch), and verifiable AI products.
+          Building responsive web applications, role-based business platforms, and applied computer vision systems. Currently pursuing B.Tech in Computer Science &amp; Business Systems at Sister Nivedita University, Kolkata.
         </p>
 
         {/* Action Buttons (Tactile Pill CTAs) */}
@@ -103,7 +128,7 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Sarthak-style Verified Metrics Band */}
+      {/* Sarthak-style Verified Metrics Band (Exact Typography Matching Image 6) */}
       <div className="relative z-10 w-full max-w-6xl mx-auto py-6 border-t border-b border-white/[0.1] my-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 divide-y md:divide-y-0 md:divide-x divide-white/[0.1]">
           {metrics.map((item, idx) => (
@@ -113,7 +138,8 @@ export function Hero() {
                 idx > 0 ? "md:pl-6" : ""
               } ${idx > 1 ? "pt-4 md:pt-0" : ""}`}
             >
-              <div className="font-serif-editorial text-3xl sm:text-4xl text-[#F2F0EA] font-bold leading-none">
+              {/* Exact Light Italic Typography Matching Pasted Image 6 */}
+              <div className="font-serif-editorial italic text-3xl sm:text-4xl text-[#F2F0EA] font-normal leading-none">
                 {item.value}
               </div>
               <div className="text-xs font-sans font-semibold text-white">
@@ -127,29 +153,32 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Bottom Editorial Margin & Tactile Discover Marker */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-4 text-[11px] font-mono-code text-zinc-400 pt-2">
+      {/* Subtle Scroll Cue */}
+      <div className="relative z-20 w-full flex justify-center py-2">
         <a
           href="#perspective"
-          aria-label="Scroll to discover selected work"
-          className="flex items-center gap-2 text-white hover:text-zinc-300 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white"
+          aria-label="Scroll to discover perspective"
+          className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors text-xs font-sans group cursor-pointer"
         >
-          <span className="font-medium">SCROLL TO DISCOVER</span>
-          <ArrowDown className="w-3.5 h-3.5 animate-bounce text-white" />
+          <span>Scroll to discover</span>
+          <ArrowDown className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform text-white animate-bounce" />
         </a>
-
-        <div className="hidden md:block text-zinc-400 tracking-widest uppercase text-[10px]">
-          BUILDING &amp; RESEARCHING &bull; SISTER NIVEDITA UNIV &bull; CSBS
-        </div>
-
-        <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-white" />
-          <span>AN ONGOING EXPLORATION</span>
-        </div>
       </div>
 
-      {/* Seamless Ambient Gradient Transition from Dark Hero into Warm Ivory Background */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-[#F2F0EA] pointer-events-none z-10" />
+      {/* Sculptural Curved Horizon Plate (True 3D Spatial Transition without AI Badges) */}
+      <div className="w-full relative h-16 sm:h-24 md:h-28 overflow-hidden pointer-events-none mt-2">
+        <svg
+          viewBox="0 0 1440 120"
+          fill="none"
+          preserveAspectRatio="none"
+          className="w-full h-full text-[#F2F0EA] block filter drop-shadow-[0_-35px_60px_rgba(0,0,0,0.85)]"
+        >
+          <path
+            d="M0,120 C420,15 1020,15 1440,120 L1440,120 L0,120 Z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
     </section>
   );
 }

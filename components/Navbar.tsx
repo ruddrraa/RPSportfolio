@@ -9,8 +9,11 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [activeSection, setActiveSection] = useState<string>("hero");
 
   useEffect(() => {
+    const sections = ["projects", "perspective", "expertise", "experience", "research", "contact"];
+
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const totalScrollable =
@@ -20,6 +23,19 @@ export function Navbar() {
         setScrollProgress(Math.min(100, Math.max(0, progress)));
       }
       setScrolled(scrollY > 20);
+
+      // Detect active section for cinematic section tracking
+      let current = "hero";
+      for (const sectionId of sections) {
+        const el = document.getElementById(sectionId);
+        if (el) {
+          const top = el.offsetTop - 260;
+          if (scrollY >= top) {
+            current = sectionId;
+          }
+        }
+      }
+      setActiveSection(current);
     };
 
     handleScroll();
@@ -39,11 +55,11 @@ export function Navbar() {
   }, [mobileMenuOpen]);
 
   const navLinks = [
-    { href: "/#projects", label: "Work" },
-    { href: "/#perspective", label: "Perspective" },
-    { href: "/#expertise", label: "Capabilities" },
-    { href: "/#experience", label: "Chronology" },
-    { href: "/#research", label: "Publications" },
+    { href: "/#projects", label: "Work", id: "projects" },
+    { href: "/#perspective", label: "Perspective", id: "perspective" },
+    { href: "/#expertise", label: "Capabilities", id: "expertise" },
+    { href: "/#experience", label: "Chronology", id: "experience" },
+    { href: "/#research", label: "Publications", id: "research" },
   ];
 
   return (
@@ -55,7 +71,7 @@ export function Navbar() {
             : "backdrop-blur-md bg-[#E7E4DC]/85 border-[#171717]/10 shadow-sm"
         }`}
       >
-        {/* Brand identity: Elevated editorial wordmark (No awkward black dot) */}
+        {/* Brand identity: Elevated editorial wordmark */}
         <Link
           href="/"
           className="flex items-baseline gap-1.5 text-[#171717] hover:opacity-80 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#171717] rounded-full py-0.5 group"
@@ -64,7 +80,7 @@ export function Navbar() {
           <span className="font-serif-editorial font-bold text-base sm:text-[17px] text-[#171717] tracking-tight leading-none">
             Rudra
           </span>
-          <span className="font-serif-editorial italic font-normal text-sm sm:text-base text-[#77736C] leading-none">
+          <span className="font-instrument-cursive italic font-normal text-base sm:text-[17px] text-[#77736C] leading-none px-0.5">
             Pratap
           </span>
           <span className="font-serif-editorial font-bold text-base sm:text-[17px] text-[#171717] tracking-tight leading-none">
@@ -72,28 +88,37 @@ export function Navbar() {
           </span>
         </Link>
 
-        {/* Desktop Navigation Links */}
+        {/* Desktop Navigation Links with Real-Time Active Section Feedback */}
         <nav
-          className="hidden md:flex items-center gap-6 text-xs text-[#77736C] font-sans font-medium"
+          className="hidden md:flex items-center gap-2 text-xs font-sans font-medium"
           aria-label="Primary Navigation"
         >
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="hover:text-[#171717] transition-colors relative py-1 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#171717] rounded"
-            >
-              <span>{link.label}</span>
-              <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-[#171717] transition-all duration-300 group-hover:w-full" />
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = activeSection === link.id;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`relative px-3 py-1 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#171717] ${
+                  isActive
+                    ? "text-[#171717] font-semibold bg-black/[0.06]"
+                    : "text-[#77736C] hover:text-[#171717]"
+                }`}
+              >
+                <span>{link.label}</span>
+                {isActive && (
+                  <span className="absolute bottom-0.5 left-3 right-3 h-[1.5px] bg-[#171717] rounded-full" />
+                )}
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Right CTA & Mobile Toggle */}
         <div className="flex items-center gap-3">
           {/* Subtle scroll reading coverage indicator */}
           <div className="hidden sm:flex items-center gap-1.5 text-[10px] font-mono-code text-[#77736C]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#171717]/30" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#171717]/40" />
             <span>{Math.round(scrollProgress)}%</span>
           </div>
 
@@ -108,51 +133,52 @@ export function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full bg-[#E7E4DC] border border-[#171717]/10 text-[#171717] hover:bg-[#DDD9CF] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#171717]"
-            aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            className="p-1.5 rounded-full text-[#171717] md:hidden hover:bg-black/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#171717]"
+            aria-label="Toggle navigation menu"
             aria-expanded={mobileMenuOpen}
-            aria-controls="mobile-navigation-menu"
           >
-            {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+            {mobileMenuOpen ? (
+              <X className="w-5 h-5" aria-hidden="true" />
+            ) : (
+              <Menu className="w-5 h-5" aria-hidden="true" />
+            )}
           </button>
         </div>
 
-        {/* Sleek Hairline Scroll Coverage Track across Navbar Bottom */}
+        {/* Scroll Progress Bar at the absolute bottom rim */}
         <div
-          className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-[#171717]/8 pointer-events-none"
+          className="absolute bottom-0 left-0 h-[2px] bg-[#171717] transition-all duration-150 ease-out"
+          style={{ width: `${scrollProgress}%` }}
           aria-hidden="true"
-        >
-          <div
-            className="h-full bg-[#171717] transition-all duration-150 ease-out"
-            style={{ width: `${scrollProgress}%` }}
-          />
-        </div>
+        />
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Navigation Dropdown Menu */}
       {mobileMenuOpen && (
-        <div
-          id="mobile-navigation-menu"
-          role="region"
-          aria-label="Mobile Navigation Menu"
-          className="md:hidden mt-2 p-4 rounded-3xl bg-[#E7E4DC]/95 backdrop-blur-2xl border border-[#171717]/10 shadow-xl space-y-3 font-sans"
-        >
-          <div className="flex flex-col space-y-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="min-h-[44px] flex items-center px-4 py-2.5 rounded-xl hover:bg-[#DDD9CF] text-[#171717] text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#171717]"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
-          <div className="pt-3 border-t border-[#171717]/10 px-3 flex justify-between items-center text-[11px] text-[#77736C] font-mono-code">
-            <span>{profile.location}</span>
-            <span className="text-[#171717] font-medium">Available for select roles</span>
-          </div>
+        <div className="md:hidden mt-2 p-5 rounded-3xl bg-[#F2F0EA]/95 border border-[#171717]/15 backdrop-blur-2xl shadow-xl space-y-3 animate-fade-in">
+          <nav className="flex flex-col space-y-2 text-sm font-sans" aria-label="Mobile Navigation">
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.id;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`px-4 py-2 rounded-xl transition-colors ${
+                    isActive
+                      ? "bg-black/[0.08] text-[#171717] font-semibold"
+                      : "text-[#77736C] hover:text-[#171717] hover:bg-black/[0.04]"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+            <div className="pt-2 border-t border-[#171717]/10 flex items-center justify-between text-xs font-mono-code text-[#77736C]">
+              <span>Coverage</span>
+              <span>{Math.round(scrollProgress)}%</span>
+            </div>
+          </nav>
         </div>
       )}
     </header>
