@@ -12,6 +12,8 @@ export interface Profile {
     github: string;
     linkedin: string;
     email: string;
+    x: string;
+    instagram: string;
   };
   education: {
     degree: string;
@@ -36,6 +38,8 @@ export const profile: Profile = {
     github: "https://github.com/ruddrraa",
     linkedin: "https://linkedin.com/in/rudrraaa",
     email: "mailto:rudrraaa@proton.me",
+    x: "https://x.com/RudraPrSing",
+    instagram: "https://www.instagram.com/_rudrraa/",
   },
   education: {
     degree: "Bachelor of Technology",

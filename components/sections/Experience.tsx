@@ -1,21 +1,95 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { experiences } from "@/data/experience";
 import { ChevronDown, CheckCircle2, GraduationCap } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export function Experience() {
   const [expandedId, setExpandedId] = useState<string | null>(experiences[0].id);
+  const containerRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const academicGroupRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (prefersReducedMotion) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+    const container = containerRef.current;
+    if (!container) return;
+
+    const ctx = gsap.context(() => {
+      if (headerRef.current) {
+        gsap.from(headerRef.current, {
+          y: 40,
+          opacity: 0,
+          duration: 0.85,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      }
+
+      if (academicGroupRef.current) {
+        gsap.from(academicGroupRef.current, {
+          y: 40,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: academicGroupRef.current,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      }
+
+      if (timelineRef.current) {
+        Array.from(timelineRef.current.children).forEach((child, i) => {
+          gsap.from(child, {
+            y: 35,
+            opacity: 0,
+            duration: 0.7,
+            delay: i * 0.08,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: child,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+          });
+        });
+      }
+    }, container);
+
+    return () => ctx.revert();
+  }, []);
 
   const toggleExpand = (id: string) => {
     setExpandedId(expandedId === id ? null : id);
   };
 
   return (
-    <section id="experience" className="pt-28 sm:pt-36 pb-24 sm:pb-32 w-full bg-[#F2F0EA] border-t border-[rgba(23,23,23,0.08)] relative">
+    <section
+      id="experience"
+      ref={containerRef}
+      className="pt-28 sm:pt-36 pb-24 sm:pb-32 w-full bg-[#F2F0EA] border-t border-[rgba(23,23,23,0.08)] relative"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12 space-y-16">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[rgba(23,23,23,0.08)]">
+        <div
+          ref={headerRef}
+          className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[rgba(23,23,23,0.08)] will-change-transform"
+        >
           <div className="space-y-3">
             <div className="text-[11px] font-mono-code text-[#171717] font-semibold uppercase tracking-widest flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#171717]" />
@@ -33,7 +107,7 @@ export function Experience() {
         </div>
 
         {/* Academic Foundation Feature Strip (University & School Education Chronology) */}
-        <div className="space-y-4">
+        <div ref={academicGroupRef} className="space-y-4 will-change-transform">
           {/* Main Undergraduate Degree Card */}
           <div className="p-8 sm:p-10 rounded-[28px] sm:rounded-[36px] bg-[#E7E4DC] border border-[rgba(23,23,23,0.12)] space-y-6">
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
@@ -114,7 +188,7 @@ export function Experience() {
           </div>
 
           {/* Rows */}
-          <div className="divide-y divide-[rgba(23,23,23,0.08)]">
+          <div ref={timelineRef} className="divide-y divide-[rgba(23,23,23,0.08)]">
             {experiences.map((item) => {
               const isExpanded = expandedId === item.id;
 

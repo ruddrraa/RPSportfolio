@@ -1,9 +1,78 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { achievements } from "@/data/achievements";
-import { Award, FileText, Globe, Trophy, Sparkles } from "lucide-react";
+import { Award, FileText, Globe, Trophy } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export function Research() {
+  const containerRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const featuredRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (prefersReducedMotion) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+    const container = containerRef.current;
+    if (!container) return;
+
+    const ctx = gsap.context(() => {
+      if (headerRef.current) {
+        gsap.from(headerRef.current, {
+          y: 40,
+          opacity: 0,
+          duration: 0.85,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      }
+
+      if (featuredRef.current) {
+        gsap.from(featuredRef.current, {
+          y: 40,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: featuredRef.current,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      }
+
+      if (gridRef.current) {
+        Array.from(gridRef.current.children).forEach((child, i) => {
+          gsap.from(child, {
+            y: 35,
+            opacity: 0,
+            duration: 0.7,
+            delay: i * 0.08,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: child,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+          });
+        });
+      }
+    }, container);
+
+    return () => ctx.revert();
+  }, []);
+
   const getCategoryIcon = (category: string) => {
     switch (category) {
       case "Research":
@@ -11,7 +80,7 @@ export function Research() {
       case "Hackathon":
         return <Trophy className="w-4 h-4 text-[#171717]" />;
       case "AI Competition":
-        return <Sparkles className="w-4 h-4 text-[#171717]" />;
+        return <Award className="w-4 h-4 text-[#171717]" />;
       case "International Program":
         return <Globe className="w-4 h-4 text-[#171717]" />;
       default:
@@ -23,10 +92,17 @@ export function Research() {
   const otherAchievements = achievements.filter((a) => a.category !== "Research");
 
   return (
-    <section id="research" className="pt-28 sm:pt-36 pb-24 sm:pb-32 w-full bg-[#F2F0EA] border-t border-[rgba(23,23,23,0.08)] relative">
+    <section
+      id="research"
+      ref={containerRef}
+      className="pt-28 sm:pt-36 pb-24 sm:pb-32 w-full bg-[#F2F0EA] border-t border-[rgba(23,23,23,0.08)] relative"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12 space-y-16">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[rgba(23,23,23,0.08)]">
+        <div
+          ref={headerRef}
+          className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[rgba(23,23,23,0.08)] will-change-transform"
+        >
           <div className="space-y-3">
             <div className="text-[11px] font-mono-code text-[#171717] font-semibold uppercase tracking-widest flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#171717]" />
@@ -45,7 +121,10 @@ export function Research() {
 
         {/* Featured Research Publication Card */}
         {researchItem && (
-          <div className="p-8 sm:p-12 rounded-[28px] sm:rounded-[36px] bg-[#E7E4DC] border border-[rgba(23,23,23,0.12)] relative overflow-hidden shadow-sm space-y-6">
+          <div
+            ref={featuredRef}
+            className="p-8 sm:p-12 rounded-[28px] sm:rounded-[36px] bg-[#E7E4DC] border border-[rgba(23,23,23,0.12)] relative overflow-hidden shadow-sm space-y-6 will-change-transform"
+          >
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
               <div className="space-y-4 max-w-3xl">
                 <div className="flex flex-wrap items-center gap-3">
@@ -103,33 +182,39 @@ export function Research() {
           <div className="text-xs font-mono-code text-[#77736C] uppercase tracking-wider">
             Verified Competitive Honors &amp; International Programs:
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {otherAchievements.map((item) => (
-              <div
-                key={item.id}
-                className="p-6 sm:p-8 rounded-2xl bg-[#E7E4DC] border border-[rgba(23,23,23,0.08)] hover:border-[rgba(23,23,23,0.2)] transition-all space-y-3 group"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    {getCategoryIcon(item.category)}
-                    <span className="text-xs font-mono-code text-[#77736C]">
-                      {item.organization} &bull; {item.year}
+          <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {otherAchievements.map((item) => {
+              const isFullWidth = item.id === "iot-exchange-china" || item.category === "International Program";
+
+              return (
+                <div
+                  key={item.id}
+                  className={`${
+                    isFullWidth ? "col-span-full md:col-span-2" : ""
+                  } p-6 sm:p-8 rounded-2xl bg-[#E7E4DC] border border-[rgba(23,23,23,0.08)] hover:border-[rgba(23,23,23,0.2)] transition-all space-y-3 group`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2.5">
+                      {getCategoryIcon(item.category)}
+                      <span className="text-xs font-mono-code text-[#77736C]">
+                        {item.organization} &bull; {item.year}
+                      </span>
+                    </div>
+                    <span className="text-xs font-mono-code text-[#171717] px-2.5 py-0.5 rounded-full bg-[#FAF8F5] border border-[rgba(23,23,23,0.08)] font-semibold">
+                      {item.badge}
                     </span>
                   </div>
-                  <span className="text-xs font-mono-code text-[#171717] px-2.5 py-0.5 rounded-full bg-[#FAF8F5] border border-[rgba(23,23,23,0.08)] font-semibold">
-                    {item.badge}
-                  </span>
+
+                  <h4 className="font-serif-editorial text-2xl text-[#171717] font-bold group-hover:text-[#444444] transition-colors">
+                    {item.title}
+                  </h4>
+
+                  <p className="text-xs sm:text-sm text-[#77736C] font-sans leading-relaxed">
+                    {item.description}
+                  </p>
                 </div>
-
-                <h4 className="font-serif-editorial text-2xl text-[#171717] font-bold group-hover:text-[#444444] transition-colors">
-                  {item.title}
-                </h4>
-
-                <p className="text-xs sm:text-sm text-[#77736C] font-sans leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

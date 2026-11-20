@@ -27,7 +27,7 @@ export const achievements: AchievementItem[] = [
     organization: "Hackfest State Championship",
     year: "2025",
     category: "Hackathon",
-    description: "Secured first place champion titles across both regional and state championship rounds for innovative software architecture, robust implementation, and high-impact product execution.",
+    description: "Secured first place across both regional and state rounds for full-stack architecture and real-time execution.",
     badge: "1st Place Winner",
   },
   {
@@ -47,7 +47,7 @@ export const achievements: AchievementItem[] = [
     organization: "OpenAI & Outskill",
     year: "2025",
     category: "AI Competition",
-    description: "Selected as a national finalist among competitive engineering teams for developing intelligent AI-native product prototypes utilizing cutting-edge LLM APIs and agentic workflows.",
+    description: "Selected as a national finalist for building full-stack AI-native product prototypes and agentic workflows.",
     badge: "National Finalist",
   },
   {

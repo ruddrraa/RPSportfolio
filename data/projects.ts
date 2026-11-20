@@ -80,6 +80,8 @@ export const projects: ProjectCaseStudy[] = [
       "Inventory Management"
     ],
     stack: ["Next.js App Router", "TypeScript", "Node.js", "Express", "MongoDB", "Groq API", "OCR Engine", "Tailwind CSS v4"],
+    githubUrl: "https://github.com/ruddrraa/MunshiJi",
+    liveUrl: "https://munshiji-ruby.vercel.app/",
     category: "AI & Retail Systems",
     accentColor: "#171717",
     deviceType: "kiosk",
@@ -112,7 +114,7 @@ export const projects: ProjectCaseStudy[] = [
     githubUrl: "https://github.com/ruddrraa/CardecaAlgo",
     liveUrl: "https://cardecalgo.vercel.app",
     category: "Computer Vision & Deep Learning",
-    accentColor: "#3b82f6",
+    accentColor: "#171717",
     deviceType: "laptop",
     image: "/projects/cardeca/logo.png",
   },
@@ -143,7 +145,7 @@ export const projects: ProjectCaseStudy[] = [
     stack: ["Next.js App Router", "TypeScript", "@ai-sdk/groq", "Prisma ORM", "PostgreSQL", "FullCalendar", "Radix UI", "Tailwind CSS v4"],
     githubUrl: "https://github.com/ruddrraa/ETHOS",
     category: "Enterprise AI & Management",
-    accentColor: "#8b5cf6",
+    accentColor: "#171717",
     deviceType: "laptop",
   },
   {
@@ -174,7 +176,7 @@ export const projects: ProjectCaseStudy[] = [
     githubUrl: "https://github.com/ruddrraa/freelancer-invoice",
     liveUrl: "https://relancepay.vercel.app",
     category: "Fintech SaaS",
-    accentColor: "#06b6d4",
+    accentColor: "#171717",
     deviceType: "tablet",
   },
   {

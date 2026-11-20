@@ -251,7 +251,7 @@ export function HeroCanvas() {
       renderer.render(scene, camera);
     };
 
-    // 4. Pointer Interaction for Parallax Depth & Interactive Repulsion Distortion
+    // 4. Pointer & Touch Interaction for Parallax Depth & Interactive Repulsion Distortion
     const handleMouseMove = (event: MouseEvent) => {
       targetMouseX = (event.clientX / window.innerWidth - 0.5) * 2;
       targetMouseY = -(event.clientY / window.innerHeight - 0.5) * 2;
@@ -272,8 +272,32 @@ export function HeroCanvas() {
       targetMouseY = 0;
     };
 
+    const handleTouchMove = (event: TouchEvent) => {
+      if (!event.touches.length) return;
+      const touch = event.touches[0];
+      targetMouseX = (touch.clientX / window.innerWidth - 0.5) * 2;
+      targetMouseY = -(touch.clientY / window.innerHeight - 0.5) * 2;
+
+      const vFOV = (camera.fov * Math.PI) / 180;
+      const visibleHeight = 2 * Math.tan(vFOV / 2) * camera.position.z;
+      const visibleWidth = visibleHeight * camera.aspect;
+
+      mouseWorldX = (touch.clientX / window.innerWidth - 0.5) * visibleWidth;
+      mouseWorldY = -(touch.clientY / window.innerHeight - 0.5) * visibleHeight;
+      isHovering = true;
+    };
+
+    const handleTouchEnd = () => {
+      isHovering = false;
+      targetMouseX = 0;
+      targetMouseY = 0;
+    };
+
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
     window.addEventListener("mouseleave", handleMouseLeave, { passive: true });
+    window.addEventListener("touchstart", handleTouchMove, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
+    window.addEventListener("touchend", handleTouchEnd, { passive: true });
 
     // 5. Scroll-Linked Transition (Sculpture smoothly recedes into background)
     const scrollTriggerInstance = ScrollTrigger.create({
@@ -434,6 +458,9 @@ export function HeroCanvas() {
       resizeObserver.disconnect();
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseleave", handleMouseLeave);
+      window.removeEventListener("touchstart", handleTouchMove);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
 
       if (mount && renderer.domElement && mount.contains(renderer.domElement)) {

@@ -42,6 +42,11 @@ export const metadata: Metadata = {
     title: "Rudra Pratap Singh — Creative Developer & AI Product Engineer",
     description: profile.tagline,
   },
+  icons: {
+    icon: "/profile/portfolioicon.png",
+    shortcut: "/profile/portfolioicon.png",
+    apple: "/profile/portfolioicon.png",
+  },
 };
 
 export default function RootLayout({
@@ -52,6 +57,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="icon" href="/profile/portfolioicon.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/profile/portfolioicon.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link

@@ -1,24 +1,67 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { profile } from "@/data/profile";
 import { HeroCanvas } from "@/components/cinematic/HeroCanvas";
 import { KineticText } from "@/components/ui/KineticText";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export function Hero() {
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const metricsRef = useRef<HTMLDivElement>(null);
+  const horizonRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      if (scrollY < 1200) {
-        setScrollProgress(scrollY);
+    if (typeof window === "undefined") return;
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (prefersReducedMotion) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const ctx = gsap.context(() => {
+      // Continuous, scrub-based spatial depth parallax
+      if (stageRef.current) {
+        gsap.to(stageRef.current, {
+          y: -110,
+          scale: 0.93,
+          opacity: 0.18,
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1,
+          },
+        });
       }
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+
+      if (metricsRef.current) {
+        gsap.to(metricsRef.current, {
+          y: -50,
+          opacity: 0.25,
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1,
+          },
+        });
+      }
+    }, section);
+
+    return () => ctx.revert();
   }, []);
 
   const metrics = [
@@ -44,26 +87,24 @@ export function Hero() {
     },
   ];
 
-  // Calculate dynamic 3D depth perspective scaling on scroll (Smooth dive-in transition)
-  const depthScale = Math.max(0.92, 1 - scrollProgress * 0.00015);
-  const depthTranslateY = scrollProgress * 0.18;
-  const depthOpacity = Math.max(0.2, 1 - scrollProgress * 0.0012);
-
   return (
-    <section className="relative min-h-screen flex flex-col justify-between pt-28 sm:pt-36 pb-0 px-4 sm:px-8 md:px-12 w-full max-w-full overflow-hidden bg-[#0A0A0A] text-[#F2F0EA]">
+    <section
+      ref={sectionRef}
+      className="relative min-h-screen flex flex-col justify-between pt-28 sm:pt-36 pb-0 px-4 sm:px-8 md:px-12 w-full max-w-full overflow-hidden bg-[#0A0A0A] text-[#F2F0EA]"
+    >
       {/* 3D Image Depth Particle Portrait Canvas Layer with Cursor Repulsion Physics */}
       <HeroCanvas />
 
       {/* Top Editorial Margin Metadata */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto flex items-center justify-between text-[11px] font-mono-code text-zinc-400 border-b border-white/[0.1] pb-4">
-        <div className="flex items-center gap-2">
-          <span className="text-white font-mono font-bold">+</span>
-          <span className="tracking-wider uppercase">
+      <div className="relative z-10 w-full max-w-6xl mx-auto flex items-center justify-between text-[10px] sm:text-[11px] font-mono-code text-zinc-400 border-b border-white/[0.1] pb-4">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="text-white font-mono font-bold shrink-0">+</span>
+          <span className="tracking-wider uppercase truncate">
             FULL-STACK DEVELOPMENT &bull; COMPUTER VISION &bull; WEB PLATFORMS
           </span>
         </div>
 
-        <div className="hidden sm:flex items-center gap-4 text-zinc-400">
+        <div className="hidden sm:flex items-center gap-4 text-zinc-400 shrink-0">
           <span>KOLKATA, IN</span>
           <span className="text-white/20">&bull;</span>
           <span className="text-white font-semibold">CIIR 2026 AUTHOR</span>
@@ -72,21 +113,18 @@ export function Hero() {
 
       {/* Main Central Cinematic Staging with Hardware-Accelerated Scroll Depth Effect */}
       <div
-        className="relative z-20 my-auto py-8 sm:py-14 flex flex-col items-center justify-center text-center max-w-5xl mx-auto w-full transition-transform ease-out will-change-transform"
-        style={{
-          transform: `scale(${depthScale}) translateY(${depthTranslateY}px)`,
-          opacity: depthOpacity,
-        }}
+        ref={stageRef}
+        className="relative z-20 my-auto py-8 sm:py-14 flex flex-col items-center justify-center text-center max-w-5xl mx-auto w-full will-change-transform"
       >
         {/* Eyebrow Label (Authentic Grounded English) */}
-        <div className="mb-4 sm:mb-6 text-[11px] sm:text-xs tracking-[0.25em] font-mono-code text-zinc-400 uppercase">
+        <div className="mb-4 sm:mb-6 text-[10px] sm:text-xs tracking-[0.2em] sm:tracking-[0.25em] font-mono-code text-zinc-400 uppercase">
           Full-Stack Developer &bull; Computer Science Student
         </div>
 
         {/* Central Monumental Cursive Typography (Single Line Editorial Composition) */}
-        <div className="relative w-full flex flex-col items-center justify-center my-2">
+        <div className="relative w-full flex flex-col items-center justify-center my-2 overflow-visible">
           <div className="relative z-20 space-y-0 select-none">
-            <h1 className="font-instrument-cursive font-serif-editorial text-[clamp(2.85rem,8.5vw,9.6rem)] text-[#F2F0EA] leading-[0.90] tracking-[-0.02em] drop-shadow-[0_4px_30px_rgba(0,0,0,0.6)] flex flex-wrap items-baseline justify-center gap-x-3 sm:gap-x-5">
+            <h1 className="font-instrument-cursive font-serif-editorial text-[clamp(1.9rem,8vw,9.6rem)] text-[#F2F0EA] leading-[0.90] tracking-[-0.02em] drop-shadow-[0_4px_30px_rgba(0,0,0,0.6)] flex flex-nowrap items-baseline justify-center gap-x-2 sm:gap-x-4 md:gap-x-5 whitespace-nowrap">
               <span className="sr-only">Rudra Pratap Singh</span>
               <span className="text-[#F2F0EA] inline-block">
                 <KineticText text="Rudra" letterClassName="text-[#F2F0EA]" />
@@ -106,8 +144,8 @@ export function Hero() {
           Building responsive web applications, role-based business platforms, and applied computer vision systems. Currently pursuing B.Tech in Computer Science &amp; Business Systems at Sister Nivedita University, Kolkata.
         </p>
 
-        {/* Action Buttons (Tactile Pill CTAs) */}
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4 font-sans text-xs sm:text-sm">
+        {/* Action Buttons (Tactile Pill CTAs) - Pushed lower on mobile so 3D particle portrait lips remain unobstructed */}
+        <div className="mt-20 sm:mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4 font-sans text-xs sm:text-sm">
           <a
             href="#projects"
             aria-label="Explore Selected Work"
@@ -129,7 +167,10 @@ export function Hero() {
       </div>
 
       {/* Sarthak-style Verified Metrics Band (Exact Typography Matching Image 6) */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto py-6 border-t border-b border-white/[0.1] my-4">
+      <div
+        ref={metricsRef}
+        className="relative z-10 w-full max-w-6xl mx-auto py-6 border-t border-b border-white/[0.1] my-4 will-change-transform"
+      >
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 divide-y md:divide-y-0 md:divide-x divide-white/[0.1]">
           {metrics.map((item, idx) => (
             <div
@@ -166,7 +207,10 @@ export function Hero() {
       </div>
 
       {/* Sculptural Curved Horizon Plate (True 3D Spatial Transition without AI Badges) */}
-      <div className="w-full relative h-20 sm:h-28 md:h-36 overflow-hidden pointer-events-none mt-2">
+      <div
+        ref={horizonRef}
+        className="w-full relative h-20 sm:h-28 md:h-36 overflow-hidden pointer-events-none mt-2 -mb-[2px]"
+      >
         <svg
           viewBox="0 0 1440 120"
           fill="none"

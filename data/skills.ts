@@ -107,7 +107,7 @@ export const skillGroups: SkillGroup[] = [
     id: "creative-dev",
     category: "Creative Development & Interaction",
     subtitle: "WebGL shaders, kinetic typography, smooth physics motion, and responsive micro-interactions",
-    verifiedProject: "World-Class Portfolio",
+    verifiedProject: "Interactive Portfolio",
     verifiedSlug: "cardeca-algo",
     architectureDiagram: [
       "User Input [Pointer & Scroll]",

@@ -122,13 +122,13 @@ export function Navbar() {
             <span>{Math.round(scrollProgress)}%</span>
           </div>
 
-          <Link
-            href="/#contact"
+          <a
+            href="#contact"
             className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#171717] hover:bg-[#2E2E2E] text-[#F2F0EA] text-xs font-sans font-medium transition-colors shadow-sm group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#171717]"
           >
             <span>Let&apos;s talk</span>
             <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-          </Link>
+          </a>
 
           {/* Mobile Menu Button */}
           <button

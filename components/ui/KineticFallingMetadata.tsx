@@ -37,33 +37,33 @@ export function KineticFallingMetadata({
     if (!chars.length) return;
 
     const ctx = gsap.context(() => {
-      // Create scroll-driven character gravity tumble as the card stacks & recedes
-      gsap.fromTo(
-        chars,
-        {
-          y: 0,
-          x: 0,
-          rotation: 0,
-          opacity: 1,
+      // Start perfectly visible and structured
+      gsap.set(chars, {
+        y: 0,
+        x: 0,
+        rotation: 0,
+        opacity: 1,
+      });
+
+      // Dramatic gravity tumble as the card pins and gets stacked over
+      gsap.to(chars, {
+        y: (i) => 42 + (i % 5) * 14 + Math.random() * 12,
+        x: (i) => ((i % 2 === 0 ? 1 : -1) * (8 + (i % 4) * 4)),
+        rotation: (i) => ((i % 2 === 0 ? 1 : -1) * (22 + (i % 3) * 8)),
+        opacity: 0,
+        stagger: {
+          each: 0.02,
+          from: "random",
         },
-        {
-          y: (i) => 40 + (i % 5) * 12 + Math.random() * 15,
-          x: (i) => ((i % 2 === 0 ? 1 : -1) * (6 + (i % 4) * 3)),
-          rotation: (i) => (i % 2 === 0 ? 1 : -1) * (12 + (i % 3) * 6),
-          opacity: 0,
-          stagger: {
-            each: 0.02,
-            from: "random",
-          },
-          ease: "power2.in",
-          scrollTrigger: {
-            trigger: triggerEl,
-            start: "top top+=120",
-            end: "bottom top+=80",
-            scrub: 0.6,
-          },
-        }
-      );
+        ease: "power2.in",
+        scrollTrigger: {
+          trigger: triggerEl,
+          start: () => (window.innerWidth < 640 ? "top top+=80" : "top top+=110"),
+          end: () => (window.innerWidth < 640 ? "bottom top+=40" : "bottom top+=60"),
+          scrub: 0.6,
+          invalidateOnRefresh: true,
+        },
+      });
     }, containerEl);
 
     return () => ctx.revert();
@@ -83,7 +83,11 @@ export function KineticFallingMetadata({
             <span
               key={cIdx}
               aria-hidden="true"
-              className="falling-char inline-block will-change-transform"
+              className="falling-char inline-block will-change-transform font-mono-code"
+              style={{
+                opacity: 1,
+                transform: "translate3d(0, 0, 0)",
+              }}
             >
               {char}
             </span>
@@ -93,4 +97,3 @@ export function KineticFallingMetadata({
     </span>
   );
 }
-

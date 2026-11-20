@@ -26,7 +26,8 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const project = projects.find((p) => p.slug === slug);
+  const normalizedSlug = slug ? slug.replace(/_/g, "-") : "";
+  const project = projects.find((p) => p.slug === slug || p.slug === normalizedSlug);
 
   if (!project) return { title: "Project Not Found — Rudra Pratap Singh" };
 
@@ -58,13 +59,16 @@ export default async function ProjectCaseStudyPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = projects.find((p) => p.slug === slug);
+  const normalizedSlug = slug ? slug.replace(/_/g, "-") : "";
+  const project = projects.find((p) => p.slug === slug || p.slug === normalizedSlug);
 
   if (!project) {
     notFound();
   }
 
-  const currentIndex = projects.findIndex((p) => p.slug === slug);
+  const currentIndex = projects.findIndex(
+    (p) => p.slug === slug || p.slug === normalizedSlug
+  );
   const prevProject =
     projects[(currentIndex - 1 + projects.length) % projects.length];
   const nextProject = projects[(currentIndex + 1) % projects.length];
@@ -72,7 +76,7 @@ export default async function ProjectCaseStudyPage({
   return (
     <div className="pt-28 sm:pt-36 pb-20 px-4 sm:px-8 max-w-6xl mx-auto space-y-16">
       {/* Top Breadcrumb & Back Navigation */}
-      <div className="flex items-center justify-between border-b border-[rgba(23,23,23,0.08)] pb-4">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[rgba(23,23,23,0.08)] pb-4">
         <Link
           href="/#projects"
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E7E4DC] hover:bg-[#DDD9CF] border border-[rgba(23,23,23,0.1)] font-mono-code text-xs text-[#171717] transition-all shadow-xs"
@@ -82,7 +86,7 @@ export default async function ProjectCaseStudyPage({
         </Link>
 
         <div className="font-mono-code text-xs text-[#77736C]">
-          ... /Case Study &bull; [03.{project.number}]
+          Case Study &bull; [03.{project.number}]
         </div>
       </div>
 
@@ -281,13 +285,37 @@ export default async function ProjectCaseStudyPage({
         </Link>
       </div>
 
+      {/* Dedicated Project Inquiry & Let's Connect Banner */}
+      <div className="p-8 sm:p-10 rounded-3xl bg-[#E7E4DC] border border-[rgba(23,23,23,0.12)] flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-xs">
+        <div className="space-y-2">
+          <div className="text-[11px] font-mono-code text-[#171717] font-semibold uppercase tracking-wider flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#171717]" />
+            <span>LET&apos;S CONNECT &bull; PROJECT INQUIRY</span>
+          </div>
+          <h3 className="font-serif-editorial text-2xl sm:text-3xl text-[#171717] font-bold">
+            Interested in deploying this architecture or collaborating?
+          </h3>
+          <p className="text-xs sm:text-sm text-[#77736C] font-sans max-w-xl">
+            Available for software engineering roles, full-stack systems design, and applied AI application development.
+          </p>
+        </div>
+
+        <a
+          href="#contact"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#171717] text-[#FAF8F5] font-sans text-xs font-semibold hover:bg-[#2A2A2A] transition-all shrink-0 shadow-sm"
+        >
+          <span>Connect via Direct Channels</span>
+          <ArrowRight className="w-3.5 h-3.5" />
+        </a>
+      </div>
+
       {/* Bottom Return Bar */}
       <div className="flex items-center justify-between pt-4 border-t border-[rgba(23,23,23,0.1)] text-xs font-mono-code text-[#77736C]">
         <Link href="/#projects" className="hover:text-[#171717] transition-colors">
           &larr; Return to All Projects
         </Link>
         <a
-          href="/#contact"
+          href="#contact"
           className="text-[#171717] hover:underline transition-colors font-semibold"
         >
           Discuss Project Deployment &rarr;

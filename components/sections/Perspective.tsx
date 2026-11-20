@@ -1,29 +1,37 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { GraduationCap, BookOpen, Compass, Award } from "lucide-react";
+import { GraduationCap } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export function Perspective() {
   const containerRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLDivElement>(null);
+  const quoteRef = useRef<HTMLDivElement>(null);
   const pillarsRef = useRef<HTMLDivElement>(null);
+  const academicRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (prefersReducedMotion) return;
+
     gsap.registerPlugin(ScrollTrigger);
 
     const container = containerRef.current;
     if (!container) return;
 
     const ctx = gsap.context(() => {
-      // Subtle editorial headline reveal
+      // AOS-style smooth scroll reveal for headline
       if (headlineRef.current) {
         gsap.from(headlineRef.current, {
           y: 40,
           opacity: 0,
-          duration: 1.0,
+          duration: 0.9,
           ease: "power2.out",
           scrollTrigger: {
             trigger: headlineRef.current,
@@ -33,7 +41,23 @@ export function Perspective() {
         });
       }
 
-      // Staggered pillars reveal
+      // AOS reveal for manifesto statement
+      if (quoteRef.current) {
+        gsap.from(quoteRef.current, {
+          y: 35,
+          opacity: 0,
+          duration: 0.8,
+          delay: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: quoteRef.current,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      }
+
+      // AOS staggered entrance for architectural pillars
       if (pillarsRef.current) {
         gsap.from(pillarsRef.current.children, {
           y: 35,
@@ -44,6 +68,21 @@ export function Perspective() {
           scrollTrigger: {
             trigger: pillarsRef.current,
             start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      }
+
+      // AOS reveal for academic foundation
+      if (academicRef.current) {
+        gsap.from(academicRef.current, {
+          y: 35,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: academicRef.current,
+            start: "top 85%",
             toggleActions: "play none none reverse",
           },
         });
@@ -91,10 +130,10 @@ export function Perspective() {
       className="pt-28 sm:pt-36 pb-24 sm:pb-32 w-full bg-[#F2F0EA] relative"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12 space-y-20">
-        {/* Section Header & Index (With generous clearance below floating navbar) */}
+        {/* Section Header & Index */}
         <div
           ref={headlineRef}
-          className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[rgba(23,23,23,0.08)]"
+          className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[rgba(23,23,23,0.08)] will-change-transform"
         >
           <div className="space-y-3">
             <div className="text-[11px] font-mono-code text-[#171717] font-semibold uppercase tracking-widest flex items-center gap-2">
@@ -115,12 +154,12 @@ export function Perspective() {
           </div>
         </div>
 
-        {/* Large Editorial Manifesto Statement (High-Impact Typography matching Image 1) */}
-        <div className="max-w-4xl space-y-6">
-          <blockquote className="font-serif-editorial italic text-2xl sm:text-3xl md:text-4xl text-[#77736C] leading-[1.3] font-normal">
+        {/* Large Editorial Manifesto Statement */}
+        <div ref={quoteRef} className="max-w-4xl space-y-6 will-change-transform">
+          <blockquote className="font-serif-editorial italic text-2xl sm:text-3xl md:text-4xl text-[#171717] leading-[1.3] font-normal">
             &ldquo;I do not view engineering as merely assembling generic templates. Every system is a synthesis of architectural discipline, data integrity, and tactile human interaction.&rdquo;
           </blockquote>
-          <p className="text-base sm:text-lg text-[#77736C] leading-relaxed font-sans max-w-3xl">
+          <p className="text-base sm:text-lg text-[#4A4742] leading-relaxed font-sans max-w-3xl">
             Whether fine-tuning an RT-DETR transformer for fine-grained vehicle localization or deploying multi-tenant RBAC permissions for enterprise clients, the objective is constant: durable software that solves real problems with clarity and verifiable performance.
           </p>
         </div>
@@ -133,13 +172,13 @@ export function Perspective() {
           {pillars.map((pillar) => (
             <div
               key={pillar.roman}
-              className="py-8 md:py-0 px-0 md:px-8 first:pl-0 last:pr-0 space-y-4 group"
+              className="py-8 md:py-0 px-0 md:px-8 first:pl-0 last:pr-0 space-y-4 group will-change-transform"
             >
               <div className="flex items-center justify-between text-xs font-mono-code text-[#77736C]">
                 <span className="font-serif-editorial text-2xl text-[#171717] font-bold">
                   {pillar.roman}
                 </span>
-                <span className="text-[10px] tracking-widest text-[#9E998F] uppercase">
+                <span className="text-[10px] tracking-widest text-[#77736C] uppercase font-mono-code">
                   {pillar.tag}
                 </span>
               </div>
@@ -148,7 +187,7 @@ export function Perspective() {
                 {pillar.title}
               </h3>
 
-              <p className="text-sm text-[#77736C] font-sans leading-relaxed">
+              <p className="text-sm text-[#4A4742] font-sans leading-relaxed">
                 {pillar.description}
               </p>
             </div>
@@ -156,7 +195,10 @@ export function Perspective() {
         </div>
 
         {/* Academic Foundation & Peer-Reviewed Strip */}
-        <div className="p-8 sm:p-12 rounded-[28px] sm:rounded-[36px] bg-[#E7E4DC] border border-[rgba(23,23,23,0.12)] grid grid-cols-1 lg:grid-cols-12 gap-8 items-center shadow-sm">
+        <div
+          ref={academicRef}
+          className="p-8 sm:p-12 rounded-[28px] sm:rounded-[36px] bg-[#E7E4DC] border border-[rgba(23,23,23,0.12)] grid grid-cols-1 lg:grid-cols-12 gap-8 items-center shadow-sm will-change-transform"
+        >
           <div className="lg:col-span-7 space-y-4">
             <div className="flex items-center gap-2 font-mono-code text-xs text-[#171717]">
               <GraduationCap className="w-4 h-4" />
@@ -167,12 +209,12 @@ export function Perspective() {
             <h4 className="font-serif-editorial text-2xl sm:text-3xl text-[#171717] font-bold">
               Bachelor of Technology in Computer Science &amp; Business Systems (CSBS)
             </h4>
-            <p className="text-sm text-[#77736C] font-sans leading-relaxed max-w-2xl">
+            <p className="text-sm text-[#4A4742] font-sans leading-relaxed max-w-2xl">
               Sister Nivedita University, Kolkata (2024–2028). Synthesizing core computer science algorithms, deep learning vision models, and distributed systems with enterprise business workflow analysis and product strategy.
             </p>
 
-            {/* School Education Foundation (CBSE / Senior Secondary PCM with CS) */}
-            <div className="pt-2 border-t border-[rgba(23,23,23,0.08)] flex items-center gap-3 text-xs font-mono-code text-[#77736C]">
+            {/* School Education Foundation */}
+            <div className="pt-2 border-t border-[rgba(23,23,23,0.08)] flex flex-wrap items-center gap-2 sm:gap-3 text-xs font-mono-code text-[#77736C]">
               <span className="font-semibold text-[#171717]">Secondary &amp; Senior Secondary Foundation:</span>
               <span>Kolkata, WB &bull; Science (PCM &amp; Computer Science)</span>
             </div>
