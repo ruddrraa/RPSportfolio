@@ -268,10 +268,26 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Minimal Baseline */}
-        <div className="pt-8 border-t border-[#171717]/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono-code text-[#77736C]">
-          <div>
-            &copy; {new Date().getFullYear()} Rudra Pratap Singh.
+        {/* Editorial Signature & Baseline */}
+        <div className="pt-10 sm:pt-16 border-t border-[#171717]/10 space-y-6">
+          {/* Monumental Editorial Signature matching Hero composition */}
+          <div className="select-none overflow-visible">
+            <div className="font-instrument-cursive font-serif-editorial text-[clamp(2.4rem,7vw,6.5rem)] text-[#171717] leading-[0.92] tracking-[-0.02em] flex flex-nowrap items-baseline gap-x-2 sm:gap-x-4 whitespace-nowrap">
+              <span className="text-[#171717] inline-block">Rudra</span>
+              <span className="text-[#77736C] inline-block font-instrument-cursive italic">Pratap</span>
+              <span className="text-[#171717] inline-block">Singh</span>
+            </div>
+          </div>
+
+          {/* Minimal Baseline */}
+          <div className="pt-6 border-t border-[#171717]/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono-code text-[#77736C]">
+            <div>
+              &copy; {new Date().getFullYear()} Rudra Pratap Singh.
+            </div>
+            <div className="flex items-center gap-1.5 text-[#77736C]">
+              <MapPin className="w-3.5 h-3.5 text-[#171717]" aria-hidden="true" />
+              <span>Kolkata, India</span>
+            </div>
           </div>
         </div>
       </div>
