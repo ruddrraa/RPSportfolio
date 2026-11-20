@@ -1,15 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import {
   Shield,
   Activity,
-  MapPin,
-  Clock,
   CheckCircle,
   FileText,
   DollarSign,
-  AlertTriangle,
   Cpu,
   Terminal,
   Volume2,
@@ -19,6 +16,9 @@ import {
   Sliders,
   Send,
   Users,
+  Radio,
+  ArrowRight,
+  GitBranch,
 } from "lucide-react";
 
 interface ProjectInterfacePreviewProps {
@@ -32,190 +32,190 @@ export function ProjectInterfacePreview({
   title,
   accentColor,
 }: ProjectInterfacePreviewProps) {
-  // 1. EtechCRM 2D Interface Presentation
+  // 1. EtechCRM 2D Interface Presentation (Purged & Verified)
   if (slug === "etechcrm") {
     return (
-      <div className="w-full rounded-2xl bg-[#0D0D0D] border border-[#262626] overflow-hidden shadow-2xl font-mono-code text-xs">
-        {/* Engineering Telemetry Header (Replaces fake macOS dots) */}
-        <div className="px-4 py-3 bg-[#141414] border-b border-[#222222] flex items-center justify-between">
+      <div className="w-full rounded-2xl bg-[#141414] border border-white/[0.08] overflow-hidden shadow-2xl font-mono-code text-xs">
+        {/* Prominent Illustrative Header */}
+        <div className="px-4 py-3 bg-[#1A1A1A] border-b border-white/[0.08] flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2 text-[11px]">
-            <span className="text-[#666666]">ROUTE:</span>
-            <span className="text-white font-medium">GET /api/v1/visits</span>
-            <span className="text-emerald-400 bg-emerald-400/10 px-1.5 py-0.5 rounded text-[10px]">
-              200 OK
-            </span>
+            <span className="text-[#888888]">[ILLUSTRATIVE ENTERPRISE WORKFLOW]</span>
+            <span className="text-[#555555]">&bull;</span>
+            <span className="text-white font-medium">VERIFIED SYSTEM ARCHITECTURE</span>
           </div>
-          <div className="flex items-center gap-2 text-emerald-400 text-[10px] bg-emerald-400/10 px-2.5 py-0.5 rounded border border-emerald-400/20">
-            <span>FIELD_EXECUTIVE • RBAC ACTIVE</span>
+          <div className="flex items-center gap-2 text-white text-[10px] bg-white/[0.08] px-2.5 py-0.5 rounded border border-white/[0.15]">
+            <span>ROLE-BASED ACCESS CONTROL (RBAC)</span>
           </div>
         </div>
 
         {/* Dashboard Content */}
         <div className="p-4 sm:p-5 space-y-4">
-          {/* Header Stats */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
-            <div className="p-2.5 rounded-xl bg-[#141414] border border-[#222222]">
-              <div className="text-[10px] text-[#777777]">Client Accounts</div>
-              <div className="text-sm sm:text-base font-bold text-white">1,420 Active</div>
+          {/* Architecture Feature Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+            <div className="p-3 rounded-xl bg-[#181818] border border-white/[0.06]">
+              <div className="text-[10px] text-[#888888]">Client Management</div>
+              <div className="text-xs sm:text-sm font-semibold text-white mt-1">
+                Role-Based Client Management (Super Admin, Head, Executive)
+              </div>
             </div>
-            <div className="p-2.5 rounded-xl bg-[#141414] border border-[#222222]">
-              <div className="text-[10px] text-[#777777]">Field Visits Today</div>
-              <div className="text-sm sm:text-base font-bold text-emerald-400">28 Logged</div>
+            <div className="p-3 rounded-xl bg-[#181818] border border-white/[0.06]">
+              <div className="text-[10px] text-[#888888]">Field Operations</div>
+              <div className="text-xs sm:text-sm font-semibold text-white mt-1">
+                GPS &amp; Timestamp Field Visit Logging
+              </div>
             </div>
-            <div className="col-span-2 sm:col-span-1 p-2.5 rounded-xl bg-[#141414] border border-[#222222]">
-              <div className="text-[10px] text-[#777777]">Data Isolation</div>
-              <div className="text-sm sm:text-base font-bold text-white">RBAC Team-Scoped</div>
+            <div className="p-3 rounded-xl bg-[#181818] border border-white/[0.06]">
+              <div className="text-[10px] text-[#888888]">Data Isolation</div>
+              <div className="text-xs sm:text-sm font-semibold text-white mt-1">
+                Workspace Tenant Isolation via Express Middleware
+              </div>
             </div>
           </div>
 
-          {/* Active Field Visit Log */}
-          <div className="p-3.5 rounded-xl bg-[#121212] border border-[#242424] space-y-2.5">
+          {/* Verified Schema Definition */}
+          <div className="p-3.5 rounded-xl bg-[#101010] border border-white/[0.06] space-y-2">
             <div className="flex items-center justify-between text-[11px]">
-              <span className="text-white font-semibold">Latest Field Verification</span>
-              <span className="text-emerald-400 flex items-center gap-1">
-                <CheckCircle className="w-3 h-3" />
-                <span>Verified Field Visit</span>
+              <span className="text-white font-semibold">
+                Client Directory &amp; Account Profiles (Data Isolation by Workspace)
               </span>
+              <span className="text-stone-300 text-[10px]">Mongoose Schema</span>
             </div>
 
-            <div className="text-[11px] text-[#A6A6A6] space-y-1 bg-[#161616] p-2.5 rounded-lg border border-[#222222]">
-              <div className="text-white font-medium">Account: Excel Industrial Logistics (Howrah Hub)</div>
-              <div className="text-[10px] text-[#777777] flex flex-wrap gap-x-3 gap-y-1">
-                <span>Location: Howrah Industrial Estate</span>
-                <span>Time: 14:32 IST</span>
-                <span>Executive: EX-04</span>
-              </div>
-              <div className="text-[10px] text-emerald-400/90 pt-0.5">
-                Remarks: Equipment inspection logged. Photo report attached via signed Cloudinary upload.
+            <div className="text-[11px] text-[#A6A6A6] space-y-1 bg-[#161616] p-3 rounded-lg border border-white/[0.04]">
+              <div className="text-[#888888] text-[10px] uppercase tracking-wider">Field Visit Record Contract:</div>
+              <div className="text-[#D4D0C8] font-mono-code text-[10px] space-y-0.5 pt-1">
+                <div>coordinates: &#123; lat: Float, lng: Float &#125;</div>
+                <div>timestamp: ISODate (System Verified)</div>
+                <div>remarks: &quot;Scheduled client hardware inspection and maintenance review&quot;</div>
+                <div>followUpRequired: true</div>
+                <div>photoUrl: &quot;https://res.cloudinary.com/.../signed-field-log.webp&quot;</div>
               </div>
             </div>
           </div>
 
-          <div className="flex items-center justify-between text-[10px] text-[#666666] pt-1">
-            <span>Stack: React 19 &bull; Vite &bull; MongoDB Atlas</span>
-            <span className="text-white font-medium">Production Deployed &bull; Vercel</span>
+          <div className="flex items-center justify-between text-[10px] text-[#77736C] pt-1">
+            <span>Stack: React 19 &bull; Vite &bull; Node.js Express 5 &bull; MongoDB Atlas</span>
+            <span className="text-[#D4D0C8] font-medium">Production Client System &bull; Excel Technologies</span>
           </div>
         </div>
       </div>
     );
   }
 
-  // 2. MunshiJi AI 2D Interface Presentation
+  // 2. MunshiJi AI 2D Interface Presentation (Purged & Verified)
   if (slug === "munshiji-ai") {
     return (
-      <div className="w-full rounded-2xl bg-[#0D0D0D] border border-[#262626] overflow-hidden shadow-2xl font-mono-code text-xs">
-        {/* Engineering Telemetry Header */}
-        <div className="px-4 py-3 bg-[#141414] border-b border-[#222222] flex items-center justify-between">
+      <div className="w-full rounded-2xl bg-[#141414] border border-white/[0.08] overflow-hidden shadow-2xl font-mono-code text-xs">
+        {/* Prominent Illustrative Header */}
+        <div className="px-4 py-3 bg-[#1A1A1A] border-b border-white/[0.08] flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2 text-[11px]">
-            <span className="text-[#666666]">INGESTION:</span>
-            <span className="text-white font-medium">POST /api/v1/ledger/parse</span>
-            <span className="text-amber-400 bg-amber-400/10 px-1.5 py-0.5 rounded text-[10px]">
-              GROQ Llama-3-70b
-            </span>
+            <span className="text-[#888888]">[ILLUSTRATIVE OCR WORKFLOW]</span>
+            <span className="text-[#555555]">&bull;</span>
+            <span className="text-white font-medium">GROQ VISION &amp; OCR INGESTION FLOW</span>
           </div>
           <div className="flex items-center gap-1.5 text-amber-400 text-[10px] bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/20">
             <Volume2 className="w-3 h-3" />
-            <span>VOICE & OCR PIPELINE</span>
+            <span>VOICE &amp; RECEIPT PARSER</span>
           </div>
         </div>
 
         {/* Content */}
         <div className="p-4 sm:p-5 space-y-4">
-          {/* Voice Prompt Simulation */}
+          {/* Sample Voice / Text Prompt Simulation */}
           <div className="p-3 rounded-xl bg-amber-500/5 border border-amber-500/20 space-y-1.5">
             <div className="text-[10px] text-amber-400 flex items-center gap-1.5 font-bold">
               <Sparkles className="w-3 h-3" />
-              <span>NATURAL LANGUAGE VOICE QUERY PARSED</span>
+              <span>[Illustrative Sample Natural Language Voice Query]</span>
             </div>
             <div className="text-xs text-[#E5E5E5] italic">
-              &quot;Add 20 units 1-inch galvanized pipe and 15 brass fittings to Shree Krishna Hardware ledger&quot;
+              &quot;Record 20 units industrial coupling and 15 brass valve fittings to client credit ledger&quot;
             </div>
           </div>
 
-          {/* Structured Invoice Line Items */}
-          <div className="rounded-xl bg-[#141414] border border-[#222222] p-3 space-y-2">
-            <div className="flex justify-between text-[11px] border-b border-[#262626] pb-1.5 text-[#888888]">
-              <span>ITEM DESCRIPTION</span>
-              <span>TOTAL (INC. GST)</span>
+          {/* Structured OCR Extraction Mockup */}
+          <div className="rounded-xl bg-[#181818] border border-white/[0.06] p-3 space-y-2">
+            <div className="flex justify-between items-center text-[10px] border-b border-white/[0.06] pb-1.5 text-[#888888]">
+              <span>[ILLUSTRATIVE OCR EXTRACTION MOCKUP]</span>
+              <span>PARSED TAX &amp; TOTALS</span>
             </div>
             <div className="space-y-1.5 text-[11px]">
-              <div className="flex justify-between text-white">
-                <span>1-Inch Galvanized Pipe (20 units @ ₹420)</span>
-                <span>₹8,400.00</span>
+              <div className="flex justify-between text-[#D4D0C8]">
+                <span>Industrial Coupling Components (20 units)</span>
+                <span>Structured Line Item</span>
               </div>
-              <div className="flex justify-between text-white">
-                <span>Brass Fittings (15 units @ ₹180)</span>
-                <span>₹2,700.00</span>
+              <div className="flex justify-between text-[#D4D0C8]">
+                <span>Brass Valve Fittings (15 units)</span>
+                <span>Structured Line Item</span>
               </div>
-              <div className="flex justify-between text-[10px] text-emerald-400 pt-1 border-t border-[#1F1F1F]">
-                <span>Calculated CGST (9%) + SGST (9%)</span>
-                <span>₹1,998.00</span>
+              <div className="flex justify-between text-[10px] text-white pt-1 border-t border-white/[0.06]">
+                <span>Automated GST Calculation (CGST 9% + SGST 9%)</span>
+                <span>Verified Tax Aggregator</span>
               </div>
             </div>
           </div>
 
-          {/* Ledger Update Pill */}
-          <div className="p-2.5 rounded-lg bg-[#161616] border border-[#282828] flex justify-between items-center text-[10px]">
-            <span className="text-[#888888]">Customer Account:</span>
-            <span className="text-white font-semibold">Shree Krishna Hardware &bull; Updated Balance: ₹13,098.00</span>
+          {/* Ledger Workflow Schema */}
+          <div className="p-2.5 rounded-lg bg-[#101010] border border-white/[0.06] flex justify-between items-center text-[10px]">
+            <span className="text-[#888888]">Chronological Credit Ledger:</span>
+            <span className="text-[#E7E4DC] font-semibold">Customer Ledger Audit Trail &bull; Thermal ESC/POS Export</span>
           </div>
 
-          <div className="flex items-center justify-between text-[10px] text-[#666666]">
-            <span>Groq AI OCR &bull; Fast GST Invoicing</span>
-            <span className="text-amber-400">Thermal ESC/POS Ready</span>
+          <div className="flex items-center justify-between text-[10px] text-[#77736C]">
+            <span>Pipeline: Physical Invoice &rarr; OCR Text &rarr; Groq Structured JSON &rarr; Ledger</span>
+            <span className="text-amber-400">Live Active Prototype</span>
           </div>
         </div>
       </div>
     );
   }
 
-  // 3. CardecaAlgo 2D Interface Presentation
+  // 3. CardecaAlgo 2D Interface Presentation (Purged & Verified)
   if (slug === "cardeca-algo") {
     return (
-      <div className="w-full rounded-2xl bg-[#0D0D0D] border border-[#262626] overflow-hidden shadow-2xl font-mono-code text-xs">
-        {/* Engineering Telemetry Header */}
-        <div className="px-4 py-3 bg-[#141414] border-b border-[#222222] flex items-center justify-between">
+      <div className="w-full rounded-2xl bg-[#141414] border border-white/[0.08] overflow-hidden shadow-2xl font-mono-code text-xs">
+        {/* Prominent Illustrative Header */}
+        <div className="px-4 py-3 bg-[#1A1A1A] border-b border-white/[0.08] flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2 text-[11px]">
-            <span className="text-[#666666]">INFERENCE:</span>
-            <span className="text-white font-medium">RT-DETR-R50vd + EfficientNet-B4</span>
-            <span className="text-blue-400 bg-blue-400/10 px-1.5 py-0.5 rounded text-[10px]">
-              24ms LATENCY
-            </span>
+            <span className="text-[#888888]">[ILLUSTRATIVE OBJECT DETECTION CANVAS]</span>
+            <span className="text-[#555555]">&bull;</span>
+            <span className="text-white font-medium">RT-DETR-R50vd + PyTorch EfficientNet-B4</span>
           </div>
           <div className="flex items-center gap-1.5 text-blue-400 text-[10px] bg-blue-400/10 px-2 py-0.5 rounded border border-blue-400/20">
             <Cpu className="w-3 h-3" />
-            <span>PYTORCH RUNTIME</span>
+            <span>DEEP LEARNING PIPELINE</span>
           </div>
         </div>
 
         {/* Visual Computer Vision Bounding Box Canvas Simulation */}
         <div className="p-4 sm:p-5 space-y-4">
           {/* Simulated Camera Viewport with Bounding Box Overlay */}
-          <div className="relative aspect-[16/9] w-full rounded-xl bg-[#111111] border border-[#2B2B2B] overflow-hidden flex flex-col justify-between p-3 sm:p-4">
+          <div className="relative aspect-[16/9] w-full rounded-xl bg-[#0D0D0D] border border-white/[0.08] overflow-hidden flex flex-col justify-between p-3 sm:p-4">
             {/* Grid Scan Lines */}
-            <div className="absolute inset-0 bg-[radial-gradient(#222_1px,transparent_1px)] [background-size:16px_16px] opacity-40 pointer-events-none" />
+            <div className="absolute inset-0 bg-[radial-gradient(#333_1px,transparent_1px)] [background-size:16px_16px] opacity-30 pointer-events-none" />
 
             {/* Top Viewport Header */}
-            <div className="relative z-10 flex justify-between text-[10px] text-[#777777]">
-              <span>FEED: CAM_01_FRONTAL</span>
-              <span className="text-emerald-400">FPS: 42.6 &bull; RES: 1920&times;1080</span>
+            <div className="relative z-10 flex justify-between text-[10px] text-[#888888]">
+              <span>SAMPLE_STREAM: VEHICLE_INSPECTION_BENCHMARK</span>
+              <span className="text-blue-400">
+                Real-Time Object Localization &amp; Interactive Bounding Box Inspection
+              </span>
             </div>
 
             {/* Detected Vehicle Bounding Box Overlay (Pure CSS Precision) */}
             <div className="relative z-10 mx-auto w-4/5 sm:w-3/4 h-28 sm:h-36 rounded-lg border-2 border-blue-400/90 bg-blue-500/10 p-2 flex flex-col justify-between shadow-[0_0_20px_rgba(59,130,246,0.25)]">
-              {/* Bounding Box Corner Reticles */}
+              {/* Bounding Box Reticles */}
               <div className="flex justify-between items-start">
                 <span className="bg-blue-600 text-white font-bold text-[9px] sm:text-[10px] px-1.5 py-0.5 rounded shadow">
-                  RT-DETR: VEHICLE_SEDAN [CONF: 0.96]
+                  RT-DETR: VEHICLE_DETECTION [CONF: 0.96]
                 </span>
                 <span className="text-[9px] text-blue-300 font-bold bg-black/60 px-1 rounded">
-                  ID #0842
+                  SAMPLE #0842
                 </span>
               </div>
 
               <div className="space-y-0.5 bg-black/80 backdrop-blur-md p-1.5 rounded border border-blue-400/30 text-[9px] sm:text-[10px] text-white">
-                <div className="font-semibold text-emerald-400">
-                  Classifier: PyTorch EfficientNet-B4
+                <div className="font-semibold text-blue-300">
+                  PyTorch EfficientNet-B4 Multi-Attribute Classifier
                 </div>
                 <div className="text-[#CCCCCC]">Classification: Sedan &bull; Class: Mid-Size &bull; Color: Grey</div>
               </div>
@@ -224,35 +224,33 @@ export function ProjectInterfacePreview({
             {/* Bottom Controls */}
             <div className="relative z-10 flex justify-between items-center text-[10px] text-[#A6A6A6]">
               <span>Konva Canvas 2D Vector Layer</span>
-              <span className="text-blue-400 font-semibold">jsPDF Inspection Certificate Ready</span>
+              <span className="text-blue-400 font-semibold">jsPDF Inspection Certificate Export Ready</span>
             </div>
           </div>
 
-          <div className="flex items-center justify-between text-[10px] text-[#666666]">
-            <span>Model: RT-DETR + EfficientNet</span>
-            <span className="text-emerald-400">Live Web App Deployed</span>
+          <div className="flex items-center justify-between text-[10px] text-[#77736C]">
+            <span>Model: RT-DETR-R50vd + EfficientNet-B4 &bull; Konva 2D</span>
+            <span className="text-[#E7E4DC]">Interactive Engineering Demo</span>
           </div>
         </div>
       </div>
     );
   }
 
-  // 4. ETHOS 2D Interface Presentation
+  // 4. ETHOS 2D Interface Presentation (Purged & Verified)
   if (slug === "ethos") {
     return (
-      <div className="w-full rounded-2xl bg-[#0D0D0D] border border-[#262626] overflow-hidden shadow-2xl font-mono-code text-xs">
-        {/* Engineering Telemetry Header */}
-        <div className="px-4 py-3 bg-[#141414] border-b border-[#222222] flex items-center justify-between">
+      <div className="w-full rounded-2xl bg-[#141414] border border-white/[0.08] overflow-hidden shadow-2xl font-mono-code text-xs">
+        {/* Prominent Illustrative Header */}
+        <div className="px-4 py-3 bg-[#1A1A1A] border-b border-white/[0.08] flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2 text-[11px]">
-            <span className="text-[#666666]">AUTH:</span>
-            <span className="text-white font-medium">POST /api/auth/session</span>
-            <span className="text-purple-400 bg-purple-400/10 px-1.5 py-0.5 rounded text-[10px]">
-              JWT VERIFIED
-            </span>
+            <span className="text-[#888888]">[ILLUSTRATIVE HRMS WORKFLOW]</span>
+            <span className="text-[#555555]">&bull;</span>
+            <span className="text-white font-medium">ENTERPRISE SYSTEM ARCHITECTURE</span>
           </div>
           <div className="flex items-center gap-1.5 text-purple-400 text-[10px] bg-purple-400/10 px-2 py-0.5 rounded border border-purple-400/20">
             <Users className="w-3 h-3" />
-            <span>ROLE: HR_ADMIN</span>
+            <span>ROLE: HR_ADMINISTRATOR</span>
           </div>
         </div>
 
@@ -263,152 +261,176 @@ export function ProjectInterfacePreview({
             <div className="flex items-center justify-between text-[10px] text-purple-400 font-bold">
               <span className="flex items-center gap-1.5">
                 <Sparkles className="w-3 h-3" />
-                <span>GROQ AI HR POLICY ASSISTANT</span>
+                <span>GROQ LLAMA-3 API POLICY ASSISTANT</span>
               </span>
-              <span>LATENCY: 120ms</span>
+              <span className="text-[#888888]">RAG POLICY COPILOT</span>
             </div>
-            <div className="text-[11px] text-[#DDDDDD] leading-relaxed bg-[#141414] p-2.5 rounded-lg border border-[#222222]">
-              &quot;Under Section 4.2 of Company Policy, maternity leave allows 26 paid weeks. Employee #109 is fully eligible with automated manager approval.&quot;
+            <div className="text-[11px] text-[#DDDDDD] leading-relaxed bg-[#101010] p-2.5 rounded-lg border border-white/[0.06]">
+              &quot;Sample HR Query: Under Section 4.2 of Company Policy, maternity leave allows 26 paid weeks. Verified automated manager sign-off workflow active.&quot;
             </div>
           </div>
 
           {/* Attendance & Shift Summary */}
-          <div className="grid grid-cols-2 gap-2 text-[11px]">
-            <div className="p-2.5 rounded-xl bg-[#141414] border border-[#242424]">
-              <div className="text-[10px] text-[#777777]">FullCalendar Shifts</div>
-              <div className="text-white font-semibold mt-0.5">94% Attendance</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
+            <div className="p-2.5 rounded-xl bg-[#181818] border border-white/[0.06]">
+              <div className="text-[10px] text-[#888888]">Shift Scheduling &amp; Leaves</div>
+              <div className="text-[#E7E4DC] font-medium text-xs mt-0.5">
+                Interactive Shift Scheduling &amp; Leave Tracking via FullCalendar
+              </div>
             </div>
-            <div className="p-2.5 rounded-xl bg-[#141414] border border-[#242424]">
-              <div className="text-[10px] text-[#777777]">Prisma ORM</div>
-              <div className="text-emerald-400 font-semibold mt-0.5">PostgreSQL Synced</div>
+            <div className="p-2.5 rounded-xl bg-[#181818] border border-white/[0.06]">
+              <div className="text-[10px] text-[#888888]">Database Engine</div>
+              <div className="text-purple-300 font-medium text-xs mt-0.5">
+                Prisma ORM &bull; PostgreSQL ACID Relational Model
+              </div>
             </div>
           </div>
 
-          <div className="flex items-center justify-between text-[10px] text-[#666666]">
-            <span>Next.js 15 App Router &bull; Prisma</span>
-            <span className="text-white">Multi-Tier RBAC</span>
+          <div className="flex items-center justify-between text-[10px] text-[#77736C]">
+            <span>Next.js 15 App Router &bull; Prisma &bull; PostgreSQL &bull; Groq AI SDK</span>
+            <span className="text-[#D4D0C8]">Verified GitHub Repository</span>
           </div>
         </div>
       </div>
     );
   }
 
-  // 5. RelancePay 2D Interface Presentation
+  // 5. RelancePay 2D Interface Presentation (Purged & Verified)
   if (slug === "relancepay") {
     return (
-      <div className="w-full rounded-2xl bg-[#0D0D0D] border border-[#262626] overflow-hidden shadow-2xl font-mono-code text-xs">
-        {/* Engineering Telemetry Header */}
-        <div className="px-4 py-3 bg-[#141414] border-b border-[#222222] flex items-center justify-between">
+      <div className="w-full rounded-2xl bg-[#141414] border border-white/[0.08] overflow-hidden shadow-2xl font-mono-code text-xs">
+        {/* Prominent Illustrative Header */}
+        <div className="px-4 py-3 bg-[#1A1A1A] border-b border-white/[0.08] flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2 text-[11px]">
-            <span className="text-[#666666]">TRANSACTION:</span>
-            <span className="text-white font-medium">POST /api/invoices/generate</span>
-            <span className="text-cyan-400 bg-cyan-400/10 px-1.5 py-0.5 rounded text-[10px]">
-              201 CREATED
-            </span>
+            <span className="text-[#888888]">[ILLUSTRATIVE INVOICE PREVIEW]</span>
+            <span className="text-[#555555]">&bull;</span>
+            <span className="text-white font-medium">MULTI-CURRENCY BILLING ENGINE</span>
           </div>
           <div className="flex items-center gap-1.5 text-cyan-400 text-[10px] bg-cyan-400/10 px-2 py-0.5 rounded border border-cyan-400/20">
             <DollarSign className="w-3 h-3" />
-            <span>MULTI-CURRENCY ENGINE</span>
+            <span>DUAL TAX ARCHITECTURE</span>
           </div>
         </div>
 
         {/* Content */}
         <div className="p-4 sm:p-5 space-y-4">
-          {/* Dual Tax & Multi-Currency Switcher Simulation */}
-          <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#141414] border border-[#242424]">
-            <span className="text-[11px] text-[#A6A6A6]">Billing Mode:</span>
+          {/* Dual Tax Mode Switcher Simulation */}
+          <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#181818] border border-white/[0.06]">
+            <span className="text-[11px] text-[#A6A6A6]">Billing Configuration Mode:</span>
             <div className="flex gap-1.5">
               <span className="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 text-[10px] font-bold border border-cyan-500/30">
-                INR (GST 18%)
+                Domestic GST (18%)
               </span>
-              <span className="px-2 py-0.5 rounded bg-[#1C1C1C] text-[#888888] text-[10px]">
-                USD Global (Flat)
+              <span className="px-2 py-0.5 rounded bg-[#101010] text-[#888888] text-[10px]">
+                Global USD / EUR (Flat)
               </span>
             </div>
           </div>
 
-          {/* Invoice Summary Box */}
-          <div className="p-3.5 rounded-xl bg-[#121212] border border-[#242424] space-y-2">
-            <div className="flex justify-between text-[11px] text-white">
-              <span>Client: Apex Digital Solutions</span>
-              <span>Invoice #RP-2026-089</span>
+          {/* Sample Invoice Structure */}
+          <div className="p-3.5 rounded-xl bg-[#101010] border border-white/[0.06] space-y-2">
+            <div className="flex justify-between items-center text-[11px] text-white">
+              <span>Client Profile: Verified Client Account (Sample Invoicing Structure)</span>
+              <span className="text-[10px] text-[#888888]">Invoice Template Schema</span>
             </div>
-            <div className="space-y-1 text-[10px] text-[#888888] pt-1 border-t border-[#1F1F1F]">
+            <div className="space-y-1 text-[10px] text-[#888888] pt-1 border-t border-white/[0.06]">
               <div className="flex justify-between">
-                <span>Subtotal (Consulting & Dev)</span>
-                <span className="text-white">₹75,000.00</span>
+                <span>Core Engineering &amp; UI Architecture Services</span>
+                <span className="text-[#D4D0C8]">Dynamic Unit Calculation</span>
               </div>
               <div className="flex justify-between text-cyan-400">
-                <span>Calculated GST (18%)</span>
-                <span>₹13,500.00</span>
+                <span>Calculated Tax Mode (Dual: Domestic GST vs Foreign Remittance)</span>
+                <span>Automated Tax Rules</span>
               </div>
-              <div className="flex justify-between font-bold text-white text-[11px] pt-1 border-t border-[#222222]">
-                <span>Total Due</span>
-                <span className="text-emerald-400">₹88,500.00</span>
+              <div className="flex justify-between font-bold text-white text-[11px] pt-1 border-t border-white/[0.06]">
+                <span>Total Invoice Due</span>
+                <span className="text-cyan-300">Dynamic Multi-Currency Total</span>
               </div>
             </div>
           </div>
 
-          <div className="flex items-center justify-between text-[10px] text-[#666666]">
-            <span>Dynamic PDF &bull; Cloudinary Signed</span>
-            <span className="text-cyan-400">Resend Email Automated</span>
+          <div className="flex items-center justify-between text-[10px] text-[#77736C]">
+            <span>Dynamic Client-Side PDF &bull; Cloudinary Signed Attachments &bull; Resend Dispatch</span>
+            <span className="text-[#E7E4DC]">Live Web Application</span>
           </div>
         </div>
       </div>
     );
   }
 
-  // 6. VAYRIN 2D Interface Presentation
+  // 6. VAYRIN 2D Interface Presentation (Purged & Replaced with Clean Architectural Node Coordination Diagram)
   return (
-    <div className="w-full rounded-2xl bg-[#0D0D0D] border border-[#262626] overflow-hidden shadow-2xl font-mono-code text-xs">
-      {/* Engineering Telemetry Header */}
-      <div className="px-4 py-3 bg-[#141414] border-b border-[#222222] flex items-center justify-between">
+    <div className="w-full rounded-2xl bg-[#141414] border border-white/[0.08] overflow-hidden shadow-2xl font-mono-code text-xs">
+      {/* Prominent Architectural Header */}
+      <div className="px-4 py-3 bg-[#1A1A1A] border-b border-white/[0.08] flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2 text-[11px]">
-          <span className="text-[#666666]">SOCKET:</span>
-          <span className="text-white font-medium">WSS /realtime/v1/incidents</span>
-          <span className="text-red-400 bg-red-400/10 px-1.5 py-0.5 rounded text-[10px] animate-pulse">
-            ACTIVE SUBSCRIPTION
-          </span>
+          <span className="text-white font-bold">[PLATFORM CONCEPT &amp; ARCHITECTURAL SPECIFICATION]</span>
         </div>
-        <div className="flex items-center gap-1.5 text-red-400 text-[10px] bg-red-400/10 px-2 py-0.5 rounded border border-red-400/20">
-          <Activity className="w-3 h-3 animate-pulse" />
-          <span>TRIAGE DISPATCH</span>
+        <div className="flex items-center gap-1.5 text-stone-300 text-[10px] bg-white/[0.06] px-2 py-0.5 rounded border border-white/[0.08]">
+          <Radio className="w-3 h-3 text-white" />
+          <span>WebSocket Event Architecture (Concept)</span>
         </div>
       </div>
 
-      {/* Content */}
+      {/* Content: Architectural Node Coordination Flow */}
       <div className="p-4 sm:p-5 space-y-4">
-        {/* Active Incident Dispatch Alert */}
-        <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/20 space-y-2">
-          <div className="flex items-center justify-between text-[11px]">
-            <span className="text-red-400 font-bold flex items-center gap-1.5">
-              <AlertTriangle className="w-3.5 h-3.5" />
-              <span>INCIDENT #EMG-902 EN ROUTE</span>
+        {/* Coordination Pipeline Banner */}
+        <div className="p-3.5 rounded-xl bg-stone-900/60 border border-white/[0.06] space-y-2">
+          <div className="text-[10px] text-[#888888] uppercase tracking-wider">
+            Multi-Node Emergency Dispatch Coordination Pipeline
+          </div>
+          <div className="flex items-center gap-2 text-[11px] text-[#E7E4DC] overflow-x-auto pb-1 no-scrollbar">
+            <span className="px-2.5 py-1 rounded-md bg-[#222222] border border-white/[0.08] whitespace-nowrap">
+              Dispatcher Intake
             </span>
-            <span className="text-white font-mono-code">ETA: 03m 45s</span>
-          </div>
-          <div className="text-[10px] text-[#CCCCCC]">
-            Destination: Trauma Care Unit 3 &bull; Route: EM Bypass Express Corridor
-          </div>
-        </div>
-
-        {/* Live Patient Telemetry & Hospital Capacity */}
-        <div className="grid grid-cols-2 gap-2 text-[10px]">
-          <div className="p-2.5 rounded-xl bg-[#141414] border border-[#242424] space-y-1">
-            <div className="text-[#777777]">Patient Telemetry</div>
-            <div className="text-emerald-400 font-bold text-xs">Heart Rate: 78 bpm</div>
-            <div className="text-white">SpO2: 97% Normal</div>
-          </div>
-          <div className="p-2.5 rounded-xl bg-[#141414] border border-[#242424] space-y-1">
-            <div className="text-[#777777]">Hospital Capacity</div>
-            <div className="text-white font-bold text-xs">ICU Beds: 4 Available</div>
-            <div className="text-emerald-400">Blood Bank: O+ Ready</div>
+            <ArrowRight className="w-3.5 h-3.5 text-white/60 shrink-0" />
+            <span className="px-2.5 py-1 rounded-md bg-[#222222] border border-white/[0.08] whitespace-nowrap">
+              WebSocket Event Bus
+            </span>
+            <ArrowRight className="w-3.5 h-3.5 text-white/60 shrink-0" />
+            <span className="px-2.5 py-1 rounded-md bg-[#222222] border border-white/[0.08] whitespace-nowrap">
+              In-Transit Transit Units
+            </span>
+            <ArrowRight className="w-3.5 h-3.5 text-white/60 shrink-0" />
+            <span className="px-2.5 py-1 rounded-md bg-[#222222] border border-white/[0.08] whitespace-nowrap">
+              Trauma Center Reception
+            </span>
           </div>
         </div>
 
-        <div className="flex items-center justify-between text-[10px] text-[#666666]">
-          <span>Supabase Realtime WebSockets</span>
-          <span className="text-red-400">Audit Logs Encrypted</span>
+        {/* 3 Architectural Nodes Breakdown */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-[11px]">
+          <div className="p-3 rounded-xl bg-[#181818] border border-white/[0.06] space-y-1">
+            <div className="text-[10px] text-white font-semibold">Node 01: Dispatch Console</div>
+            <div className="text-[#D4D0C8] text-[10px] leading-relaxed">
+              Caller intake, priority triage categorization, dynamic ambulance unit assignment.
+            </div>
+          </div>
+          <div className="p-3 rounded-xl bg-[#181818] border border-white/[0.06] space-y-1">
+            <div className="text-[10px] text-white font-semibold">Node 02: Transit Navigation</div>
+            <div className="text-[#D4D0C8] text-[10px] leading-relaxed">
+              Location updates, transit state synchronization, and dynamic ETA estimation.
+            </div>
+          </div>
+          <div className="p-3 rounded-xl bg-[#181818] border border-white/[0.06] space-y-1">
+            <div className="text-[10px] text-white font-semibold">Node 03: Trauma Reception</div>
+            <div className="text-[#D4D0C8] text-[10px] leading-relaxed">
+              Advance clinical notification, bed availability coordination, trauma intake readiness.
+            </div>
+          </div>
+        </div>
+
+        {/* Platform Data Schema Specification */}
+        <div className="p-2.5 rounded-lg bg-[#101010] border border-white/[0.06] text-[10px] text-[#888888] space-y-1">
+          <div>Conceptual Event Schema:</div>
+          <div className="text-[#CCCCCC] font-mono-code text-[10px]">
+            &#123; incidentId: UUID, priorityLevel: Enum, unitState: String, facilityTarget: String, timestamp: ISO &#125;
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between text-[10px] text-[#77736C]">
+          <span>Architecture: Next.js &bull; Supabase Realtime (WebSockets) &bull; PostgreSQL Data Models</span>
+          <span className="text-zinc-300 font-medium">Concept Specification (Not Live Deployed)</span>
         </div>
       </div>
     </div>

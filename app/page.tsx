@@ -1,9 +1,9 @@
-import { Hero } from "@/components/sections/Hero";
-import { Perspective } from "@/components/sections/Perspective";
-import { Expertise } from "@/components/sections/Expertise";
-import { ProjectsGallery } from "@/components/sections/ProjectsGallery";
-import { Experience } from "@/components/sections/Experience";
-import { Research } from "@/components/sections/Research";
+import { Hero } from "../components/sections/Hero";
+import { Perspective } from "../components/sections/Perspective";
+import { Expertise } from "../components/sections/Expertise";
+import { ProjectsGallery } from "../components/sections/ProjectsGallery";
+import { Experience } from "../components/sections/Experience";
+import { Research } from "../components/sections/Research";
 
 export default function Home() {
   return (

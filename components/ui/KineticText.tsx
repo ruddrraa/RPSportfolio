@@ -26,7 +26,7 @@ export function KineticText({
           <span
             key={index}
             aria-hidden="true"
-            className={`inline-block transition-transform duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] hover:-translate-y-2 hover:scale-[1.04] hover:text-white ${
+            className={`inline-block transition-transform duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] hover:-translate-y-1.5 hover:scale-[1.03] ${
               isSpace ? "w-2 sm:w-3 md:w-4" : ""
             } ${letterClassName}`}
             style={{
@@ -41,4 +41,3 @@ export function KineticText({
     </span>
   );
 }
-

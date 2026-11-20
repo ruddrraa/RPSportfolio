@@ -1,16 +1,6 @@
 "use client";
 
-import { profile } from "@/data/profile";
-import {
-  GraduationCap,
-  Layers,
-  Cpu,
-  Sparkles,
-  Terminal,
-  ShieldCheck,
-  Compass,
-  ArrowUpRight,
-} from "lucide-react";
+import { GraduationCap, BookOpen, Compass, Sparkles } from "lucide-react";
 
 export function Perspective() {
   const pillars = [
@@ -45,57 +35,58 @@ export function Perspective() {
   ];
 
   return (
-    <section id="perspective" className="py-24 sm:py-32 w-full bg-[#0A0A0A] border-t border-white/[0.06] relative">
+    <section id="perspective" className="py-24 sm:py-32 w-full bg-[#F2F0EA] border-t border-[rgba(23,23,23,0.08)] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12 space-y-20">
         {/* Section Header & Index */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/[0.08]">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[rgba(23,23,23,0.08)]">
           <div className="space-y-3">
-            <div className="text-[11px] font-mono-code text-emerald-400 uppercase tracking-widest flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              <span>EDITORIAL MANIFESTO &bull; [01]</span>
+            <div className="text-[11px] font-mono-code text-[#171717] font-semibold uppercase tracking-widest flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#171717]" />
+              <span>EDITORIAL MANIFESTO // [01]</span>
             </div>
-            <h2 className="font-serif-editorial text-4xl sm:text-6xl md:text-7xl text-white font-normal leading-[0.98]">
+            <h2 className="font-serif-editorial text-5xl sm:text-7xl md:text-8xl text-[#171717] font-semibold leading-[0.95] tracking-tight">
               A Perspective on <br />
-              <span className="text-[#888888]">Architecture &amp; Utility</span>
+              <span>Architecture </span>
+              <span className="font-serif-editorial italic font-normal text-[#171717]">&amp; Utility</span>
             </h2>
           </div>
 
-          <div className="text-xs font-mono-code text-[#777777]">
+          <div className="text-xs font-mono-code text-[#77736C]">
             // HUMAN CRAFT &bull; TECHNICAL RIGOR
           </div>
         </div>
 
-        {/* Large Editorial Manifesto Statement (Sarthak + Noth Signature) */}
+        {/* Large Editorial Manifesto Statement (High-Impact Typography matching Image 1) */}
         <div className="max-w-4xl space-y-6">
-          <p className="font-serif-editorial text-2xl sm:text-3xl md:text-4xl text-[#E5E5E5] leading-[1.25] font-normal">
+          <blockquote className="font-serif-editorial italic text-2xl sm:text-3xl md:text-4xl text-[#77736C] leading-[1.3] font-normal">
             &ldquo;I do not view engineering as merely assembling generic templates. Every system is a synthesis of architectural discipline, data integrity, and tactile human interaction.&rdquo;
-          </p>
-          <p className="text-base sm:text-lg text-[#999999] leading-relaxed font-sans max-w-3xl">
+          </blockquote>
+          <p className="text-base sm:text-lg text-[#77736C] leading-relaxed font-sans max-w-3xl">
             Whether fine-tuning an RT-DETR transformer for fine-grained vehicle localization or deploying multi-tenant RBAC permissions for enterprise clients, the objective is constant: durable software that solves real problems with clarity and verifiable performance.
           </p>
         </div>
 
-        {/* 4 Pillars Laid Out as an Architectural Hairline Grid (Design 2 Signature - No Boxy Cards) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-white/[0.08] border-y border-white/[0.08] py-8 md:py-12">
+        {/* 4 Pillars Laid Out as an Architectural Hairline Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-[rgba(23,23,23,0.08)] border-y border-[rgba(23,23,23,0.08)] py-8 md:py-12">
           {pillars.map((pillar) => (
             <div
               key={pillar.roman}
               className="py-8 md:py-0 px-0 md:px-8 first:pl-0 last:pr-0 space-y-4 group"
             >
-              <div className="flex items-center justify-between text-xs font-mono-code text-[#777777]">
-                <span className="font-serif-editorial text-xl text-white font-normal group-hover:text-emerald-400 transition-colors">
+              <div className="flex items-center justify-between text-xs font-mono-code text-[#77736C]">
+                <span className="font-serif-editorial text-2xl text-[#171717] font-bold">
                   {pillar.roman}
                 </span>
-                <span className="text-[10px] tracking-widest text-[#555555] uppercase">
+                <span className="text-[10px] tracking-widest text-[#9E998F] uppercase">
                   {pillar.tag}
                 </span>
               </div>
 
-              <h3 className="text-lg font-semibold text-white font-sans group-hover:text-emerald-400 transition-colors">
+              <h3 className="text-lg font-bold text-[#171717] font-sans group-hover:text-[#444444] transition-colors">
                 {pillar.title}
               </h3>
 
-              <p className="text-sm text-[#888888] font-sans leading-relaxed">
+              <p className="text-sm text-[#77736C] font-sans leading-relaxed">
                 {pillar.description}
               </p>
             </div>
@@ -103,28 +94,30 @@ export function Perspective() {
         </div>
 
         {/* Academic Foundation & Peer-Reviewed Strip */}
-        <div className="p-8 sm:p-12 rounded-[28px] bg-[#121212] border border-white/10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="p-8 sm:p-12 rounded-[28px] sm:rounded-[36px] bg-[#E7E4DC] border border-[rgba(23,23,23,0.12)] grid grid-cols-1 lg:grid-cols-12 gap-8 items-center shadow-sm">
           <div className="lg:col-span-8 space-y-3">
-            <div className="flex items-center gap-2 font-mono-code text-xs text-emerald-400">
+            <div className="flex items-center gap-2 font-mono-code text-xs text-[#171717]">
               <GraduationCap className="w-4 h-4" />
-              <span>ACADEMIC FOUNDATION &bull; SISTER NIVEDITA UNIVERSITY</span>
+              <span className="font-semibold uppercase tracking-wider">
+                ACADEMIC FOUNDATION &bull; SISTER NIVEDITA UNIVERSITY
+              </span>
             </div>
-            <h4 className="font-serif-editorial text-2xl sm:text-3xl text-white font-normal">
+            <h4 className="font-serif-editorial text-2xl sm:text-3xl text-[#171717] font-bold">
               Bachelor of Technology in Computer Science &amp; Business Systems (CSBS)
             </h4>
-            <p className="text-sm text-[#999999] font-sans leading-relaxed max-w-2xl">
+            <p className="text-sm text-[#77736C] font-sans leading-relaxed max-w-2xl">
               Sister Nivedita University, Kolkata (2024–2028). Synthesizing core computer science algorithms, deep learning vision models, and distributed systems with enterprise business workflow analysis and product strategy.
             </p>
           </div>
 
           <div className="lg:col-span-4 flex flex-col gap-3 font-mono-code text-xs">
-            <div className="p-4 rounded-2xl bg-[#181818] border border-white/[0.08] space-y-1">
-              <div className="text-[10px] text-[#777777] uppercase tracking-wider">Research Acceptance</div>
-              <div className="text-white font-medium">Q-Sentry: CIIR 2026 (Second Author)</div>
+            <div className="p-4 rounded-2xl bg-[#FAF8F5] border border-[rgba(23,23,23,0.08)] space-y-1">
+              <div className="text-[10px] text-[#77736C] uppercase tracking-wider">Research Acceptance</div>
+              <div className="text-[#171717] font-semibold">Q-Sentry: CIIR 2026 (Second Author)</div>
             </div>
-            <div className="p-4 rounded-2xl bg-[#181818] border border-white/[0.08] space-y-1">
-              <div className="text-[10px] text-[#777777] uppercase tracking-wider">International Delegation</div>
-              <div className="text-emerald-400 font-medium">IoT Student Exchange &bull; Sichuan, China</div>
+            <div className="p-4 rounded-2xl bg-[#FAF8F5] border border-[rgba(23,23,23,0.08)] space-y-1">
+              <div className="text-[10px] text-[#77736C] uppercase tracking-wider">International Delegation</div>
+              <div className="text-[#171717] font-semibold">IoT Student Exchange &bull; Sichuan, China</div>
             </div>
           </div>
         </div>

@@ -13,9 +13,21 @@ export function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [mobileMenuOpen]);
 
   const navLinks = [
     { href: "/#projects", label: "Work" },
@@ -30,55 +42,56 @@ export function Navbar() {
       <div
         className={`flex items-center justify-between px-4 sm:px-6 py-2.5 rounded-full border transition-all duration-300 ${
           scrolled
-            ? "backdrop-blur-xl bg-[#0D0D0D]/90 border-white/15 shadow-2xl shadow-black/80"
-            : "backdrop-blur-md bg-[#121212]/80 border-white/10 shadow-lg"
+            ? "backdrop-blur-xl bg-[#F2F0EA]/92 border-[#171717]/15 shadow-md shadow-[#171717]/5"
+            : "backdrop-blur-md bg-[#E7E4DC]/85 border-[#171717]/10 shadow-sm"
         }`}
       >
         {/* Brand identity */}
         <Link
           href="/"
-          className="flex items-center gap-2 text-[#F5F5F5] font-editorial text-sm tracking-tight hover:text-white transition-colors"
+          className="flex items-center gap-2 text-[#171717] font-editorial text-sm tracking-tight hover:opacity-80 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#171717] rounded-full py-0.5"
           aria-label="Home — Rudra Pratap Singh"
         >
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-status-pulse inline-block" />
-          <span className="font-semibold text-white tracking-normal font-sans text-xs sm:text-sm">
+          <span className="w-2 h-2 rounded-full bg-[#171717] inline-block shrink-0" aria-hidden="true" />
+          <span className="font-bold text-[#171717] tracking-normal font-sans text-xs sm:text-sm">
             Rudra Pratap Singh
           </span>
         </Link>
 
         {/* Desktop Navigation Links */}
         <nav
-          className="hidden md:flex items-center gap-6 text-xs text-[#A6A6A6] font-sans font-medium"
+          className="hidden md:flex items-center gap-6 text-xs text-[#77736C] font-sans font-medium"
           aria-label="Primary Navigation"
         >
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="hover:text-white transition-colors relative py-1 group"
+              className="hover:text-[#171717] transition-colors relative py-1 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#171717] rounded"
             >
               <span>{link.label}</span>
-              <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-white transition-all duration-300 group-hover:w-full" />
+              <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-[#171717] transition-all duration-300 group-hover:w-full" />
             </Link>
           ))}
         </nav>
 
         {/* Right CTA & Mobile Toggle */}
         <div className="flex items-center gap-2">
-          <a
-            href={profile.socials.email}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white text-white hover:text-black border border-white/10 text-xs font-sans font-medium transition-all shadow-sm group"
+          <Link
+            href="/#contact"
+            className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#171717] hover:bg-[#2E2E2E] text-[#F2F0EA] text-xs font-sans font-medium transition-colors shadow-sm group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#171717]"
           >
             <span>Let&apos;s talk</span>
             <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-          </a>
+          </Link>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-1.5 rounded-full bg-white/5 border border-white/10 text-[#A6A6A6] hover:text-white transition-colors"
-            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            className="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full bg-[#E7E4DC] border border-[#171717]/10 text-[#171717] hover:bg-[#DDD9CF] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#171717]"
+            aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
             aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation-menu"
           >
             {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
           </button>
@@ -87,22 +100,27 @@ export function Navbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden mt-2 p-4 rounded-3xl bg-[#121212]/95 backdrop-blur-2xl border border-white/10 shadow-2xl animate-fade-in text-xs space-y-3 font-sans">
+        <div
+          id="mobile-navigation-menu"
+          role="region"
+          aria-label="Mobile Navigation Menu"
+          className="md:hidden mt-2 p-4 rounded-3xl bg-[#E7E4DC]/95 backdrop-blur-2xl border border-[#171717]/10 shadow-xl space-y-3 font-sans"
+        >
           <div className="flex flex-col space-y-1">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="px-3 py-2 rounded-xl hover:bg-white/5 text-[#A6A6A6] hover:text-white transition-colors"
+                className="min-h-[44px] flex items-center px-4 py-2.5 rounded-xl hover:bg-[#DDD9CF] text-[#171717] text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#171717]"
               >
                 {link.label}
               </Link>
             ))}
           </div>
-          <div className="pt-2 border-t border-white/10 px-3 flex justify-between items-center text-[11px] text-[#777777] font-mono-code">
+          <div className="pt-3 border-t border-[#171717]/10 px-3 flex justify-between items-center text-[11px] text-[#77736C] font-mono-code">
             <span>{profile.location}</span>
-            <span className="text-emerald-400">Available for roles</span>
+            <span className="text-[#171717] font-medium">Available for select roles</span>
           </div>
         </div>
       )}

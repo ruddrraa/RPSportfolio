@@ -1,21 +1,66 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap');
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@theme {
+  --color-ivory: #F2F0EA;
+  --color-stone-surface: #E7E4DC;
+  --color-ink: #171717;
+  --color-muted-grey: #77736C;
+  --color-cinematic-surface: #151515;
+
+  --font-serif: "Cormorant Garamond", "Newsreader", "Playfair Display", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", "Geist Mono", monospace;
+}
 
 @layer base {
   :root {
-    --background: #0a0a0a;
-    --background-carbon: #101010;
-    --surface: #141414;
-    --surface-elevated: #1a1a1a;
-    --surface-hover: #222222;
-    --border: #222222;
-    --border-strong: #333333;
-    --border-subtle: rgba(255, 255, 255, 0.08);
-    --foreground: #f5f5f5;
-    --muted: #a6a6a6;
-    --dim: #666666;
-    --accent: #10b981;
-    --accent-glow: rgba(16, 185, 129, 0.15);
+    --font-serif: "Cormorant Garamond", "Newsreader", "Playfair Display", Georgia, serif;
+    --font-sans: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-mono: "JetBrains Mono", "Geist Mono", monospace;
+
+    /* Primitive Color Palette - Warm Editorial (Ink, Warm Ivory, Warm Stone, Warm Grey) */
+    --primitive-ivory: #F2F0EA;
+    --primitive-stone-50: #FAF8F5;
+    --primitive-stone-100: #E7E4DC;
+    --primitive-stone-200: #DDD9CF;
+    --primitive-stone-300: #CCC7BC;
+    --primitive-grey-400: #9E998F;
+    --primitive-grey-500: #77736C;
+    --primitive-ink-800: #262422;
+    --primitive-ink-900: #171717;
+
+    /* Semantic Tokens */
+    --background: #F2F0EA;
+    --surface-card: #E7E4DC;
+    --surface-stone: #E7E4DC;
+    --surface: #E7E4DC;
+    --surface-elevated: #FAF8F5;
+    --surface-hover: #DDD9CF;
+    --foreground: #171717;
+    --text-primary: #171717;
+    --text-secondary: #77736C;
+    --text-tertiary: #9E998F;
+    --muted: #77736C;
+    --dim: #9E998F;
+    --accent: #171717;
+    --accent-terracotta: #B45D3E;
+    --accent-hover: #2E2E2E;
+    --accent-subtle: rgba(23, 23, 23, 0.06);
+    --surface-cinematic: #151515;
+    --border: rgba(23, 23, 23, 0.08);
+    --border-subtle: rgba(23, 23, 23, 0.08);
+    --border-stone: rgba(23, 23, 23, 0.12);
+    --border-strong: rgba(23, 23, 23, 0.16);
+
+    /* Responsive Fluid Clamp Typography Scales */
+    --font-size-hero: clamp(3.5rem, 8.5vw, 9.2rem);
+    --font-size-display: clamp(3rem, 7vw, 7.5rem);
+    --font-size-h1: clamp(2.5rem, 5.5vw, 5.5rem);
+    --font-size-h2: clamp(2.5rem, 5vw, 5.2rem);
+    --font-size-h3: clamp(1.75rem, 3.5vw, 3rem);
+    --font-size-h4: clamp(1.35rem, 2.5vw, 2rem);
+    --font-size-body-lg: clamp(1.125rem, 1.25vw, 1.35rem);
   }
 
   * {
@@ -23,9 +68,9 @@
   }
 
   html {
-    background-color: #0a0a0a;
-    color: #f5f5f5;
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    background-color: #F2F0EA;
+    color: #171717;
+    font-family: var(--font-sans), "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
 
   /* Lenis smooth scrolling harmonization */
@@ -37,45 +82,80 @@
   }
 
   body {
-    background-color: #0a0a0a;
-    color: #f5f5f5;
+    background-color: #F2F0EA;
+    color: #171717;
     min-height: 100vh;
     overflow-x: hidden;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-family: var(--font-sans), "Plus Jakarta Sans", sans-serif;
   }
 }
 
 /* Monospace font utility for technical metadata */
-.font-mono-code {
-  font-family: "JetBrains Mono", "Fira Code", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+.font-mono-code,
+.font-mono-tech {
+  font-family: var(--font-mono), "JetBrains Mono", "Fira Code", monospace;
+  letter-spacing: -0.01em;
+}
+
+/* Editorial display font styling (sans-serif) */
+.font-editorial,
+.font-sans-clean {
+  font-family: var(--font-sans), "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
   letter-spacing: -0.02em;
 }
 
-/* Editorial display font styling */
-.font-editorial {
-  font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
-  letter-spacing: -0.04em;
-}
-
-/* Monumental Editorial Serif (Sarthak Sharma Hero Signature) */
+/* Monumental Editorial Serif (Headline Signature - non-italic by default) */
 .font-serif-editorial {
-  font-family: "Cormorant Garamond", "Playfair Display", "Didot", "Bodoni MT", "Georgia", "Baskerville", serif;
-  font-style: italic;
+  font-family: var(--font-serif), "Cormorant Garamond", "Newsreader", "Playfair Display", Georgia, serif;
+  font-style: normal;
   letter-spacing: -0.03em;
 }
 
-/* Clean subtle background texture overlay - zero GPU repaint overhead */
+.font-serif-editorial-italic {
+  font-family: var(--font-serif), "Cormorant Garamond", "Newsreader", "Playfair Display", Georgia, serif;
+  font-style: italic;
+  letter-spacing: -0.025em;
+}
+
+/* Responsive Fluid Headline Utilities */
+.text-fluid-hero {
+  font-size: var(--font-size-hero, clamp(3.5rem, 8.5vw, 9.2rem));
+  line-height: 0.95;
+}
+
+.text-fluid-display {
+  font-size: var(--font-size-display, clamp(3rem, 7vw, 7.5rem));
+  line-height: 0.98;
+}
+
+.text-fluid-h1 {
+  font-size: var(--font-size-h1, clamp(2.5rem, 5.5vw, 5.5rem));
+  line-height: 1.05;
+}
+
+.text-fluid-h2 {
+  font-size: var(--font-size-h2, clamp(2.5rem, 5vw, 5.2rem));
+  line-height: 1.1;
+}
+
+.text-fluid-h3 {
+  font-size: var(--font-size-h3, clamp(1.75rem, 3.5vw, 3rem));
+  line-height: 1.15;
+}
+
+/* Clean subtle background texture overlay */
 .film-grain {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0);
+  background-image: radial-gradient(rgba(23, 23, 23, 0.04) 1px, transparent 0);
   background-size: 24px 24px;
 }
 
 /* Subtle hairline divider */
 .hairline-divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1) 20%, rgba(255, 255, 255, 0.1) 80%, transparent);
+  background: linear-gradient(90deg, transparent, rgba(23, 23, 23, 0.12) 20%, rgba(23, 23, 23, 0.12) 80%, transparent);
 }
 
 /* Custom subtle scrollbar */
@@ -85,38 +165,22 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: #F2F0EA;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #262626;
+  background: #CCC7BC;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #383838;
+  background: #9E998F;
 }
 
 /* Selection */
 ::selection {
-  background: rgba(255, 255, 255, 0.2);
-  color: #ffffff;
-}
-
-/* Subtle pulse animation for status badges */
-@keyframes status-pulse {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.4;
-    transform: scale(1.15);
-  }
-}
-
-.animate-status-pulse {
-  animation: status-pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  background: #171717;
+  color: #F2F0EA;
 }
 
 /* Kinetic letter stagger transition */

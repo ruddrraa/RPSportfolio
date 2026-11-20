@@ -2,18 +2,8 @@
 
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-
-interface SlabConfig {
-  size: [number, number, number];
-  position: [number, number, number];
-  rotation: [number, number, number];
-}
-
-interface PortalConfig {
-  size: [number, number, number];
-  position: [number, number, number];
-  rotation: [number, number, number];
-}
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export function HeroCanvas() {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -22,27 +12,25 @@ export function HeroCanvas() {
     const mount = mountRef.current;
     if (!mount) return;
 
-    // Detect prefers-reduced-motion
+    if (typeof window !== "undefined") {
+      gsap.registerPlugin(ScrollTrigger);
+    }
+
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
-    // Dimensions
     let width = mount.clientWidth || window.innerWidth;
     let height = mount.clientHeight || window.innerHeight;
 
-    // 1. Scene & Depth Fog (blends seamlessly into deep carbon #0A0A0A)
+    // 1. Scene & Camera Setup with controlled coordinate bounds
     const scene = new THREE.Scene();
-    scene.fog = new THREE.Fog(0x0a0a0a, 8, 34);
+    scene.fog = new THREE.Fog(0x0a0a0a, 12, 36); // Atmospheric depth horizon dissolving to warm ivory 0xF2F0EA
 
-    // 2. Camera setup with responsive distance
-    let aspect = width / height;
-    const camera = new THREE.PerspectiveCamera(44, aspect, 0.1, 90);
-    const getBaseCameraZ = (a: number) => (a < 1.0 ? 25 : a < 1.4 ? 21 : 18);
-    const baseCameraY = 1.0;
-    camera.position.set(0, baseCameraY, getBaseCameraZ(aspect));
+    const camera = new THREE.PerspectiveCamera(42, width / height, 0.1, 100);
+    camera.position.set(0, 0, 13.5);
 
-    // 3. Renderer configuration
+    // 2. High-Performance WebGL Renderer
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
       antialias: true,
@@ -51,326 +39,309 @@ export function HeroCanvas() {
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.0;
+    renderer.toneMappingExposure = 1.15;
     mount.appendChild(renderer.domElement);
 
-    // Sets for comprehensive memory tracking & disposal
-    const geometriesToDispose = new Set<THREE.BufferGeometry>();
-    const materialsToDispose = new Set<THREE.Material>();
-
-    const trackGeometry = <T extends THREE.BufferGeometry>(geom: T): T => {
-      geometriesToDispose.add(geom);
-      return geom;
-    };
-
-    const trackMaterial = <T extends THREE.Material>(mat: T): T => {
-      materialsToDispose.add(mat);
-      return mat;
-    };
-
-    // 4. Master Hierarchical Groups
+    // Master hierarchical groups for parallax and scroll-linked transforms
     const masterGroup = new THREE.Group();
-    const architectureGroup = new THREE.Group();
-    const portalsGroup = new THREE.Group();
+    const portraitGroup = new THREE.Group();
     const datumGroup = new THREE.Group();
-
+    masterGroup.add(portraitGroup);
     masterGroup.add(datumGroup);
-    masterGroup.add(architectureGroup);
-    masterGroup.add(portalsGroup);
     scene.add(masterGroup);
 
-    // 5. Architectural Ground Datum Grid (Projected coordinate field)
-    const gridY = -4.5;
-    const gridStep = 2.0;
-    const zStart = 6.0;
-    const zEnd = -32.0;
-    const xStart = -24.0;
-    const xEnd = 24.0;
+    // Architectural spatial coordinate datum ground grid
+    const gridHelper = new THREE.GridHelper(30, 30, 0x333333, 0x1a1a1a);
+    gridHelper.position.y = -4.5;
+    (gridHelper.material as THREE.Material).transparent = true;
+    (gridHelper.material as THREE.Material).opacity = 0.25;
+    datumGroup.add(gridHelper);
 
-    const gridLines: number[] = [];
-    for (let x = xStart; x <= xEnd; x += gridStep) {
-      gridLines.push(x, gridY, zStart, x, gridY, zEnd);
-    }
-    for (let z = zStart; z >= zEnd; z -= gridStep) {
-      gridLines.push(xStart, gridY, z, xEnd, gridY, z);
-    }
-
-    const gridGeometry = trackGeometry(new THREE.BufferGeometry());
-    gridGeometry.setAttribute(
-      "position",
-      new THREE.Float32BufferAttribute(gridLines, 3)
-    );
-    const gridMaterial = trackMaterial(
-      new THREE.LineBasicMaterial({
-        color: 0x1a1a1a,
-        transparent: true,
-        opacity: 0.35,
-      })
-    );
-    datumGroup.add(new THREE.LineSegments(gridGeometry, gridMaterial));
-
-    // Spatial Datum Ticks (cad crosshairs at 4-unit intervals)
-    const tickLines: number[] = [];
-    const tickSize = 0.16;
-    for (let x = xStart; x <= xEnd; x += gridStep * 2) {
-      for (let z = zStart; z >= zEnd; z -= gridStep * 2) {
-        tickLines.push(x - tickSize, gridY, z, x + tickSize, gridY, z);
-        tickLines.push(x, gridY, z - tickSize, x, gridY, z + tickSize);
-      }
-    }
-    const ticksGeometry = trackGeometry(new THREE.BufferGeometry());
-    ticksGeometry.setAttribute(
-      "position",
-      new THREE.Float32BufferAttribute(tickLines, 3)
-    );
-    const ticksMaterial = trackMaterial(
-      new THREE.LineBasicMaterial({
-        color: 0x2e2e2e,
-        transparent: true,
-        opacity: 0.5,
-      })
-    );
-    datumGroup.add(new THREE.LineSegments(ticksGeometry, ticksMaterial));
-
-    // 6. Monolithic Sculptural Slabs
-    const slabConfigs: SlabConfig[] = [
-      // Right backdrop anchor monolith (subtly stages the authentic portrait)
-      {
-        size: [3.8, 8.8, 0.18],
-        position: [7.2, 0.4, -5.5],
-        rotation: [0.02, -0.24, -0.01],
-      },
-      // Architectural Cantilever Lintel (spans upper horizon)
-      {
-        size: [14.0, 0.24, 3.6],
-        position: [2.6, 3.5, -7.2],
-        rotation: [-0.01, -0.1, -0.01],
-      },
-      // Midground vertical partition (depth layer behind right card)
-      {
-        size: [2.5, 6.8, 0.16],
-        position: [3.8, -0.6, -3.8],
-        rotation: [0.01, 0.16, 0.0],
-      },
-      // Ground foundation plinth / terrace plane
-      {
-        size: [8.5, 0.22, 4.2],
-        position: [5.8, -3.8, -4.5],
-        rotation: [0.0, 0.12, 0.0],
-      },
-      // Deep monumental horizon wall (receding in atmospheric fog)
-      {
-        size: [11.5, 5.6, 0.18],
-        position: [-2.5, 0.8, -13.5],
-        rotation: [0.01, 0.26, 0.0],
-      },
-      // Slender vertical mullion fin (anchors far-left margin)
-      {
-        size: [0.22, 8.2, 0.85],
-        position: [-6.4, -0.2, -6.5],
-        rotation: [0.0, -0.15, 0.01],
-      },
-    ];
-
-    const slabMaterial = trackMaterial(
-      new THREE.MeshStandardMaterial({
-        color: 0x121212,
-        roughness: 0.85,
-        metalness: 0.2,
-        transparent: true,
-        opacity: 0.85,
-      })
-    );
-
-    const slabEdgeMaterial = trackMaterial(
-      new THREE.LineBasicMaterial({
-        color: 0x333333,
-        transparent: true,
-        opacity: 0.5,
-      })
-    );
-
-    slabConfigs.forEach((config) => {
-      const geom = trackGeometry(new THREE.BoxGeometry(...config.size));
-      const mesh = new THREE.Mesh(geom, slabMaterial);
-      mesh.position.set(...config.position);
-      mesh.rotation.set(...config.rotation);
-
-      const edgesGeom = trackGeometry(new THREE.EdgesGeometry(geom));
-      const wireframe = new THREE.LineSegments(edgesGeom, slabEdgeMaterial);
-      mesh.add(wireframe);
-
-      architectureGroup.add(mesh);
-    });
-
-    // 7. Architectural Viewport Portals (Spatial depth frames)
-    const portalConfigs: PortalConfig[] = [
-      {
-        size: [5.4, 7.8, 0.02],
-        position: [5.4, 0.2, -2.4],
-        rotation: [0.01, -0.14, 0.0],
-      },
-      {
-        size: [9.6, 6.0, 0.02],
-        position: [1.6, 0.8, -8.6],
-        rotation: [0.0, 0.08, -0.01],
-      },
-      {
-        size: [14.5, 8.2, 0.02],
-        position: [-0.6, 1.4, -16.2],
-        rotation: [-0.01, -0.06, 0.0],
-      },
-    ];
-
-    const portalEdgeMaterial = trackMaterial(
-      new THREE.LineBasicMaterial({
-        color: 0x2a2a2a,
-        transparent: true,
-        opacity: 0.45,
-      })
-    );
-
-    portalConfigs.forEach((config) => {
-      const geom = new THREE.BoxGeometry(...config.size);
-      const edgesGeom = trackGeometry(new THREE.EdgesGeometry(geom));
-      const portalWire = new THREE.LineSegments(edgesGeom, portalEdgeMaterial);
-      portalWire.position.set(...config.position);
-      portalWire.rotation.set(...config.rotation);
-      portalsGroup.add(portalWire);
-      geom.dispose();
-    });
-
-    // 8. Cinematic Architectural Lighting
-    const ambientLight = new THREE.AmbientLight(0x222222, 1.6);
+    // Studio lighting system: Key sun light, subtle fill, and balanced accent
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.1);
     scene.add(ambientLight);
 
-    const sunLight = new THREE.DirectionalLight(0xf5f5f5, 2.2);
-    sunLight.position.set(14, 18, 12);
-    scene.add(sunLight);
+    const keySunLight = new THREE.DirectionalLight(0xfffbf0, 1.8);
+    keySunLight.position.set(4, 7, 8);
+    scene.add(keySunLight);
 
-    const fillLight = new THREE.DirectionalLight(0x445566, 0.8);
-    fillLight.position.set(-16, -6, 8);
-    scene.add(fillLight);
+    // Terracotta accent reference (0xB45D3E): studio rim lighting
+    const terracottaRimLight = new THREE.DirectionalLight(0xb45d3e, 0.2);
+    terracottaRimLight.position.set(-6, -4, -3);
+    scene.add(terracottaRimLight);
 
-    // Subtle emerald atmospheric core light
-    const emeraldAccent = new THREE.PointLight(0x10b981, 1.0, 20, 2);
-    emeraldAccent.position.set(5.2, -0.4, -4.8);
-    scene.add(emeraldAccent);
+    // 3. Halftone Relief Portrait Sculpture Setup (InstancedMesh)
+    let circleGeometry: THREE.CircleGeometry | null = null;
+    let alabasterMaterial: THREE.MeshStandardMaterial | null = null;
+    let sculpturalMesh: THREE.InstancedMesh | null = null;
 
-    // 9. Interaction & Motion State
-    let mouseX = 0;
-    let mouseY = 0;
     let targetMouseX = 0;
     let targetMouseY = 0;
+    let mouseX = 0;
+    let mouseY = 0;
+    let animationFrameId: number;
+    let isVisible = true;
+    let isTabActive = !document.hidden && document.visibilityState === "visible";
+    let isLoopRunning = false;
+    let assemblyProgress = { value: prefersReducedMotion ? 1.0 : 0.0 };
 
+    interface InstanceData {
+      targetX: number;
+      targetY: number;
+      targetZ: number;
+      initX: number;
+      initY: number;
+      initZ: number;
+      scale: number;
+      r: number;
+      g: number;
+      b: number;
+    }
+    const instanceList: InstanceData[] = [];
+
+    // Load authentic portrait asset
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.src = "/profile/cinematic_portrait.png";
+
+    img.onload = () => {
+      // Offscreen downsampling for optimal halftone density
+      const sampleWidth = 110;
+      const sampleHeight = Math.round((sampleWidth * img.height) / img.width);
+
+      const offscreenCanvas = document.createElement("canvas");
+      offscreenCanvas.width = sampleWidth;
+      offscreenCanvas.height = sampleHeight;
+      const ctx = offscreenCanvas.getContext("2d");
+      if (!ctx) return;
+
+      ctx.drawImage(img, 0, 0, sampleWidth, sampleHeight);
+      const imgData = ctx.getImageData(0, 0, sampleWidth, sampleHeight).data;
+
+      const aspect = sampleWidth / sampleHeight;
+      const scaleX = 7.2 * aspect;
+      const scaleY = 7.2;
+
+      for (let y = 0; y < sampleHeight; y++) {
+        for (let x = 0; x < sampleWidth; x++) {
+          const idx = (y * sampleWidth + x) * 4;
+          const r = imgData[idx];
+          const g = imgData[idx + 1];
+          const b = imgData[idx + 2];
+          const a = imgData[idx + 3];
+
+          // Skip background pixels
+          if (a < 40) continue;
+
+          // Normalized centered coordinates
+          const normX = (x / sampleWidth - 0.5) * scaleX;
+          const normY = -(y / sampleHeight - 0.5) * scaleY;
+
+          // Perceived luminance calculation
+          const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255.0;
+
+          // Anatomical 3D depth curvature: highlights pop forward, shadows recede
+          const dx = (x / sampleWidth - 0.5) * 2.0;
+          const dy = (y / sampleHeight - 0.5) * 2.0;
+          const radial = Math.max(0, 1.0 - (dx * dx * 0.7 + dy * dy * 0.5));
+          const depthZ = (lum * 1.5 + radial * 0.8) - 0.75;
+
+          // Halftone disk radius proportional to local brightness
+          const diskScale = 0.25 + lum * 0.95;
+
+          // Dispersed origin coordinates for entrance assembly animation
+          const angle = Math.random() * Math.PI * 2;
+          const dist = 3.5 + Math.random() * 7.5;
+
+          instanceList.push({
+            targetX: normX,
+            targetY: normY,
+            targetZ: depthZ,
+            initX: normX + Math.cos(angle) * dist,
+            initY: normY + Math.sin(angle) * dist,
+            initZ: depthZ - 4.0 - Math.random() * 6.0,
+            scale: diskScale,
+            r: 0.95 * (0.6 + lum * 0.4),
+            g: 0.94 * (0.6 + lum * 0.4),
+            b: 0.91 * (0.6 + lum * 0.4),
+          });
+        }
+      }
+
+      const totalInstances = instanceList.length;
+      if (totalInstances === 0) return;
+
+      // 3D disk geometry with smooth vertex normals
+      circleGeometry = new THREE.CircleGeometry(0.038, 12);
+      circleGeometry.computeVertexNormals();
+
+      // PBR Material with controlled roughness and metalness
+      alabasterMaterial = new THREE.MeshStandardMaterial({
+        color: 0xf2f0ea,
+        roughness: 0.35,
+        metalness: 0.05,
+        side: THREE.DoubleSide,
+      });
+
+      // Single-draw-call InstancedMesh for 60 FPS performance
+      sculpturalMesh = new THREE.InstancedMesh(
+        circleGeometry,
+        alabasterMaterial,
+        totalInstances
+      );
+      sculpturalMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+
+      const dummy = new THREE.Object3D();
+      const color = new THREE.Color();
+
+      const updateMeshTransforms = (t: number) => {
+        if (!sculpturalMesh) return;
+        for (let i = 0; i < totalInstances; i++) {
+          const inst = instanceList[i];
+          const curX = inst.initX + (inst.targetX - inst.initX) * t;
+          const curY = inst.initY + (inst.targetY - inst.initY) * t;
+          const curZ = inst.initZ + (inst.targetZ - inst.initZ) * t;
+          const curScale = inst.scale * (0.3 + 0.7 * t);
+
+          dummy.position.set(curX, curY, curZ);
+          dummy.scale.set(curScale, curScale, curScale);
+          dummy.updateMatrix();
+
+          sculpturalMesh.setMatrixAt(i, dummy.matrix);
+          color.setRGB(inst.r, inst.g, inst.b);
+          sculpturalMesh.setColorAt(i, color);
+        }
+        sculpturalMesh.instanceMatrix.needsUpdate = true;
+        if (sculpturalMesh.instanceColor) {
+          sculpturalMesh.instanceColor.needsUpdate = true;
+        }
+      };
+
+      // Initial position
+      updateMeshTransforms(prefersReducedMotion ? 1.0 : 0.0);
+      sculpturalMesh.position.set(0, 0.4, 0);
+      portraitGroup.add(sculpturalMesh);
+
+      // Entrance assembly choreography
+      if (!prefersReducedMotion) {
+        gsap.to(assemblyProgress, {
+          value: 1.0,
+          duration: 1.6,
+          ease: "power3.out",
+          delay: 0.1,
+          onUpdate: () => {
+            updateMeshTransforms(assemblyProgress.value);
+          },
+        });
+      }
+
+      renderer.render(scene, camera);
+    };
+
+    // 4. Pointer Interaction for Parallax Depth
     const handleMouseMove = (event: MouseEvent) => {
       targetMouseX = (event.clientX / window.innerWidth - 0.5) * 2;
       targetMouseY = -(event.clientY / window.innerHeight - 0.5) * 2;
     };
-
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
-    // 10. Responsive Resizing
+    // 5. Scroll-Linked Transition (Sculpture smoothly recedes into background)
+    const scrollTriggerInstance = ScrollTrigger.create({
+      trigger: mount,
+      start: "top top",
+      end: "bottom top",
+      scrub: 0.8,
+      onUpdate: (self) => {
+        const p = self.progress;
+        masterGroup.position.z = -p * 11;
+        masterGroup.position.y = -p * 1.6;
+        if (alabasterMaterial) {
+          alabasterMaterial.opacity = Math.max(0, 1.0 - p * 1.3);
+        }
+      },
+    });
+
+    // 6. Responsive Resize Handling
     const handleResize = () => {
       if (!mount) return;
       width = mount.clientWidth;
       height = mount.clientHeight;
       if (width === 0 || height === 0) return;
 
-      aspect = width / height;
-      camera.aspect = aspect;
-      camera.position.z = getBaseCameraZ(aspect);
+      camera.aspect = width / height;
+      camera.position.z = width < 768 ? 16 : 13.5;
       camera.updateProjectionMatrix();
 
       renderer.setSize(width, height);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     };
 
-    const resizeObserver = new ResizeObserver(() => {
-      handleResize();
-    });
+    const resizeObserver = new ResizeObserver(() => handleResize());
     resizeObserver.observe(mount);
 
-    // 11. prefers-reduced-motion Handling
-    if (prefersReducedMotion) {
-      camera.lookAt(0, baseCameraY * 0.3, 0);
-      renderer.render(scene, camera);
-
-      return () => {
-        resizeObserver.disconnect();
-        window.removeEventListener("mousemove", handleMouseMove);
-        if (mount && renderer.domElement && mount.contains(renderer.domElement)) {
-          mount.removeChild(renderer.domElement);
-        }
-        geometriesToDispose.forEach((g) => g.dispose());
-        materialsToDispose.forEach((m) => m.dispose());
-        renderer.dispose();
-      };
-    }
-
-    // 12. Animation Loop with IntersectionObserver & Tab Inactivity Throttling
-    let animationFrameId: number;
-    let isVisible = true;
-    let isTabActive = true;
-    const clock = new THREE.Clock();
-
+    // 7. Render Loop with Inertial Mouse Smoothing
     const render = () => {
-      if (!isVisible || !isTabActive) return;
+      if (!isVisible || !isTabActive) {
+        isLoopRunning = false;
+        return;
+      }
 
       animationFrameId = requestAnimationFrame(render);
 
-      const elapsedTime = clock.getElapsedTime();
+      mouseX += (targetMouseX - mouseX) * 0.045;
+      mouseY += (targetMouseY - mouseY) * 0.045;
 
-      // Smooth mouse interpolation (inertia damping)
-      mouseX += (targetMouseX - mouseX) * 0.035;
-      mouseY += (targetMouseY - mouseY) * 0.035;
-
-      // Camera parallax
-      camera.position.x = mouseX * 1.5;
-      camera.position.y = baseCameraY + mouseY * 0.8;
-      camera.lookAt(mouseX * 0.3, baseCameraY * 0.2 + mouseY * 0.15, 0);
-
-      // Controlled architectural harmonic drift (pure GPU matrix transforms)
-      architectureGroup.rotation.y = Math.sin(elapsedTime * 0.08) * 0.025;
-      architectureGroup.rotation.x = Math.cos(elapsedTime * 0.06) * 0.012;
-
-      portalsGroup.position.y = Math.sin(elapsedTime * 0.1) * 0.06;
-      portalsGroup.rotation.y = Math.cos(elapsedTime * 0.07) * 0.015;
+      portraitGroup.rotation.y = mouseX * 0.28;
+      portraitGroup.rotation.x = -mouseY * 0.18;
+      portraitGroup.position.x = mouseX * 0.4;
+      portraitGroup.position.y = mouseY * 0.3 + 0.4;
 
       renderer.render(scene, camera);
     };
 
-    // Start loop
-    animationFrameId = requestAnimationFrame(render);
+    if (isVisible && isTabActive && !isLoopRunning && !prefersReducedMotion) {
+      isLoopRunning = true;
+      animationFrameId = requestAnimationFrame(render);
+    }
 
-    // IntersectionObserver: stop RAF when scrolled out of view
+    // 8. IntersectionObserver to pause rendering when offscreen
     const intersectionObserver = new IntersectionObserver(
       ([entry]) => {
         const wasVisible = isVisible;
         isVisible = entry.isIntersecting;
-        if (isVisible && !wasVisible && isTabActive) {
-          clock.start();
+        if (isVisible && !wasVisible && isTabActive && !isLoopRunning && !prefersReducedMotion) {
+          isLoopRunning = true;
+          cancelAnimationFrame(animationFrameId);
           animationFrameId = requestAnimationFrame(render);
+        } else if (!isVisible && isLoopRunning) {
+          cancelAnimationFrame(animationFrameId);
+          isLoopRunning = false;
         }
       },
       { threshold: 0.05 }
     );
     intersectionObserver.observe(mount);
 
-    // Tab visibility handling
+    // 9. Document Visibility Change Handling
     const handleVisibilityChange = () => {
       const wasActive = isTabActive;
-      isTabActive = document.visibilityState === "visible";
-      if (isTabActive && !wasActive && isVisible) {
-        clock.start();
+      isTabActive = !document.hidden && document.visibilityState === "visible";
+      if (isTabActive && !wasActive && isVisible && !isLoopRunning && !prefersReducedMotion) {
+        isLoopRunning = true;
+        cancelAnimationFrame(animationFrameId);
         animationFrameId = requestAnimationFrame(render);
+      } else if (!isTabActive && isLoopRunning) {
+        cancelAnimationFrame(animationFrameId);
+        isLoopRunning = false;
       }
     };
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
-    // 13. Comprehensive Lifecycle Cleanup
+    // 10. Strict Resource Cleanup & Disposal
     return () => {
       cancelAnimationFrame(animationFrameId);
+      isLoopRunning = false;
+      scrollTriggerInstance.kill();
       intersectionObserver.disconnect();
       resizeObserver.disconnect();
       window.removeEventListener("mousemove", handleMouseMove);
@@ -380,8 +351,12 @@ export function HeroCanvas() {
         mount.removeChild(renderer.domElement);
       }
 
-      geometriesToDispose.forEach((g) => g.dispose());
-      materialsToDispose.forEach((m) => m.dispose());
+      if (circleGeometry) circleGeometry.dispose();
+      if (alabasterMaterial) alabasterMaterial.dispose();
+      if (sculpturalMesh) {
+        sculpturalMesh.dispose();
+      }
+      gridHelper.dispose();
       renderer.dispose();
     };
   }, []);

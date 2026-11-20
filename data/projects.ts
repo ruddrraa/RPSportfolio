@@ -3,6 +3,8 @@ export interface ProjectCaseStudy {
   number: string;
   title: string;
   subtitle: string;
+  tier?: 'production_client' | 'engineering_demo' | 'platform_concept';
+  tierLabel?: string;
   client?: string;
   summary: string;
   challenge: string;
@@ -25,6 +27,8 @@ export const projects: ProjectCaseStudy[] = [
     number: "01",
     title: "EtechCRM",
     subtitle: "Client Management & Field Visit Tracking Platform",
+    tier: "production_client",
+    tierLabel: "Production Client System",
     client: "Excel Technologies & Services",
     summary: "A production client management and field operations tracking platform built for Excel Technologies & Services, architected as a modular Single Page Application backed by Node.js serverless functions.",
     challenge: "Excel Technologies & Services required a centralized system to coordinate field visits, log client interactions, and manage account documentation without latency or sync errors across distributed field teams.",
@@ -46,8 +50,8 @@ export const projects: ProjectCaseStudy[] = [
     stack: ["React 19", "TypeScript", "Vite", "Express 5", "MongoDB Atlas", "Cloudinary", "TanStack Query", "Zod", "Recharts", "Tailwind CSS v4"],
     githubUrl: "https://github.com/ruddrraa/EtechCRM",
     liveUrl: "https://excel-credlecrm-three.vercel.app",
-    category: "Full-Stack Enterprise SaaS",
-    accentColor: "#22c55e",
+    category: "Full-Stack Enterprise System",
+    accentColor: "#171717",
     deviceType: "laptop",
     image: "/projects/etechcrm/excelnavbarlogo.png",
   },
@@ -56,10 +60,12 @@ export const projects: ProjectCaseStudy[] = [
     number: "02",
     title: "MunshiJi AI",
     subtitle: "Intelligent Retail Billing & Store Ledger Platform",
+    tier: "engineering_demo",
+    tierLabel: "Live Demo / Prototype",
     summary: "An AI-powered billing, inventory management, and credit accounting platform designed to streamline store operations for retail businesses and shop owners through voice assistance and automated invoicing.",
     challenge: "Traditional Indian retail and small business owners often struggle with manual bookkeeping, tedious GST invoicing, and language barriers in complex desktop accounting software.",
     solution: "Designed an intuitive store management platform combining natural language voice queries, automated GST calculation, credit ledger (udhaar) tracking, and real-time inventory monitoring.",
-    architecture: "Next.js App Router frontend with real-time UI components; Python/FastAPI microservices handling audio processing and natural language commands; structured PostgreSQL database tracking transactions and customer ledgers.",
+    architecture: "Next.js App Router frontend with real-time UI components; Express API microservice handling document OCR and Groq API natural language invoice extraction; MongoDB Atlas for ledger transactions and customer records.",
     keyFeatures: [
       "Voice-assisted natural language lookup for fast product and ledger updates.",
       "Instant digital billing with automatic multi-tier GST tax breakdowns.",
@@ -73,17 +79,18 @@ export const projects: ProjectCaseStudy[] = [
       "Credit Ledger Tracking",
       "Inventory Management"
     ],
-    stack: ["Next.js App Router", "TypeScript", "Python", "FastAPI", "PostgreSQL", "Prisma", "Tailwind CSS v4"],
+    stack: ["Next.js App Router", "TypeScript", "Node.js", "Express", "MongoDB", "Groq API", "OCR Engine", "Tailwind CSS v4"],
     category: "AI & Retail Systems",
-    accentColor: "#eab308",
+    accentColor: "#171717",
     deviceType: "kiosk",
-    image: "/projects/cardeca/logo.png",
   },
   {
     slug: "cardeca-algo",
     number: "03",
     title: "CardecaAlgo",
     subtitle: "RT-DETR & EfficientNet Vehicle Intelligence",
+    tier: "engineering_demo",
+    tierLabel: "Interactive Engineering Demo",
     summary: "A research-driven computer vision platform pairing Real-Time Detection Transformers (RT-DETR) with a custom PyTorch EfficientNet classifier for real-time vehicle localization and fine-grained classification.",
     challenge: "Standard vehicle recognition systems either sacrifice inference speed for accuracy or lack fine-grained classification capabilities when inspecting varied vehicle makes, models, and orientations.",
     solution: "Implemented a two-tier deep learning inference architecture. An RT-DETR model detects and localizes vehicles in real-time, while a tailored PyTorch EfficientNet classifier determines detailed vehicle attributes, rendered interactively on an HTML5 Konva canvas.",
@@ -101,7 +108,7 @@ export const projects: ProjectCaseStudy[] = [
       "Interactive Konva Canvas",
       "Exportable Inspection Reports"
     ],
-    stack: ["Next.js App Router", "TypeScript", "PyTorch", "RT-DETR", "EfficientNet", "Konva", "jsPDF", "Framer Motion", "Tailwind CSS v4"],
+    stack: ["Next.js App Router", "TypeScript", "PyTorch", "RT-DETR", "EfficientNet-B4", "Konva", "jsPDF", "Framer Motion", "Tailwind CSS v4"],
     githubUrl: "https://github.com/ruddrraa/CardecaAlgo",
     liveUrl: "https://cardecalgo.vercel.app",
     category: "Computer Vision & Deep Learning",
@@ -114,6 +121,8 @@ export const projects: ProjectCaseStudy[] = [
     number: "04",
     title: "ETHOS",
     subtitle: "AI-Assisted Human Resource Management System",
+    tier: "engineering_demo",
+    tierLabel: "Verified GitHub Repository",
     summary: "A comprehensive Human Resource Management System featuring an integrated Groq AI assistant, multi-tenant role-based access control, attendance tracking, and interactive scheduling.",
     challenge: "Growing teams struggle with fragmented HR tools where employee records, leave approvals, attendance logging, and company policy inquiries live in separate silos.",
     solution: "Engineered a centralized HR platform built on Next.js App Router and Prisma ORM, integrating the Groq AI SDK to answer employee questions on internal guidelines while enforcing strict multi-tier role authorization.",
@@ -142,6 +151,8 @@ export const projects: ProjectCaseStudy[] = [
     number: "05",
     title: "RelancePay",
     subtitle: "Freelance Multi-Currency Invoicing SaaS",
+    tier: "engineering_demo",
+    tierLabel: "Engineering Demo & SaaS",
     summary: "A production-grade invoicing SaaS engineered for independent freelancers and consultants to handle domestic compliance (INR with GST) alongside international multi-currency client billing (USD).",
     challenge: "Indian freelancers working with both local and global clients face cumbersome tax calculation rules, dual-currency formatting requirements, and disjointed payment tracking tools.",
     solution: "Developed a focused invoice platform featuring automated GST calculation, multi-currency ledger conversions, signed client asset attachments, and dynamic PDF invoice generation.",
@@ -170,10 +181,12 @@ export const projects: ProjectCaseStudy[] = [
     slug: "vayrin",
     number: "06",
     title: "VAYRIN",
-    subtitle: "Emergency Healthcare Coordination Platform",
-    summary: "An integrated emergency healthcare coordination platform designed to synchronize real-time emergency dispatch between ambulances, emergency call centers, and hospital trauma units.",
-    challenge: "Emergency response bottlenecks often occur due to poor communication between in-transit ambulances and receiving hospitals, delaying critical triage preparation.",
-    solution: "Built a real-time healthcare response platform leveraging Supabase Realtime subscriptions to track incident statuses, dispatch nearest ambulance units, and relay patient telemetry to hospital trauma teams.",
+    subtitle: "Emergency Healthcare Coordination Platform Concept",
+    tier: "platform_concept",
+    tierLabel: "Platform Concept & Architecture",
+    summary: "An architectural platform concept and system specification designed to coordinate multi-node emergency healthcare dispatch between ambulances, emergency call centers, and hospital trauma units.",
+    challenge: "Emergency healthcare response times and triage outcomes are constrained when dispatch centers, in-transit paramedics, and receiving trauma hospitals lack a coordinated real-time event architecture.",
+    solution: "Designed an architectural platform concept and multi-node coordination system utilizing real-time event buses to synchronize dispatch alerts, route navigation, and trauma reception intake readiness.",
     architecture: "Next.js frontend with responsive emergency control viewports; Supabase Realtime with WebSocket channels for instant dispatch updates; PostgreSQL database storing hospital resource availability.",
     keyFeatures: [
       "Live incident logging and emergency call dispatch coordination.",
@@ -189,8 +202,8 @@ export const projects: ProjectCaseStudy[] = [
     ],
     stack: ["Next.js", "TypeScript", "Supabase Realtime", "PostgreSQL", "Tailwind CSS v4"],
     githubUrl: "https://github.com/ruddrraa/Vayrin",
-    category: "HealthTech & Real-Time Systems",
-    accentColor: "#ef4444",
+    category: "HealthTech & System Concept",
+    accentColor: "#171717",
     deviceType: "mobile",
   },
 ];

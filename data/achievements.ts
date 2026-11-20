@@ -12,12 +12,12 @@ export interface AchievementItem {
 export const achievements: AchievementItem[] = [
   {
     id: "q-sentry-ciir",
-    title: "Q-Sentry: Research Publication",
+    title: "Q-Sentry: A Semantic-Quantum Ensemble for Ethical Classification",
     role: "Second Author",
     organization: "CIIR 2026 (Conference on Intelligent and Innovative Research)",
     year: "2026",
     category: "Research",
-    description: "Peer-reviewed research publication accepted at CIIR 2026, investigating autonomous threat detection architectures, defensive verification protocols, and intelligent security frameworks.",
+    description: "Peer-reviewed research publication accepted at CIIR 2026, investigating ethical content classification using semantic embeddings and quantum ensemble principles.",
     badge: "CIIR 2026 Paper",
   },
   {
@@ -64,10 +64,10 @@ export const achievements: AchievementItem[] = [
     id: "iot-exchange-china",
     title: "International IoT Student Exchange Program",
     role: "Academic Delegate",
-    organization: "Sister Nivedita University & Partner Institutions",
-    year: "2025",
+    organization: "Sichuan Vocational Institute for Technology, China",
+    year: "2026",
     category: "International Program",
-    description: "Selected as an academic delegate representing university engineering for an intensive international exchange program in China, focusing on embedded IoT protocols, hardware interfacing, and distributed systems.",
+    description: "Selected as an academic delegate for the International IoT Student Exchange Program at Sichuan Vocational Institute for Technology in China (Sep–Oct 2026), focusing on embedded IoT protocols, hardware interfacing, and distributed systems.",
     badge: "International Delegate",
   },
 ];
