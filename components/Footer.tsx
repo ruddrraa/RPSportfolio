@@ -143,7 +143,7 @@ export function Footer() {
                 onClick={copyEmail}
                 className="group flex items-center gap-3 px-6 sm:px-7 py-3.5 sm:py-4 rounded-full bg-[#171717] hover:bg-[#2A2A2A] text-[#FAF8F5] transition-all cursor-pointer shadow-md font-sans min-h-[48px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#171717] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F2F0EA]"
                 title="Click to copy email address"
-                aria-label="Copy email address rudrraaa@proton.me"
+                aria-label={`Copy email address ${profile.email}`}
               >
                 <Mail className="w-4 h-4 text-[#FAF8F5]" aria-hidden="true" />
                 <span className="font-mono-code text-xs sm:text-sm font-medium tracking-wide">

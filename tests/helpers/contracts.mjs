@@ -5,7 +5,7 @@
 
 export const GROUND_TRUTH_PROFILE = {
   name: "Rudra Pratap Singh",
-  email: "rudrraaa@proton.me",
+  email: "hello@rudrapratapsingh.tech",
   github: "https://github.com/ruddrraa",
   linkedin: "https://www.linkedin.com/in/rudrraaa/",
 };

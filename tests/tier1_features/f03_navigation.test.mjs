@@ -59,7 +59,7 @@ export const tests = [
   {
     id: 'f03_04',
     name: 'test_f03_04_footer_contact_channels',
-    description: 'Asserts presence of verified email rudrraaa@proton.me, LinkedIn, and GitHub links',
+    description: 'Asserts presence of verified email hello@rudrapratapsingh.tech, LinkedIn, and GitHub links',
     tier: 1,
     feature: 'F03 - Clean Navigation & Footer',
     fn() {
