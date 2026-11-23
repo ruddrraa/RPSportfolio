@@ -5,8 +5,9 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
+      disallow: ["/api/"],
     },
-    sitemap: "https://ruddrraa.github.io/sitemap.xml",
+    sitemap: "https://rudrapratapsingh.tech/sitemap.xml",
+    host: "https://rudrapratapsingh.tech",
   };
 }
-

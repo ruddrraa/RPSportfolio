@@ -31,9 +31,40 @@ export async function generateMetadata({
 
   if (!project) return { title: "Project Not Found — Rudra Pratap Singh" };
 
+  const title = `${project.title} (${project.number}) — ${project.subtitle}`;
+  const description = project.summary;
+  const pageUrl = `https://rudrapratapsingh.tech/projects/${project.slug}`;
+
   return {
-    title: `${project.title} (${project.number}) — ${project.subtitle} | Rudra Pratap Singh`,
-    description: project.summary,
+    title,
+    description,
+    alternates: {
+      canonical: pageUrl,
+    },
+    openGraph: {
+      title: `${title} | Rudra Pratap Singh`,
+      description,
+      url: pageUrl,
+      siteName: "Rudra Pratap Singh Portfolio",
+      locale: "en_US",
+      type: "article",
+      images: [
+        {
+          url: "/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: `${project.title} — Case Study by Rudra Pratap Singh`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | Rudra Pratap Singh`,
+      description,
+      creator: "@RudraPrSing",
+      site: "@RudraPrSing",
+      images: ["/og-image.png"],
+    },
   };
 }
 
@@ -73,8 +104,58 @@ export default async function ProjectCaseStudyPage({
     projects[(currentIndex - 1 + projects.length) % projects.length];
   const nextProject = projects[(currentIndex + 1) % projects.length];
 
+  const projectJsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "@id": `https://rudrapratapsingh.tech/projects/${project.slug}/#app`,
+        name: project.title,
+        headline: `${project.title} (${project.number}) — ${project.subtitle}`,
+        description: project.summary,
+        applicationCategory: project.category,
+        operatingSystem: "Web Browser",
+        author: {
+          "@id": "https://rudrapratapsingh.tech/#person",
+        },
+        url: `https://rudrapratapsingh.tech/projects/${project.slug}`,
+        codeRepository: project.githubUrl || undefined,
+        keywords: project.stack.join(", "),
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `https://rudrapratapsingh.tech/projects/${project.slug}/#breadcrumbs`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://rudrapratapsingh.tech",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Selected Work",
+            item: "https://rudrapratapsingh.tech/#projects",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: project.title,
+            item: `https://rudrapratapsingh.tech/projects/${project.slug}`,
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="pt-28 sm:pt-36 pb-20 px-4 sm:px-8 max-w-6xl mx-auto space-y-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd) }}
+      />
+
       {/* Top Breadcrumb & Back Navigation */}
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[rgba(23,23,23,0.08)] pb-4">
         <Link

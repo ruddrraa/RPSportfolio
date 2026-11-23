@@ -7,7 +7,10 @@ import { Experience } from "../components/sections/Experience";
 import { Research } from "../components/sections/Research";
 
 export const metadata: Metadata = {
-  title: "Rudra Pratap Singh Portfolio",
+  title: "Rudra Pratap Singh | Full-Stack Developer & AI Product Engineer",
+  alternates: {
+    canonical: "https://rudrapratapsingh.tech",
+  },
 };
 
 export default function Home() {

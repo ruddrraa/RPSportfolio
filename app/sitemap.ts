@@ -2,10 +2,12 @@ import type { MetadataRoute } from "next";
 import { projects } from "@/data/projects";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://ruddrraa.github.io";
+  const baseUrl = "https://rudrapratapsingh.tech";
+  const now = new Date();
+
   const projectUrls = projects.map((project) => ({
     url: `${baseUrl}/projects/${project.slug}`,
-    lastModified: new Date(),
+    lastModified: now,
     changeFrequency: "monthly" as const,
     priority: 0.8,
   }));
@@ -13,11 +15,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: baseUrl,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "weekly" as const,
       priority: 1.0,
     },
     ...projectUrls,
   ];
 }
-

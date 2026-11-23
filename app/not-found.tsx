@@ -1,5 +1,14 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "404 — Page Not Found | Rudra Pratap Singh",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default function NotFound() {
   return (
@@ -27,4 +36,3 @@ export default function NotFound() {
     </div>
   );
 }
-
